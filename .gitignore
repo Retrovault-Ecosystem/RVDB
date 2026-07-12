@@ -27,3 +27,13 @@ dist/
 # Temporary
 *.tmp
 *.bak
+
+# Virtual environment files accidentally created in project root
+bin/
+include/
+lib/
+lib64
+pyvenv.cfg
+
+# Temporary empty files
+nano
