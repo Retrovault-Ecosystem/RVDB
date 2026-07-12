@@ -55,6 +55,31 @@ class RVDBQuery:
 
 
 
+    def games_by_core(
+        self,
+        core_id
+    ):
+
+        results = []
+
+        for link in graph.find(
+            relation="uses_core"
+        ):
+
+            if link["target"] == core_id:
+
+                game = registry.get(
+                    "games",
+                    link["source"]
+                )
+
+                if game:
+                    results.append(game)
+
+        return results
+
+
+
     def related(
         self,
         entity_id
@@ -63,6 +88,7 @@ class RVDBQuery:
         return graph.find(
             source=entity_id
         )
+
 
 
 query = RVDBQuery()
