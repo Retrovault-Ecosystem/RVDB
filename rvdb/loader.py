@@ -2,6 +2,7 @@ import os
 import yaml
 
 from rvdb.registry import registry
+from rvdb.resolver import resolve_id
 
 from rvdb.entities import (
     Game,
@@ -9,6 +10,7 @@ from rvdb.entities import (
     Core,
     Developer,
     Publisher,
+    Genre,
     Region,
 )
 
@@ -20,6 +22,7 @@ ENTITY_MAP = {
     "cores": Core,
     "developers": Developer,
     "publishers": Publisher,
+    "genres": Genre,
     "regions": Region,
 
 }
@@ -28,19 +31,7 @@ ENTITY_MAP = {
 class RVDBLoader:
 
 
-    def load_entity(
-        self,
-        category,
-        entity
-    ):
-
-        registry.register(
-            category,
-            entity
-        )
-
-
-    def load_yaml_file(
+    def load_file(
         self,
         category,
         filepath
@@ -51,7 +42,9 @@ class RVDBLoader:
             "r"
         ) as file:
 
-            data = yaml.safe_load(file)
+            data = yaml.safe_load(
+                file
+            )
 
 
         entity_class = ENTITY_MAP.get(
@@ -59,10 +52,10 @@ class RVDBLoader:
         )
 
 
-        if not entity_class:
+        if entity_class is None:
 
             raise ValueError(
-                f"Unknown category {category}"
+                f"Unknown category: {category}"
             )
 
 
@@ -71,7 +64,7 @@ class RVDBLoader:
         )
 
 
-        self.load_entity(
+        registry.register(
             category,
             entity
         )
@@ -87,18 +80,18 @@ class RVDBLoader:
         directory
     ):
 
-        loaded = []
+        results = []
 
 
-        for filename in os.listdir(directory):
+        for filename in sorted(
+            os.listdir(directory)
+        ):
 
             if filename.endswith(
                 ".yaml"
-            ) or filename.endswith(
-                ".yml"
             ):
 
-                entity = self.load_yaml_file(
+                entity = self.load_file(
                     category,
                     os.path.join(
                         directory,
@@ -106,9 +99,9 @@ class RVDBLoader:
                     )
                 )
 
-                loaded.append(
+                results.append(
                     entity
                 )
 
 
-        return loaded
+        return results
