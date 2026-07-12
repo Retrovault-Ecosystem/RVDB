@@ -1,9 +1,8 @@
 import os
 import yaml
+import inspect
 
 from rvdb.registry import registry
-from rvdb.resolver import resolve_id
-
 from rvdb.entities import (
     Game,
     Platform,
@@ -13,6 +12,8 @@ from rvdb.entities import (
     Genre,
     Region,
 )
+
+from rvdb.linker import linker
 
 
 ENTITY_MAP = {
@@ -59,8 +60,24 @@ class RVDBLoader:
             )
 
 
+        fields = inspect.signature(
+            entity_class
+        ).parameters
+
+
+        filtered_data = {
+
+            key: value
+
+            for key, value in data.items()
+
+            if key in fields
+
+        }
+
+
         entity = entity_class(
-            **data
+            **filtered_data
         )
 
 
@@ -105,3 +122,43 @@ class RVDBLoader:
 
 
         return results
+
+
+
+    def load_all(
+        self,
+        data_directory="data"
+    ):
+
+        categories = [
+
+            "platforms",
+            "cores",
+            "developers",
+            "publishers",
+            "genres",
+            "regions",
+            "games",
+
+        ]
+
+
+        for category in categories:
+
+            directory = os.path.join(
+                data_directory,
+                category
+            )
+
+
+            if os.path.exists(
+                directory
+            ):
+
+                self.load_directory(
+                    category,
+                    directory
+                )
+
+
+        linker.link_all_games()
