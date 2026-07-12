@@ -38,7 +38,9 @@ class RelationshipGraph:
             if relation and link["relation"] != relation:
                 continue
 
-            results.append(link)
+            results.append(
+                link
+            )
 
         return results
 
