@@ -2,11 +2,13 @@ class Registry:
 
     def __init__(self):
         self._data = {
-            "games": {},
+           
+	    "games": {},
             "platforms": {},
             "cores": {},
             "developers": {},
             "publishers": {},
+	    "genres": {},			           
             "regions": {},
         }
 
