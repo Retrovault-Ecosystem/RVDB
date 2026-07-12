@@ -1,0 +1,12 @@
+id: galaga_arcade
+title: Galaga
+platform: arcade
+core: mame_libretro
+year: 1981
+developer: namco
+publisher: namco
+genres:
+  - shooter
+regions:
+  - world
+rom_path: /home/oilcan/roms/Starter Suite Roms/Arcade/Galaga.zip

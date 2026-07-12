@@ -3,7 +3,7 @@ class Registry:
 
     def __init__(self):
 
-        self.data = {
+        self._data = {
 
             "games": {},
             "platforms": {},
@@ -23,12 +23,12 @@ class Registry:
         entity
     ):
 
-        if category not in self.data:
+        if category not in self._data:
 
-            self.data[category] = {}
+            self._data[category] = {}
 
 
-        self.data[category][entity.id] = entity
+        self._data[category][entity.id] = entity
 
 
 
@@ -39,7 +39,7 @@ class Registry:
     ):
 
         return (
-            self.data
+            self._data
             .get(category, {})
             .get(entity_id)
         )
@@ -52,7 +52,7 @@ class Registry:
     ):
 
         return list(
-            self.data
+            self._data
             .get(category, {})
             .values()
         )
@@ -65,7 +65,7 @@ class Registry:
     ):
 
         return len(
-            self.data
+            self._data
             .get(category, {})
         )
 
@@ -77,7 +77,7 @@ class Registry:
         entity_id
     ):
 
-        return entity_id in self.data.get(
+        return entity_id in self._data.get(
             category,
             {}
         )
