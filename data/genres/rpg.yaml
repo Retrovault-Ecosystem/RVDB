@@ -1,0 +1,6 @@
+id: genre.rpg
+type: genre
+
+name: Role Playing Game
+aliases:
+  - RPG

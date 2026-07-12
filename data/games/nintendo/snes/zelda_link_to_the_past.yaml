@@ -1,0 +1,21 @@
+id: game.zelda_link_to_the_past
+type: game
+
+name: "The Legend of Zelda: A Link to the Past"
+
+aliases:
+  - Zelda ALTTP
+
+relationships:
+
+  developed_by:
+    - developer.nintendo.ead
+
+  published_by:
+    - publisher.nintendo
+
+  platform:
+    - platform.nintendo.snes
+
+  genre:
+    - genre.rpg

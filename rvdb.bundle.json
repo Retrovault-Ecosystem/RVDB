@@ -1,0 +1,35 @@
+{
+  "nodes": {
+    "core.snes9x": {
+      "id": "core.snes9x",
+      "type": "core",
+      "name": "Snes9x"
+    },
+    "core.bsnes": {
+      "id": "core.bsnes",
+      "type": "core",
+      "name": "bsnes"
+    },
+    "platform.nintendo.snes": {
+      "id": "platform.nintendo.snes",
+      "type": "platform",
+      "name": "Super Nintendo",
+      "relationships": {
+        "supports_core": [
+          "core.bsnes",
+          "core.snes9x"
+        ]
+      }
+    }
+  },
+  "edges": {
+    "core.snes9x": {},
+    "core.bsnes": {},
+    "platform.nintendo.snes": {
+      "supports_core": [
+        "core.bsnes",
+        "core.snes9x"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+id: nintendo_nes
+
+type: platform
+
+name: Nintendo Entertainment System
+
+manufacturer: Nintendo
+
+release_year: 1983
+
+generation: 3
+
+media:
+  - cartridge
+
+extensions:
+  - nes

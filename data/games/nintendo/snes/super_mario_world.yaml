@@ -1,0 +1,21 @@
+id: game.super_mario_world
+type: game
+
+name: Super Mario World
+
+aliases:
+  - Super Mario World (SNES)
+
+relationships:
+
+  developed_by:
+    - developer.nintendo.ead
+
+  published_by:
+    - publisher.nintendo
+
+  platform:
+    - platform.nintendo.snes
+
+  genre:
+    - genre.platformer

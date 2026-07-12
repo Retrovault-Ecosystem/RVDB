@@ -1,0 +1,91 @@
+# RVDB Entity Schema v1.0
+# Defines the structure of all RVDB database entities
+
+schema_version: 1.0
+
+
+entity:
+
+  required:
+    - id
+    - type
+    - name
+
+  optional:
+    - aliases
+    - relationships
+    - metadata
+
+
+types:
+
+  platform:
+    description: Hardware gaming platforms
+
+  core:
+    description: Emulator cores
+
+  game:
+    description: Individual game titles
+
+  developer:
+    description: Game developers
+
+  publisher:
+    description: Game publishers
+
+  genre:
+    description: Game categories
+
+  controller:
+    description: Input devices
+
+  bios:
+    description: Required firmware files
+
+  shader:
+    description: Video shaders
+
+  overlay:
+    description: RetroArch overlays
+
+  theme:
+    description: Frontend themes
+
+
+fields:
+
+  id:
+    type: string
+    required: true
+    description: Unique entity identifier
+
+
+  type:
+    type: string
+    required: true
+    description: Entity category
+
+
+  name:
+    type: string
+    required: true
+    description: Display name
+
+
+  aliases:
+    type: list
+    required: false
+    description: Alternate names used for search
+
+
+  relationships:
+    type: object
+    required: false
+    description: Connections to other entities
+
+
+  metadata:
+    type: object
+    required: false
+    description: Additional information

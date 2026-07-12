@@ -1,0 +1,16 @@
+id: platform.nintendo.snes
+type: platform
+
+name: Super Nintendo
+
+aliases:
+  - SNES
+  - Super NES
+  - Super Famicom
+  - Nintendo Super Famicom
+  - SFC
+
+relationships:
+  supports_core:
+    - core.bsnes
+    - core.snes9x
