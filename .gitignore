@@ -16,9 +16,12 @@ env/
 .DS_Store
 Thumbs.db
 
-# Build
-build/
+# Build output
 dist/
+
+# Legacy root build directory
+build/
+
 *.egg-info/
 
 # Logs
