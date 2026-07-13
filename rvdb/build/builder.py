@@ -7,6 +7,8 @@ from rvdb.loader import RVDBLoader
 from rvdb.validator import RVDBValidator
 from rvdb.linker import linker
 
+from rvdb.build.indexer import SearchIndexer
+
 
 
 class RVDBBuilder:
@@ -76,6 +78,26 @@ class RVDBBuilder:
     def link(self):
 
         linker.link_all_games()
+
+
+
+    def index(
+        self
+    ):
+
+        print(
+            "Building search indexes..."
+        )
+
+
+        indexer = SearchIndexer()
+
+
+        return indexer.build(
+            registry.all(
+                "games"
+            )
+        )
 
 
 
@@ -151,11 +173,13 @@ class RVDBBuilder:
         self.validate()
 
 
+
         print(
             "Loading entities..."
         )
 
         self.load()
+
 
 
         print(
@@ -165,11 +189,27 @@ class RVDBBuilder:
         self.link()
 
 
+
+        print(
+            "Building indexes..."
+        )
+
+        index_output = self.index()
+
+
+
+        print(
+            f"Generated: {index_output}"
+        )
+
+
+
         print(
             "Exporting database..."
         )
 
         output = self.export_json()
+
 
 
         print(
