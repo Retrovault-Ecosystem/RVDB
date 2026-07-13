@@ -1,12 +1,16 @@
 from rvdb.build.builder import RVDBBuilder
 
 
-builder = RVDBBuilder()
+def main():
 
-builder.load()
+    builder = RVDBBuilder()
 
-output = builder.export_json()
+    output = builder.build()
 
-print(
-    f"Generated: {output}"
-)
+    print(
+        f"Generated: {output}"
+    )
+
+
+if __name__ == "__main__":
+    main()
