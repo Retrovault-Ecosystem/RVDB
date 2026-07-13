@@ -1,0 +1,38 @@
+entity: game
+
+required:
+  - id
+  - title
+  - platform
+
+fields:
+
+  id:
+    type: string
+
+  title:
+    type: string
+
+  platform:
+    type: string
+
+  core:
+    type: string
+
+  year:
+    type: integer
+
+  developer:
+    type: string
+
+  publisher:
+    type: string
+
+  genres:
+    type: list
+
+  regions:
+    type: list
+
+  rom_path:
+    type: string

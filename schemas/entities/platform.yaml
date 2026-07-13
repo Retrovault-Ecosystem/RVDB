@@ -1,0 +1,31 @@
+entity: platform
+
+required:
+  - id
+  - name
+
+fields:
+
+  id:
+    type: string
+
+  name:
+    type: string
+
+  manufacturer:
+    type: string
+
+  release_year:
+    type: integer
+
+  category:
+    type: string
+
+  generation:
+    type: string
+
+  retroarch_supported:
+    type: boolean
+
+  notes:
+    type: string

@@ -1,0 +1,22 @@
+entity: core
+
+required:
+  - id
+  - name
+
+fields:
+
+  id:
+    type: string
+
+  name:
+    type: string
+
+  library_file:
+    type: string
+
+  supported_platforms:
+    type: list
+
+  author:
+    type: string
