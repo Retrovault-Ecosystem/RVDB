@@ -1,8 +1,31 @@
 from rvdb.registry import registry
 from rvdb.relationships import graph
+from rvdb.indexes import indexes
 
 
 class RVDBQuery:
+
+
+    def search_title(
+        self,
+        title
+    ):
+
+        game_id = indexes.title.get(
+            title.lower()
+        )
+
+
+        if not game_id:
+
+            return None
+
+
+        return registry.get(
+            "games",
+            game_id
+        )
+
 
 
     def games_by_platform(
@@ -10,23 +33,15 @@ class RVDBQuery:
         platform_id
     ):
 
-        results = []
+        game_ids = indexes.platform.get(
+            platform_id,
+            []
+        )
 
-        for link in graph.find(
-            relation="uses_platform"
-        ):
 
-            if link["target"] == platform_id:
-
-                game = registry.get(
-                    "games",
-                    link["source"]
-                )
-
-                if game:
-                    results.append(game)
-
-        return results
+        return self._resolve_games(
+            game_ids
+        )
 
 
 
@@ -35,23 +50,66 @@ class RVDBQuery:
         developer_id
     ):
 
-        results = []
+        game_ids = indexes.developer.get(
+            developer_id,
+            []
+        )
 
-        for link in graph.find(
-            relation="developed_by"
-        ):
 
-            if link["target"] == developer_id:
+        return self._resolve_games(
+            game_ids
+        )
 
-                game = registry.get(
-                    "games",
-                    link["source"]
-                )
 
-                if game:
-                    results.append(game)
 
-        return results
+    def games_by_publisher(
+        self,
+        publisher_id
+    ):
+
+        game_ids = indexes.publisher.get(
+            publisher_id,
+            []
+        )
+
+
+        return self._resolve_games(
+            game_ids
+        )
+
+
+
+    def games_by_genre(
+        self,
+        genre_id
+    ):
+
+        game_ids = indexes.genre.get(
+            genre_id,
+            []
+        )
+
+
+        return self._resolve_games(
+            game_ids
+        )
+
+
+
+    def games_by_region(
+        self,
+        region_id
+    ):
+
+        game_ids = indexes.region.get(
+            region_id,
+            []
+        )
+
+
+        return self._resolve_games(
+            game_ids
+        )
 
 
 
@@ -61,6 +119,7 @@ class RVDBQuery:
     ):
 
         results = []
+
 
         for link in graph.find(
             relation="uses_core"
@@ -73,8 +132,13 @@ class RVDBQuery:
                     link["source"]
                 )
 
+
                 if game:
-                    results.append(game)
+
+                    results.append(
+                        game
+                    )
+
 
         return results
 
@@ -88,6 +152,33 @@ class RVDBQuery:
         return graph.find(
             source=entity_id
         )
+
+
+
+    def _resolve_games(
+        self,
+        game_ids
+    ):
+
+        results = []
+
+
+        for game_id in game_ids:
+
+            game = registry.get(
+                "games",
+                game_id
+            )
+
+
+            if game:
+
+                results.append(
+                    game
+                )
+
+
+        return results
 
 
 
