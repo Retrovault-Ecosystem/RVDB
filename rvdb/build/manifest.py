@@ -1,9 +1,11 @@
 import json
 import os
+
 from datetime import datetime
 
 
 class ManifestBuilder:
+
 
     def build(
         self,
@@ -16,18 +18,76 @@ class ManifestBuilder:
             exist_ok=True
         )
 
+
         manifest = {
 
-            "generated": datetime.utcnow().isoformat(),
 
-            "games": registry.count("games"),
-            "platforms": registry.count("platforms"),
-            "developers": registry.count("developers"),
-            "publishers": registry.count("publishers"),
-            "genres": registry.count("genres"),
-            "regions": registry.count("regions"),
+            "name":
+                "RetroVault Database",
+
+
+            "version":
+                "0.1.0",
+
+
+            "generated":
+                datetime.utcnow().isoformat(),
+
+
+
+            "statistics": {
+
+                "games":
+                    registry.count(
+                        "games"
+                    ),
+
+
+                "platforms":
+                    registry.count(
+                        "platforms"
+                    ),
+
+
+                "developers":
+                    registry.count(
+                        "developers"
+                    ),
+
+
+                "publishers":
+                    registry.count(
+                        "publishers"
+                    ),
+
+
+                "genres":
+                    registry.count(
+                        "genres"
+                    ),
+
+
+                "regions":
+                    registry.count(
+                        "regions"
+                    ),
+
+            },
+
+
+            "artifacts": [
+
+                "rvdb.json",
+
+                "search_index.json",
+
+                "manifest.json"
+
+            ]
 
         }
+
+
 
         with open(
             output,
@@ -39,5 +99,6 @@ class ManifestBuilder:
                 f,
                 indent=4
             )
+
 
         return output

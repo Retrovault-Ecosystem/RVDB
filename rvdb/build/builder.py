@@ -7,7 +7,10 @@ from rvdb.loader import RVDBLoader
 from rvdb.validator import RVDBValidator
 from rvdb.linker import linker
 
+
 from rvdb.build.indexer import SearchIndexer
+from rvdb.build.manifest import ManifestBuilder
+from rvdb.build.checksum import ChecksumBuilder
 
 
 
@@ -81,9 +84,7 @@ class RVDBBuilder:
 
 
 
-    def index(
-        self
-    ):
+    def index(self):
 
         print(
             "Building search indexes..."
@@ -101,6 +102,22 @@ class RVDBBuilder:
 
 
 
+    def manifest(self):
+
+        print(
+            "Building manifest..."
+        )
+
+
+        builder = ManifestBuilder()
+
+
+        return builder.build(
+            registry
+        )
+
+
+
     def export_json(
         self,
         output="dist/rvdb.json"
@@ -114,38 +131,55 @@ class RVDBBuilder:
 
         database = {
 
+
             "games": [
+
                 game.__dict__
+
                 for game in registry.all(
                     "games"
                 )
+
             ],
+
 
 
             "platforms": [
+
                 platform.__dict__
+
                 for platform in registry.all(
                     "platforms"
                 )
+
             ],
+
 
 
             "developers": [
+
                 developer.__dict__
+
                 for developer in registry.all(
                     "developers"
                 )
+
             ],
+
 
 
             "publishers": [
+
                 publisher.__dict__
+
                 for publisher in registry.all(
                     "publishers"
                 )
+
             ],
 
         }
+
 
 
         with open(
@@ -160,11 +194,35 @@ class RVDBBuilder:
             )
 
 
+
         return output
 
 
 
+    def checksums(
+        self
+    ):
+
+        print(
+            "Generating checksums..."
+        )
+
+
+        builder = ChecksumBuilder()
+
+
+        return builder.build(
+            [
+                "dist/rvdb.json",
+                "dist/search_index.json",
+                "dist/manifest.json",
+            ]
+        )
+
+
+
     def build(self):
+
 
         print(
             "Validating RVDB..."
@@ -197,7 +255,6 @@ class RVDBBuilder:
         index_output = self.index()
 
 
-
         print(
             f"Generated: {index_output}"
         )
@@ -208,13 +265,30 @@ class RVDBBuilder:
             "Exporting database..."
         )
 
-        output = self.export_json()
-
+        database_output = self.export_json()
 
 
         print(
-            f"Generated: {output}"
+            f"Generated: {database_output}"
         )
 
 
-        return output
+
+        manifest_output = self.manifest()
+
+
+        print(
+            f"Generated: {manifest_output}"
+        )
+
+
+
+        checksum_output = self.checksums()
+
+
+        print(
+            f"Generated: {checksum_output}"
+        )
+
+
+        return database_output

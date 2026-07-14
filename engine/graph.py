@@ -1,17 +1,23 @@
+from engine.loader import Entity
+
+
 class RVGraph:
     def __init__(self):
         self.nodes = {}
         self.edges = {}
-        self.reverse_edges = {}   # NEW
+        self.reverse_edges = {}
 
-    def add_entity(self, entity):
-        entity_id = entity["id"]
+    def add_entity(self, entity: Entity):
+        entity_id = entity.id
 
         self.nodes[entity_id] = entity
-        self.edges[entity_id] = entity.get("relationships", {})
 
-        # Build reverse index
-        relationships = entity.get("relationships", {})
+        relationships = entity.get(
+            "relationships",
+            {}
+        )
+
+        self.edges[entity_id] = relationships
 
         for rel_type, targets in relationships.items():
 
@@ -26,14 +32,19 @@ class RVGraph:
                 if rel_type not in self.reverse_edges[target]:
                     self.reverse_edges[target][rel_type] = []
 
-                self.reverse_edges[target][rel_type].append(entity_id)
+                self.reverse_edges[target][rel_type].append(
+                    entity_id
+                )
 
 
 def build_graph(entities):
+
     graph = RVGraph()
 
     for entity in entities:
-        if isinstance(entity, dict) and "id" in entity:
+
+        if isinstance(entity, Entity):
+
             graph.add_entity(entity)
 
     return graph

@@ -42,6 +42,8 @@ class Entity:
     def name(self) -> str:
         return self.data["name"]
 
+def get(self, key, default=None):
+    return self.data.get(key, default)
 
 class EntityLoader:
     """

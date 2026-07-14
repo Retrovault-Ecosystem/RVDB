@@ -159,6 +159,3 @@ class RVDBLoader:
                     category,
                     directory
                 )
-
-
-        linker.link_all_games()

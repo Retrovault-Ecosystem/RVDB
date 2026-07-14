@@ -6,6 +6,13 @@ class RelationshipGraph:
         self.links = []
 
 
+
+    def clear(self):
+
+        self.links = []
+
+
+
     def add(
         self,
         source,
@@ -22,6 +29,7 @@ class RelationshipGraph:
         )
 
 
+
     def find(
         self,
         source=None,
@@ -30,19 +38,26 @@ class RelationshipGraph:
 
         results = []
 
+
         for link in self.links:
 
             if source and link["source"] != source:
+
                 continue
 
+
             if relation and link["relation"] != relation:
+
                 continue
+
 
             results.append(
                 link
             )
 
+
         return results
+
 
 
 graph = RelationshipGraph()

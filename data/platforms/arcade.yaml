@@ -1,5 +1,10 @@
 id: arcade
+type: platform
 name: Arcade
-manufacturer: Various
+
+manufacturer:
+  - various
+
 release_year: 1972
+
 category: arcade

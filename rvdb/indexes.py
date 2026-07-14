@@ -3,6 +3,12 @@ class RVDBIndexes:
 
     def __init__(self):
 
+        self.clear()
+
+
+
+    def clear(self):
+
         self.title = {}
 
         self.platform = {}
@@ -105,6 +111,9 @@ class RVDBIndexes:
         self,
         games
     ):
+
+        self.clear()
+
 
         for game in games:
 
