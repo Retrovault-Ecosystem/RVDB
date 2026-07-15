@@ -1,0 +1,34 @@
+# RVDB Game Entity Template
+
+id: game.platform.game_name
+
+type: game
+
+name: Game Name
+
+aliases:
+  - Alternate Title
+
+release_year: 0000
+
+relationships:
+
+  developed_by:
+    - developer.id
+
+  published_by:
+    - publisher.id
+
+  platform:
+    - platform.id
+
+  genre:
+    - genre.id
+
+metadata:
+
+  regions:
+    - USA
+
+  rom_status:
+    - unknown

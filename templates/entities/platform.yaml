@@ -1,0 +1,31 @@
+# RVDB Platform Entity Template
+
+id: platform.manufacturer.system
+
+type: platform
+
+name: System Name
+
+aliases:
+  - Alternate Name
+
+manufacturer:
+  - manufacturer.id
+
+release_year: 0000
+
+generation: 0
+
+category:
+  - console
+
+relationships:
+
+  supports_core:
+    - core.example
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

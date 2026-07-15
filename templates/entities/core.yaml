@@ -1,0 +1,23 @@
+# RVDB Core Entity Template
+
+id: core.library.name
+
+type: core
+
+name: Core Name
+
+aliases:
+  - Alternate Name
+
+relationships:
+
+  supports:
+    - platform.id
+
+metadata:
+
+  library_file: ""
+
+  author: ""
+
+  accuracy: ""

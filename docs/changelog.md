@@ -42,3 +42,23 @@ The database engine now supports:
 - Search
 - Query operations
 - Build generation
+
+---
+
+## Phase 1.5 Started
+
+### Added
+
+* RVDB entity template system
+* Standardized entity creation workflow
+* Expansion framework preparation
+
+### Purpose
+
+Prepare RVDB for large-scale database expansion while maintaining validation and consistency.
+
+### Notes
+
+Entity templates introduce the future RVDB expansion model.
+
+Some template fields will become available as the schema system evolves.
