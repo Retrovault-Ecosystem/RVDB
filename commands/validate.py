@@ -1,92 +1,143 @@
-from engine.loader import load_entities, get_load_errors
+"""
+RVDB Validation Command
+
+Validates:
+- entity loading
+- schema compliance
+- relationship integrity
+"""
+
+from engine.loader import EntityLoader
 from engine.graph import build_graph
 
-from validator.schema import validate_entity
-from validator.relationships import validate_relationships
+from validator.schema import SchemaValidator
+from validator.relationships import RelationshipValidator
+
+import traceback
 
 
 def cmd_validate():
 
     try:
 
-        entities = load_entities()
+        loader = EntityLoader("data")
 
-        load_errors = get_load_errors()
-
-        if load_errors:
-
-            print("\nYAML ERRORS")
-            print("-----------")
-
-            for error in load_errors:
-
-                print(error["file"])
-                print(error["error"])
-                print()
-
-            print("Validation FAILED")
-            return
+        entities = loader.load()
 
 
         if not entities:
 
-            print("Validation FAILED: No entities found")
+            print(
+                "Validation FAILED: No entities found"
+            )
+
             return
 
 
-        graph = build_graph(entities)
+        graph = build_graph(
+            entities
+        )
 
 
-        valid_count = 0
+        schema_validator = SchemaValidator()
+        relationship_validator = RelationshipValidator()
+
 
         schema_errors = []
         relationship_errors = []
+
+        valid_count = 0
 
 
         for entity in entities:
 
 
-            valid, message = validate_entity(entity)
+            schema_result = schema_validator.validate(
+                entity
+            )
 
 
-            if valid:
+            if schema_result.valid:
 
                 valid_count += 1
 
             else:
 
-                schema_errors.append(
-                    {
-                        "entity": entity.get(
-                            "id",
-                            "UNKNOWN"
-                        ),
-                        "error": message
-                    }
-                )
+                for error in schema_result.errors:
+
+                    schema_errors.append(
+                        {
+                            "entity": entity.id,
+                            "error": error,
+                        }
+                    )
 
 
-            rel_errors = validate_relationships(
-                entity,
-                graph
+            relationships = entity.get(
+                "relationships",
+                {}
             )
 
 
-            for error in rel_errors:
-
-                relationship_errors.append(
-                    {
-                        "entity": entity.get(
-                            "id",
-                            "UNKNOWN"
-                        ),
-                        "error": error
-                    }
-                )
+            for relationship, targets in relationships.items():
 
 
-        print("\nRVDB VALIDATION")
-        print("----------------")
+                if not isinstance(
+                    targets,
+                    list
+                ):
+                    continue
+
+
+                for target_id in targets:
+
+
+                    target = graph.nodes.get(
+                        target_id
+                    )
+
+
+                    if target is None:
+
+                        relationship_errors.append(
+                            {
+                                "entity": entity.id,
+                                "error":
+                                f"Missing target entity: {target_id}"
+                            }
+                        )
+
+                        continue
+
+
+                    result = relationship_validator.validate(
+                        entity,
+                        relationship,
+                        target
+                    )
+
+
+                    if not result.valid:
+
+                        for error in result.errors:
+
+                            relationship_errors.append(
+                                {
+                                    "entity": entity.id,
+                                    "error": error,
+                                }
+                            )
+
+
+        print()
+
+        print(
+            "RVDB VALIDATION"
+        )
+
+        print(
+            "----------------"
+        )
 
         print(
             f"Entities checked: {len(entities)}"
@@ -107,38 +158,59 @@ def cmd_validate():
 
         if schema_errors:
 
-            print("\nSCHEMA ERRORS")
-            print("--------------")
+            print()
+            print(
+                "SCHEMA ERRORS"
+            )
+
+            print(
+                "--------------"
+            )
+
 
             for error in schema_errors:
 
                 print(
-                    f"{error['entity']}: "
-                    f"{error['error']}"
+                    f"{error['entity']}: {error['error']}"
                 )
 
 
         if relationship_errors:
 
-            print("\nRELATIONSHIP ERRORS")
-            print("-------------------")
+            print()
+            print(
+                "RELATIONSHIP ERRORS"
+            )
+
+            print(
+                "-------------------"
+            )
+
 
             for error in relationship_errors:
 
                 print(
-                    f"{error['entity']}: "
-                    f"{error['error']}"
+                    f"{error['entity']}: {error['error']}"
                 )
 
 
         if not schema_errors and not relationship_errors:
 
-            print("\nValidation OK")
+            print()
+            print(
+                "Validation OK"
+            )
 
 
     except Exception as e:
 
+        print()
         print(
-            "Validation FAILED:",
-            e
+            "Validation FAILED:"
         )
+
+        print(
+            repr(e)
+        )
+
+        traceback.print_exc()

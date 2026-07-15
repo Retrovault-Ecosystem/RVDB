@@ -1,15 +1,12 @@
 """
 RVDB Schema Validator
 
-Validates entity structures loaded from YAML.
+Validates RVDB entities loaded from YAML.
 
-This module validates:
-- required fields
-- field types
-- supported entity types
-- unknown fields
-
-Relationship validation is handled separately.
+Supports:
+- Entity objects
+- dictionaries
+- expanded RVDB entity model
 """
 
 from __future__ import annotations
@@ -20,10 +17,6 @@ from typing import Any
 
 @dataclass(slots=True)
 class ValidationResult:
-    """
-    Result returned from validation.
-    """
-
     valid: bool
     errors: list[str]
 
@@ -41,31 +34,67 @@ class SchemaValidator:
         "publisher",
         "emulator",
         "core",
+        "genre",
+        "region",
+        "controller",
+        "bios",
+        "shader",
+        "overlay",
+        "theme",
     }
 
-    SCHEMA = {
+
+    REQUIRED_FIELDS = {
+        "id",
+        "type",
+        "name",
+    }
+
+
+    FIELD_TYPES = {
+
         "id": str,
         "type": str,
         "name": str,
-    }
 
-    OPTIONAL_FIELDS = {
-        "manufacturer": str,
+        "manufacturer": (str, list),
+
         "release_year": int,
         "generation": int,
+
+        "aliases": list,
+
+        "relationships": dict,
+
+        "platform": (str, list),
+        "core": (str, list),
+
+        "developer": (str, list),
+        "publisher": (str, list),
+
+        "genres": list,
+        "regions": list,
+
+        "rom_path": str,
+
+        "category": str,
+
         "media": list,
         "extensions": list,
     }
 
+
     def validate(
         self,
-        entity: dict[str, Any],
+        entity: Any,
     ) -> ValidationResult:
-        """
-        Validate one entity.
-        """
 
-        errors: list[str] = []
+        if hasattr(entity, "data"):
+            entity = entity.data
+
+
+        errors = []
+
 
         self._validate_required(
             entity,
@@ -87,76 +116,79 @@ class SchemaValidator:
             errors
         )
 
+
         return ValidationResult(
             valid=len(errors) == 0,
-            errors=errors,
+            errors=errors
         )
+
 
     def _validate_required(
         self,
-        entity: dict[str, Any],
-        errors: list[str],
-    ) -> None:
+        entity,
+        errors
+    ):
 
-        for field in self.SCHEMA:
+        for field in self.REQUIRED_FIELDS:
 
             if field not in entity:
+
                 errors.append(
                     f"Missing required field: {field}"
                 )
 
+
     def _validate_types(
         self,
-        entity: dict[str, Any],
-        errors: list[str],
-    ) -> None:
+        entity,
+        errors
+    ):
 
-        fields = {
-            **self.SCHEMA,
-            **self.OPTIONAL_FIELDS,
-        }
-
-        for field, expected_type in fields.items():
+        for field, expected in self.FIELD_TYPES.items():
 
             if field not in entity:
                 continue
 
+
+            value = entity[field]
+
+
             if not isinstance(
-                entity[field],
-                expected_type
+                value,
+                expected
             ):
+
                 errors.append(
-                    f"{field} must be "
-                    f"{expected_type.__name__}"
+                    f"{field} has invalid type"
                 )
+
 
     def _validate_entity_type(
         self,
-        entity: dict[str, Any],
-        errors: list[str],
-    ) -> None:
+        entity,
+        errors
+    ):
 
         entity_type = entity.get("type")
 
+
         if entity_type not in self.ENTITY_TYPES:
+
             errors.append(
                 f"Unsupported entity type: {entity_type}"
             )
 
+
     def _validate_unknown_fields(
         self,
-        entity: dict[str, Any],
-        errors: list[str],
-    ) -> None:
-
-        allowed = {
-            *self.SCHEMA.keys(),
-            *self.OPTIONAL_FIELDS.keys(),
-        }
+        entity,
+        errors
+    ):
 
         for field in entity:
 
-            if field not in allowed:
+            if field not in self.FIELD_TYPES:
+
                 errors.append(
                     f"Unknown field: {field}"
                 )

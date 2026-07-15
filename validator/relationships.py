@@ -3,13 +3,16 @@ RVDB Relationship Validator
 
 Validates relationships between RVDB entities.
 
-Relationships are directional:
+Relationships are stored from the perspective
+of the entity itself.
 
-source entity
-      |
-      relationship
-      |
-target entity
+Example:
+
+game
+ |
+ └── developed_by
+        |
+        └── developer
 """
 
 from __future__ import annotations
@@ -28,47 +31,97 @@ class RelationshipResult:
     errors: list[str]
 
 
+
 class RelationshipValidator:
     """
-    Validates entity relationships.
+    Validates RVDB entity relationships.
     """
 
+
     RELATIONSHIPS = {
-        "manufacturer": {
-            "produces": {
+
+
+        "game": {
+
+            "developed_by": {
+                "developer",
+            },
+
+            "published_by": {
+                "publisher",
+            },
+
+            "platform": {
                 "platform",
-                "hardware",
-            }
+            },
+
+            "genre": {
+                "genre",
+            },
+
+            "core": {
+                "core",
+            },
+
         },
 
-        "developer": {
-            "develops": {
-                "game",
-            }
-        },
-
-        "publisher": {
-            "publishes": {
-                "game",
-            }
-        },
 
         "platform": {
+
+            "manufacturer": {
+                "manufacturer",
+            },
+
+            "supports_core": {
+                "core",
+            },
+
             "uses_emulator": {
                 "emulator",
             },
 
-            "uses_core": {
-                "core",
-            },
         },
 
-        "game": {
-            "belongs_to": {
+
+        "core": {
+
+            "supports_platform": {
                 "platform",
-            }
+            },
+
         },
+
+
+        "developer": {
+
+            "develops": {
+                "game",
+            },
+
+        },
+
+
+        "publisher": {
+
+            "publishes": {
+                "game",
+            },
+
+        },
+
+
+        "manufacturer": {
+
+            "produces": {
+                "platform",
+                "hardware",
+            },
+
+        },
+
     }
+
+
 
     def validate(
         self,
@@ -80,27 +133,46 @@ class RelationshipValidator:
         Validate one relationship.
         """
 
-        errors: list[str] = []
 
-        source_type = source.get("type")
-        target_type = target.get("type")
+        errors = []
+
+
+        source_type = source.get(
+            "type"
+        )
+
+        target_type = target.get(
+            "type"
+        )
+
 
         if not source_type:
+
             errors.append(
                 "Source entity missing type"
             )
 
+
         if not target_type:
+
             errors.append(
                 "Target entity missing type"
             )
 
-        if relationship not in self.RELATIONSHIPS.get(
-            source_type,
-            {}
-        ):
+
+        allowed_relationships = (
+            self.RELATIONSHIPS.get(
+                source_type,
+                {}
+            )
+        )
+
+
+        if relationship not in allowed_relationships:
+
             errors.append(
-                f"Invalid relationship '{relationship}' "
+                f"Invalid relationship "
+                f"'{relationship}' "
                 f"for {source_type}"
             )
 
@@ -109,17 +181,21 @@ class RelationshipValidator:
                 errors
             )
 
+
         allowed_targets = (
-            self.RELATIONSHIPS
-            [source_type]
-            [relationship]
+            allowed_relationships[
+                relationship
+            ]
         )
 
+
         if target_type not in allowed_targets:
+
             errors.append(
                 f"{relationship} cannot connect "
                 f"{source_type} to {target_type}"
             )
+
 
         return RelationshipResult(
             valid=len(errors) == 0,
