@@ -6,7 +6,7 @@ from .search import cmd_find
 from .list import cmd_list
 from .show import cmd_show
 from .info import cmd_info
-
+from .create import cmd_create
 from .relationships import (
     cmd_cores,
     cmd_who_uses,
@@ -173,6 +173,18 @@ COMMANDS = [
         "help": "Show games on platform",
         "arguments": [
             "platform"
+        ]
+    },
+
+    {
+        "name": "create",
+        "handler": cmd_create,
+        "aliases": [],
+        "help": "Create entity from template",
+        "arguments": [
+            "type",
+            "id",
+            "name"
         ]
     },
 
