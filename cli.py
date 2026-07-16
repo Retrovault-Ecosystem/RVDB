@@ -12,12 +12,10 @@ def main():
         description="RetroVault Database"
     )
 
-
     sub = parser.add_subparsers(
         dest="command",
         metavar="COMMAND"
     )
-
 
     # =====================================================
     # BUILD COMMANDS FROM REGISTRY
@@ -35,13 +33,29 @@ def main():
             help=command["help"]
         )
 
+        for index, argument in enumerate(command["arguments"]):
 
-        for argument in command["arguments"]:
+            # Allow optional ID and NAME for the create command.
+            # This enables:
+            #
+            #   rvdb create platform
+            #
+            # as well as:
+            #
+            #   rvdb create platform platform.sega.genesis "Sega Genesis"
+            #
+            if command["name"] == "create" and index > 0:
 
-            parser_cmd.add_argument(
-                argument
-            )
+                parser_cmd.add_argument(
+                    argument,
+                    nargs="?"
+                )
 
+            else:
+
+                parser_cmd.add_argument(
+                    argument
+                )
 
     # =====================================================
     # PARSE ARGUMENTS
@@ -49,12 +63,10 @@ def main():
 
     args = parser.parse_args()
 
-
     if not args.command:
 
         parser.print_help()
         return
-
 
     # =====================================================
     # FIND HANDLER
@@ -64,7 +76,6 @@ def main():
         args.command
     )
 
-
     if not command:
 
         print(
@@ -73,9 +84,7 @@ def main():
 
         return
 
-
     handler = command["handler"]
-
 
     # =====================================================
     # PASS ONLY USER ARGUMENTS
@@ -88,9 +97,8 @@ def main():
     for name in command["arguments"]:
 
         arguments.append(
-            values[name]
+            values.get(name)
         )
-
 
     handler(
         *arguments

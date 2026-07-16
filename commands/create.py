@@ -1,12 +1,20 @@
 """
 RVDB Entity Creation Command
 
-Creates new RVDB entities from templates.
+Supports both:
+
+    rvdb create platform
+
+and
+
+    rvdb create platform platform.sega.genesis "Sega Genesis"
 """
 
 from pathlib import Path
+import yaml
 
 from engine.factory import EntityFactory
+from engine.entity_builder import EntityBuilder
 
 
 ENTITY_OUTPUT_PATHS = {
@@ -18,65 +26,89 @@ ENTITY_OUTPUT_PATHS = {
 
 def cmd_create(
     entity_type,
-    entity_id,
-    name,
+    entity_id=None,
+    name=None,
 ):
 
     try:
 
         if entity_type not in ENTITY_OUTPUT_PATHS:
+
             print(
                 f"Unsupported entity type: {entity_type}"
             )
+
             return
 
+        # =====================================================
+        # INTERACTIVE MODE
+        # =====================================================
 
-        factory = EntityFactory()
+        if entity_id is None or name is None:
 
+            builder = EntityBuilder()
 
-        entity = factory.create_entity(
-            entity_type,
-            entity_id,
-            name
-        )
+            entity = builder.build(
+                entity_type
+            )
 
+            if entity is None:
+
+                print(
+                    "\nCreation cancelled."
+                )
+
+                return
+
+            entity_id = entity["id"]
+
+        # =====================================================
+        # SCRIPT MODE
+        # =====================================================
+
+        else:
+
+            factory = EntityFactory()
+
+            entity = factory.create_entity(
+                entity_type,
+                entity_id,
+                name
+            )
+
+        # =====================================================
+        # WRITE FILE
+        # =====================================================
 
         output_dir = ENTITY_OUTPUT_PATHS[
             entity_type
         ]
 
-
         filename = (
-            entity_id
-            .replace(".", "_")
+            entity_id.replace(".", "_")
             + ".yaml"
         )
 
-
         output_file = output_dir / filename
 
-
         if output_file.exists():
+
+            print()
 
             print(
                 "ERROR:"
             )
 
             print(
-                f"Entity already exists: {output_file}"
+                f"Entity already exists:\n{output_file}"
             )
 
             return
-
 
         output_dir.mkdir(
             parents=True,
             exist_ok=True
         )
-
-
-        import yaml
-
 
         with output_file.open(
             "w",
@@ -86,11 +118,12 @@ def cmd_create(
             yaml.safe_dump(
                 entity,
                 file,
-                sort_keys=False
+                sort_keys=False,
+                allow_unicode=True
             )
 
-
         print()
+
         print(
             "Entity created successfully"
         )
@@ -108,17 +141,19 @@ def cmd_create(
         )
 
         print(
-            f"Name: {name}"
+            f"Name: {entity['name']}"
         )
 
         print(
             f"Created: {output_file}"
         )
 
-
     except Exception as e:
 
+        print()
+
         print(
-            "Create error:",
-            e
+            "Create error:"
         )
+
+        print(e)
