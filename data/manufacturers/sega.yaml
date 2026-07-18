@@ -1,0 +1,16 @@
+id: manufacturer.sega
+type: manufacturer
+
+name: Sega
+
+aliases:
+  - Sega Enterprises
+  - Sega Enterprises Ltd.
+  - Sega Corporation
+
+country: Japan
+
+relationships: {}
+
+metadata:
+  notes: ""

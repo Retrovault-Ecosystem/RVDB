@@ -1,0 +1,17 @@
+id: manufacturer.nintendo
+type: manufacturer
+
+name: Nintendo
+
+aliases:
+  - Nintendo Co., Ltd.
+  - Nintendo Company
+  - Nintendo Company Ltd.
+  - Nintendo Co
+
+country: Japan
+
+relationships: {}
+
+metadata:
+  notes: ""

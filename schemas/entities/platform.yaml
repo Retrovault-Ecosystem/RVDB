@@ -1,31 +1,28 @@
-entity: platform
+# RVDB Platform Schema
 
 required:
-  - id
-  - name
+  - manufacturer
+  - release_year
+  - generation
+  - category
+
+optional:
+  - metadata
 
 fields:
 
-  id:
-    type: string
-
-  name:
-    type: string
-
   manufacturer:
-    type: string
+    type: list
+    description: Platform manufacturer IDs
 
   release_year:
-    type: integer
-
-  category:
-    type: string
+    type: integer_or_null
+    description: Original release year
 
   generation:
-    type: string
+    type: integer_or_null
+    description: Console generation
 
-  retroarch_supported:
-    type: boolean
-
-  notes:
-    type: string
+  category:
+    type: list
+    description: Platform categories

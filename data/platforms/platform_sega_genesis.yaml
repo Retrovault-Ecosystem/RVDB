@@ -1,0 +1,15 @@
+id: platform.sega.genesis
+type: platform
+name: Sega Genesis
+aliases: []
+manufacturer:
+- publisher.nintendo
+release_year: null
+generation: null
+category:
+- console
+relationships:
+  supports_core: []
+metadata:
+  retroarch_supported: true
+  notes: ''

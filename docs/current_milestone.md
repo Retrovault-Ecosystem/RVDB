@@ -22,7 +22,7 @@ Phase 1.6 — Interactive Entity Builder
 
 ✔ Entity Architecture
 
-✔ Validation Engine
+✔ Validation Engine (v1)
 
 ✔ Relationship Resolver
 
@@ -39,6 +39,14 @@ Phase 1.6 — Interactive Entity Builder
 ✔ Create CLI Workflow
 
 ✔ Interactive Platform Entity Builder
+
+✔ Entity Preview & Save Confirmation
+
+✔ Typed Relationship Resolution
+
+✔ Entity Registry Foundation
+
+✔ Schema Engine Design (Milestone 1.9 Planning)
 
 ---
 
@@ -67,6 +75,43 @@ Automatically generates:
 ---
 
 # Next Milestone
+
+## Milestone 1.9 — Schema Engine
+
+Goal:
+
+Replace hardcoded validation and builders with a schema-driven architecture.
+
+Phase 1
+
+✔ Build SchemaLoader
+
+Phase 2
+
+• Merge common + entity schemas
+
+Phase 3
+
+• Replace SchemaValidator with dynamic validation
+
+Phase 4
+
+• Connect Entity Registry to SchemaLoader
+
+Phase 5
+
+• Build Generic Entity Builder
+
+Future Goal
+
+Every entity type should be defined entirely through YAML schemas.
+
+Adding a new entity type should require:
+
+- One schema
+- One template
+
+No new Python builder.
 
 ## Entity Builder Improvements
 
@@ -152,6 +197,35 @@ Show a preview.
 Ask for confirmation before writing files.
 
 ---
+
+# Architectural Decisions
+
+RVDB follows a data-driven architecture.
+
+Core Principles
+
+1. Schemas define entities.
+   Python should not hardcode entity fields.
+
+2. The Entity Registry is the single source of truth
+   for loaded entities.
+
+3. Relationship resolution is registry-based.
+
+4. Builders are generic whenever possible.
+
+5. Validation is schema-driven.
+
+6. YAML is the canonical representation of RVDB data.
+
+7. Future applications (CLI, GUI, Web API, Documentation)
+   should consume the same schemas rather than maintaining
+   separate definitions.
+
+Long-term Vision
+
+RVDB is evolving from a YAML database into the
+knowledge layer for the entire RetroVault ecosystem.
 
 # End-of-Session Notes
 

@@ -1,0 +1,13 @@
+# RVDB Manufacturer Schema
+
+required:
+  - country
+
+optional:
+  - metadata
+
+fields:
+
+  country:
+    type: string
+    description: Country of origin

@@ -1,0 +1,15 @@
+id: manufacturer.atari
+type: manufacturer
+
+name: Atari
+
+aliases:
+  - Atari Inc.
+  - Atari Corporation
+
+country: USA
+
+relationships: {}
+
+metadata:
+  notes: ""

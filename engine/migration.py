@@ -23,8 +23,12 @@ class IDMigration:
             data_path
         )
 
+        self.config_path = Path(
+            "config"
+        )
+
         self.override_file = (
-            self.data_path /
+            self.config_path /
             "id_overrides.yaml"
         )
 
@@ -33,7 +37,6 @@ class IDMigration:
         self.overrides = (
             self.load_overrides()
         )
-
 
 
     def load_overrides(self):
@@ -49,11 +52,11 @@ class IDMigration:
 
         with open(
             self.override_file,
-            "r"
+            "r",
+            encoding="utf-8"
         ) as f:
 
             return yaml.safe_load(f) or {}
-
 
 
     def get_canonical_id(
@@ -70,14 +73,15 @@ class IDMigration:
 
         if old_id in self.overrides:
 
-            return self.overrides[old_id]
+            return self.overrides[
+                old_id
+            ]
 
 
         return IDGenerator.generate(
             entity_type,
             name
         )
-
 
 
     def scan_entities(self):
@@ -94,14 +98,10 @@ class IDMigration:
             "*.yaml"
         ):
 
-            if file.name == "id_overrides.yaml":
-
-                continue
-
-
             with open(
                 file,
-                "r"
+                "r",
+                encoding="utf-8"
             ) as f:
 
                 entity = yaml.safe_load(f)
@@ -137,11 +137,12 @@ class IDMigration:
             )
 
 
-            self.id_map[old_id] = new_id
+            self.id_map[
+                old_id
+            ] = new_id
 
 
         return self.id_map
-
 
 
     def preview(self):
@@ -159,11 +160,12 @@ class IDMigration:
 
             if old_id != new_id:
 
-                changes[old_id] = new_id
+                changes[
+                    old_id
+                ] = new_id
 
 
         return changes
-
 
 
     def print_preview(self):
@@ -184,8 +186,10 @@ class IDMigration:
             return
 
 
+        print()
+
         print(
-            "\nRVDB MIGRATION PREVIEW"
+            "RVDB MIGRATION PREVIEW"
         )
 
         print(
