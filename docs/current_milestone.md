@@ -1,6 +1,6 @@
 # RVDB Current Milestone
 
-_Last Updated: 2026-07-16_
+_Last Updated: 2026-08-21_
 
 ---
 
@@ -14,165 +14,218 @@ feature/relationship-resolver
 
 Project Status:
 
-Phase 1.6 — Interactive Entity Builder
+Foundation Release 0.2 — Checkpoint C2 Complete
 
 ---
 
-# Last Completed Milestone
+# Current Foundation Status
 
-✔ Entity Architecture
+## Checkpoint A — Schema Foundation
 
-✔ Validation Engine (v1)
+✔ COMPLETE
 
-✔ Relationship Resolver
+Completed:
 
-✔ Reverse Relationship Index
+- Dynamic SchemaLoader
+- Common + entity schema merging
+- Schema-driven validation
+- TypeRegistry
+- Entity reference types
+- Entity registry integration
+- Canonical schema foundation
+- Data normalization required for Foundation 0.2
 
-✔ Entity Templates
+Commit:
 
-✔ Entity Factory
-
-✔ Namespace ID Generator
-
-✔ Canonical ID Migration Framework
-
-✔ Create CLI Workflow
-
-✔ Interactive Platform Entity Builder
-
-✔ Entity Preview & Save Confirmation
-
-✔ Typed Relationship Resolution
-
-✔ Entity Registry Foundation
-
-✔ Schema Engine Design (Milestone 1.9 Planning)
+4ae064d Foundation 0.2 Checkpoint A: complete schema foundation
 
 ---
 
-# Current State
+## Checkpoint B — Schema / Type Test Foundation
 
-The interactive Platform Builder is operational.
+✔ COMPLETE
 
-Current workflow:
+Completed:
 
-CLI
-→ EntityBuilder
-→ IDGenerator
-→ EntityFactory
-→ YAML output
+- SchemaLoader tests
+- TypeRegistry tests
+- EntityReferenceValidator tests
+- SchemaValidator tests
+- Legacy tests preserved and excluded from Foundation 0.2 pytest collection
 
-Interactive command:
+Checkpoint result:
 
-python3 cli.py create platform
+30 tests passing
 
-Automatically generates:
+Commit:
 
-- Canonical RVDB ID
-- Template-based entity
-- YAML output
+9ea4957 Foundation 0.2 Checkpoint B: add schema engine test suite
 
 ---
 
-# Next Milestone
+## Checkpoint C1 — Complete Entity Template Layer
 
-## Milestone 1.9 — Schema Engine
+✔ COMPLETE
 
-Goal:
+Completed entity templates:
 
-Replace hardcoded validation and builders with a schema-driven architecture.
+- core
+- developer
+- game
+- genre
+- manufacturer
+- platform
+- publisher
 
-Phase 1
+All active entity types now have both:
 
-✔ Build SchemaLoader
+- schemas/entities/<type>.yaml
+- templates/entities/<type>.yaml
 
-Phase 2
+Commit:
 
-• Merge common + entity schemas
+f1ec2d7 Foundation 0.2 Checkpoint C1: complete entity template layer
 
-Phase 3
+---
 
-• Replace SchemaValidator with dynamic validation
+## Checkpoint C2 — Generic Schema-Driven Entity Builder
 
-Phase 4
+✔ COMPLETE
 
-• Connect Entity Registry to SchemaLoader
+Completed:
 
-Phase 5
+- Generic EntityBuilder
+- Removed platform-only interactive builder architecture
+- Schema-driven field prompting
+- Generic support for:
+  - string
+  - integer
+  - integer_or_null
+  - boolean
+  - list
+  - object
+  - entity_reference
+  - entity_reference_list
+- Typed entity relationship resolution
+- Canonical ID acceptance
+- Entity preview
+- Save confirmation
+- Template placeholder cleanup
+- Dynamic create-command entity discovery
+- Create support for all active entity types
+- Validation before entity write
+- Duplicate-file protection
+- Project-root-aware filesystem paths
+- CLI no longer depends on current working directory
+- Dedicated builder and create-command regression tests
 
-• Build Generic Entity Builder
+Checkpoint result:
 
-Future Goal
+45 tests passing
 
-Every entity type should be defined entirely through YAML schemas.
+Database validation:
 
-Adding a new entity type should require:
+Entities checked: 19
+Valid: 19
+Schema Errors: 0
+Relationship Errors: 0
+Validation OK
 
-- One schema
-- One template
+Commit:
 
-No new Python builder.
+26cc76c Foundation 0.2 Checkpoint C2: add generic schema-driven entity builder
 
-## Entity Builder Improvements
+Tag:
 
-1. Add Entity Preview before saving
+foundation-0.2-c2
 
-2. Ask for confirmation
+---
 
-   Save entity? (Y/n)
+# Current Active Entity Types
 
-3. Add relationship lookup
+The Foundation 0.2 schema/template system currently supports:
 
-Example:
+- core
+- developer
+- game
+- genre
+- manufacturer
+- platform
+- publisher
 
-Manufacturer:
-Sega
+Each active type has:
 
-↓
-
-manufacturer.sega
-
-4. Expand builders
-
-- Game Builder
-- Developer Builder
-- Publisher Builder
-- Core Builder
-- Genre Builder
+- a schema
+- a template
+- generic builder support
+- schema validation support
 
 ---
 
 # Current Architecture
 
-Completed
+RVDB now follows this creation path:
 
-✔ Validation
+CLI
 
-✔ Search
+↓
 
-✔ Query
+SchemaLoader
 
-✔ Relationships
+↓
 
-✔ Reverse Relationships
+EntityBuilder
 
-✔ Entity Templates
+↓
 
-✔ Entity Factory
+IDGenerator
 
-✔ Canonical IDs
+↓
 
-✔ Migration Framework
+EntityFactory
 
-✔ Interactive Builder
+↓
 
-Next major focus:
+RelationshipLookup / EntityReferenceValidator
 
-Developer productivity tools.
+↓
+
+SchemaValidator
+
+↓
+
+Preview
+
+↓
+
+Confirmation
+
+↓
+
+YAML output
 
 ---
 
-# Design Decisions
+# Project Path Architecture
+
+Foundation 0.2 now uses centralized project paths.
+
+Project resources are resolved from the RVDB codebase itself rather than the shell's current working directory.
+
+Canonical project paths include:
+
+- data/
+- schemas/
+- schemas/entities/
+- templates/
+- templates/entities/
+- config/
+
+The CLI can therefore be invoked from outside the repository without losing access to schemas, templates, or entity data.
+
+---
+
+# Current Design Decisions
 
 Canonical IDs use dot notation.
 
@@ -186,63 +239,120 @@ developer.nintendo.ead
 
 genre.role.playing.game
 
-No underscores in canonical IDs unless explicitly preserved through ID overrides.
+No underscores in canonical IDs unless explicitly preserved through ID overrides or legacy migration requirements.
 
-Interactive builders should always:
+Interactive builders should:
 
-Generate IDs automatically.
-
-Show a preview.
-
-Ask for confirmation before writing files.
+1. Generate canonical IDs automatically.
+2. Use schema definitions rather than hardcoded entity fields.
+3. Resolve typed entity references.
+4. Show a preview.
+5. Ask for confirmation before writing.
+6. Validate before saving.
+7. Protect existing entity files from accidental overwrite.
 
 ---
 
-# Architectural Decisions
+# Architectural Principles
 
 RVDB follows a data-driven architecture.
 
-Core Principles
-
 1. Schemas define entities.
-   Python should not hardcode entity fields.
 
-2. The Entity Registry is the single source of truth
-   for loaded entities.
+   Python should not hardcode entity-specific fields.
 
-3. Relationship resolution is registry-based.
+2. The Entity Registry is the source of truth for loaded entities.
 
-4. Builders are generic whenever possible.
+3. Stored canonical references are validated through EntityReferenceValidator.
 
-5. Validation is schema-driven.
+4. Human-entered names and aliases are resolved through RelationshipLookup.
 
-6. YAML is the canonical representation of RVDB data.
+5. Builders are generic.
 
-7. Future applications (CLI, GUI, Web API, Documentation)
-   should consume the same schemas rather than maintaining
-   separate definitions.
+6. Validation is schema-driven.
 
-Long-term Vision
+7. YAML is the canonical representation of RVDB data.
 
-RVDB is evolving from a YAML database into the
-knowledge layer for the entire RetroVault ecosystem.
+8. Future applications should consume the same schemas.
 
-# End-of-Session Notes
+This includes:
 
-Working tree should be clean before ending each session.
-
-Commit after every completed milestone.
-
-Avoid committing temporary test entities.
+- CLI
+- RetroVault GUI
+- Web API
+- documentation
+- importers
+- migration tools
+- metadata tools
 
 ---
 
-# Resume Instructions
+# Legacy Package Rule
 
-To continue development, use the prompt:
+The inner legacy package:
 
-Continue RVDB Project.
+rvdb/
 
-Read docs/current_milestone.md and continue from the current milestone.
+must remain untouched during Foundation Release 0.2.
 
-Continue methodically with small, tested improvements.
+Legacy cleanup is deferred to:
+
+Foundation Release 0.2.1 — Legacy Cleanup
+
+Do not delete, rename, or rewrite legacy components before that controlled cleanup phase.
+
+Legacy tests remain preserved.
+
+---
+
+# Next Checkpoint
+
+## Foundation 0.2 — Checkpoint C3
+
+### Schema-Driven Relationships
+
+Status:
+
+NOT STARTED
+
+Primary goal:
+
+Move relationship definitions out of hardcoded validators and template-only structures and into the schema system.
+
+Expected investigation areas:
+
+- validator/relationships.py
+- relationship resolver
+- reverse relationship index
+- RelationshipLookup
+- EntityReferenceValidator
+- relationship definitions in templates
+- relationship fields in existing data
+- relationship-related tests
+
+Checkpoint C3 should begin with a read-only inventory.
+
+Do not modify relationship architecture until the current relationship system has been fully mapped.
+
+---
+
+# Important C3 Design Goal
+
+Relationship behavior should eventually be schema-defined.
+
+Example direction:
+
+```yaml
+relationships:
+
+  developed_by:
+    type: entity_reference_list
+    entity_type: developer
+
+  published_by:
+    type: entity_reference_list
+    entity_type: publisher
+
+  platform:
+    type: entity_reference_list
+    entity_type: platform
