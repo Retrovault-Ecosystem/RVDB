@@ -1,13 +1,27 @@
 """
+=========================================================
 RVDB Entity Factory
+=========================================================
 
-Creates new RVDB entities from templates.
+Project:
+    RetroVault Database (RVDB)
 
-The factory:
-- loads entity templates
-- creates entity dictionaries
-- validates required structure
-- prepares YAML-ready output
+File:
+    engine/factory.py
+
+Purpose:
+    Creates new RVDB entities from templates.
+
+    The factory:
+    - loads entity templates
+    - creates entity dictionaries
+    - validates required structure
+    - prepares YAML-ready output
+
+Foundation Release:
+    0.2
+
+=========================================================
 """
 
 from __future__ import annotations
@@ -18,27 +32,36 @@ from typing import Any
 import copy
 import yaml
 
+from engine.paths import ENTITY_TEMPLATE_ROOT
+
 
 class EntityFactory:
 
     def __init__(
         self,
-        template_directory="templates/entities"
+        template_directory: str | Path | None = None,
     ):
 
-        self.template_directory = Path(
-            template_directory
-        )
+        if template_directory is None:
 
+            self.template_directory = (
+                ENTITY_TEMPLATE_ROOT
+            )
+
+        else:
+
+            self.template_directory = Path(
+                template_directory
+            )
 
     def load_template(
         self,
-        entity_type: str
+        entity_type: str,
     ) -> dict[str, Any]:
 
         template_file = (
-            self.template_directory /
-            f"{entity_type}.yaml"
+            self.template_directory
+            / f"{entity_type}.yaml"
         )
 
         if not template_file.exists():
@@ -47,15 +70,17 @@ class EntityFactory:
                 f"Template not found: {template_file}"
             )
 
-
         with template_file.open(
             "r",
-            encoding="utf-8"
+            encoding="utf-8",
         ) as file:
 
-            return yaml.safe_load(file)
-
-
+            return (
+                yaml.safe_load(
+                    file
+                )
+                or {}
+            )
 
     def create_entity(
         self,
@@ -68,11 +93,9 @@ class EntityFactory:
             entity_type
         )
 
-
         entity = copy.deepcopy(
             template
         )
-
 
         entity["id"] = entity_id
 
@@ -80,10 +103,7 @@ class EntityFactory:
 
         entity["name"] = name
 
-
         return entity
-
-
 
     def save_entity(
         self,
@@ -95,20 +115,20 @@ class EntityFactory:
             output_path
         )
 
-
         output_path.parent.mkdir(
             parents=True,
-            exist_ok=True
+            exist_ok=True,
         )
-
 
         with output_path.open(
             "w",
-            encoding="utf-8"
+            encoding="utf-8",
         ) as file:
 
             yaml.safe_dump(
                 entity,
                 file,
-                sort_keys=False
+                sort_keys=False,
+                allow_unicode=True,
+                default_flow_style=False,
             )

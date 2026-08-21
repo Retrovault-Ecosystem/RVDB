@@ -26,12 +26,15 @@ from typing import Any
 
 import yaml
 
+from engine.paths import SCHEMA_ROOT
+
 
 class SchemaNotFoundError(Exception):
     """
     Raised when an entity schema
     cannot be located.
     """
+
     pass
 
 
@@ -39,21 +42,27 @@ class SchemaLoader:
 
     def __init__(
         self,
-        schema_root: str | Path = "schemas",
+        schema_root: str | Path | None = None,
     ):
 
-        self.schema_root = Path(
-            schema_root
-        )
+        if schema_root is None:
+
+            self.schema_root = SCHEMA_ROOT
+
+        else:
+
+            self.schema_root = Path(
+                schema_root
+            )
 
         self.common_schema_file = (
-            self.schema_root /
-            "entity_schema.yaml"
+            self.schema_root
+            / "entity_schema.yaml"
         )
 
         self.entity_schema_dir = (
-            self.schema_root /
-            "entities"
+            self.schema_root
+            / "entities"
         )
 
         self._common_schema = {}
@@ -88,7 +97,9 @@ class SchemaLoader:
 
                 self._entity_schemas[
                     file.stem
-                ] = self._load_yaml(file)
+                ] = self._load_yaml(
+                    file
+                )
 
         self._resolved_cache.clear()
 
@@ -151,10 +162,12 @@ class SchemaLoader:
         with filename.open(
             "r",
             encoding="utf-8",
-        ) as f:
+        ) as file:
 
             return (
-                yaml.safe_load(f)
+                yaml.safe_load(
+                    file
+                )
                 or {}
             )
 
@@ -174,13 +187,9 @@ class SchemaLoader:
         )
 
         resolved = {
-
             "required": [],
-
             "optional": [],
-
             "fields": {},
-
         }
 
         resolved["required"] = list(
@@ -188,19 +197,18 @@ class SchemaLoader:
 
                 common.get(
                     "entity",
-                    {}
+                    {},
                 ).get(
                     "required",
-                    []
+                    [],
                 )
 
                 +
 
                 entity.get(
                     "required",
-                    []
+                    [],
                 )
-
             )
         )
 
@@ -209,19 +217,18 @@ class SchemaLoader:
 
                 common.get(
                     "entity",
-                    {}
+                    {},
                 ).get(
                     "optional",
-                    []
+                    [],
                 )
 
                 +
 
                 entity.get(
                     "optional",
-                    []
+                    [],
                 )
-
             )
         )
 
@@ -229,18 +236,16 @@ class SchemaLoader:
 
             common.get(
                 "fields",
-                {}
+                {},
             )
-
         )
 
         resolved["fields"].update(
 
             entity.get(
                 "fields",
-                {}
+                {},
             )
-
         )
 
         return resolved
