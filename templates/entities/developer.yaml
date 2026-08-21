@@ -1,0 +1,15 @@
+# =====================================================
+# RVDB Developer Entity Template
+# =====================================================
+
+id: developer.name
+
+type: developer
+
+name: Developer Name
+
+aliases: []
+
+relationships: {}
+
+metadata: {}

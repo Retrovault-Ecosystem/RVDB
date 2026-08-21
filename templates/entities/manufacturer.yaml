@@ -1,0 +1,15 @@
+# =====================================================
+# RVDB Manufacturer Entity Template
+# =====================================================
+
+id: manufacturer.name
+
+type: manufacturer
+
+name: Manufacturer Name
+
+aliases: []
+
+relationships: {}
+
+metadata: {}

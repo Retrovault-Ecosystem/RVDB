@@ -1,0 +1,15 @@
+# =====================================================
+# RVDB Genre Entity Template
+# =====================================================
+
+id: genre.name
+
+type: genre
+
+name: Genre Name
+
+aliases: []
+
+relationships: {}
+
+metadata: {}

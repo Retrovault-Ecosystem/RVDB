@@ -1,0 +1,15 @@
+# =====================================================
+# RVDB Publisher Entity Template
+# =====================================================
+
+id: publisher.name
+
+type: publisher
+
+name: Publisher Name
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
