@@ -10,7 +10,24 @@ aliases:
   - Nintendo Super Famicom
   - SFC
 
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: null
+
+generation: null
+
+category:
+  - console
+
 relationships:
+
   supports_core:
     - core.bsnes
     - core.snes9x
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

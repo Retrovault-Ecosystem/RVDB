@@ -1,38 +1,14 @@
-entity: game
+# =====================================================
+# RVDB Game Schema
+# =====================================================
 
-required:
-  - id
-  - title
-  - platform
+required: []
+
+optional:
+  - release_year
 
 fields:
 
-  id:
-    type: string
-
-  title:
-    type: string
-
-  platform:
-    type: string
-
-  core:
-    type: string
-
-  year:
-    type: integer
-
-  developer:
-    type: string
-
-  publisher:
-    type: string
-
-  genres:
-    type: list
-
-  regions:
-    type: list
-
-  rom_path:
-    type: string
+  release_year:
+    type: integer_or_null
+    description: Original release year

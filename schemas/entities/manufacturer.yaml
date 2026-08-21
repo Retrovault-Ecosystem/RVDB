@@ -1,10 +1,11 @@
+# =====================================================
 # RVDB Manufacturer Schema
+# =====================================================
 
 required:
   - country
 
-optional:
-  - metadata
+optional: []
 
 fields:
 

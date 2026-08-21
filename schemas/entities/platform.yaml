@@ -1,28 +1,40 @@
+# =====================================================
 # RVDB Platform Schema
+# =====================================================
 
-required:
+required: []
+
+optional:
   - manufacturer
   - release_year
   - generation
   - category
-
-optional:
-  - metadata
+  - media
+  - extensions
 
 fields:
 
   manufacturer:
-    type: list
-    description: Platform manufacturer IDs
+    type: entity_reference_list
+    entity_type: manufacturer
+    description: Canonical platform manufacturer IDs
 
   release_year:
     type: integer_or_null
-    description: Original release year
+    description: Original hardware release year
 
   generation:
     type: integer_or_null
-    description: Console generation
+    description: Hardware generation
 
   category:
     type: list
     description: Platform categories
+
+  media:
+    type: list
+    description: Physical or digital media types
+
+  extensions:
+    type: list
+    description: Common ROM or software extensions

@@ -1,10 +1,24 @@
-id: arcade
+id: platform.arcade
 type: platform
+
 name: Arcade
 
-manufacturer:
-  - various
+aliases: []
+
+manufacturer: []
 
 release_year: 1972
 
-category: arcade
+generation: null
+
+category:
+  - arcade
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  legacy_manufacturer:
+    - various

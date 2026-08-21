@@ -1,17 +1,33 @@
-id: nintendo_nes
-
+id: platform.nintendo.nes
 type: platform
 
 name: Nintendo Entertainment System
 
-manufacturer: Nintendo
+aliases:
+  - NES
+
+manufacturer:
+  - manufacturer.nintendo
 
 release_year: 1983
 
 generation: 3
+
+category:
+  - console
 
 media:
   - cartridge
 
 extensions:
   - nes
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
