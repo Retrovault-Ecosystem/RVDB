@@ -741,56 +741,412 @@ consumer application.
 
 Status:
 
-NOT STARTED
+IN PROGRESS
 
 Primary goal:
 
 Perform a controlled audit and cleanup of obsolete, duplicate,
-historical, and transitional project files without disturbing the
-Foundation 0.2 architecture.
+historical, transitional, and accidentally tracked project files
+without disturbing the completed Foundation 0.2 architecture.
 
-Potential audit targets include:
+All cleanup work must remain:
 
-- inner rvdb/ package
-- cli_backup.py
-- engine/query_backup.py
-- engine/query_backup_search.py
-- validator/loader.py
-- validator/types.py
-- commands/loader.py
-- engine/migration.py path assumptions
-- historical dist/ artifacts
-- empty top-level historical files
-- stale virtual-environment material if tracked
-- duplicate or superseded modules
+- dependency-checked
+- tested
+- reversible
+- isolated into small checkpoints
+- committed and pushed before proceeding to dependent work
 
-No cleanup candidate should be deleted merely because it appears
-obsolete.
+---
 
-Every candidate must first be:
+# Foundation 0.2.1 Progress
 
-1. identified
-2. dependency-checked
-3. Git-history checked
-4. backed up
-5. explicitly approved for removal
+## Cleanup Checkpoints A–C
+
+✔ COMPLETE
+
+Initial cleanup work established the controlled legacy-removal
+process and removed confirmed obsolete or accidentally tracked
+material.
+
+Completed work includes:
+
+- legacy candidate inventory
+- dependency classification
+- removal of obsolete validator modules
+- untracking of the accidental root virtual environment
+- preservation of the local Python environment
+- verification of Foundation regression gates after cleanup
+
+Notable commits include:
+
+8683131 Foundation 0.2.1 Checkpoint B: remove obsolete validator modules
+
+76ae41c Foundation 0.2.1 Checkpoint C: untrack accidental root virtual environment
+
+---
+
+## Checkpoint D — Legacy rvdb/ Package Classification
+
+Status:
+
+IN PROGRESS
+
+The historical inner `rvdb/` package is being classified component
+by component.
+
+Components are classified as:
+
+- RETAIN
+- MIGRATE
+- RETIRE
+
+No wholesale deletion of the inner `rvdb/` package is permitted
+until useful functionality has been migrated and active dependencies
+have been eliminated.
+
+---
+
+## Checkpoint D1 — Restore Hidden Build Source
+
+✔ COMPLETE
+
+The cleanup audit discovered that the active Foundation bundle
+builder existed locally under the top-level `build/` directory but
+was being hidden from Git by an obsolete `.gitignore` rule.
+
+A fresh clone therefore would not have contained the active
+Foundation builder.
+
+Implemented:
+
+- removed obsolete `build/` ignore rule
+- restored `build/builder.py` to Git tracking
+- created explicit `build/__init__.py`
+- restored hidden `rvdb/build/checksum.py`
+- verified Foundation build package imports
+- verified fresh repository source visibility
+
+Commit:
+
+328e004 Foundation 0.2.1 Checkpoint D1: restore hidden build source
+
+---
+
+## Checkpoint D2 — Foundation Checksum Migration
+
+✔ COMPLETE
+
+Migrated generic SHA-256 artifact checksum functionality from the
+legacy build subsystem into the active Foundation build package.
+
+Implemented:
+
+- `build/checksum.py`
+- streaming SHA-256 calculation
+- checksum manifest generation
+- canonical default output path
+- CWD-independent behavior
+- missing-file handling
+- Foundation public API integration
+- checksum regression tests
+
+Commit:
+
+9c2152e Foundation 0.2.1 Checkpoint D2: migrate checksum builder
+
+Regression suite after D2:
+
+94 passed
+
+---
+
+## Checkpoint D3 — Foundation CSV Export Migration
+
+✔ COMPLETE
+
+Migrated CSV export functionality away from the legacy hardcoded
+Game object model.
+
+Implemented:
+
+- generic Foundation entity CSV exporter
+- support for Foundation Entity objects
+- support for plain entity mappings
+- dotted nested-field paths
+- deterministic JSON serialization of relationship lists and maps
+- configurable CSV columns
+- CWD-independent output
+- Foundation game export coverage
+
+Commit:
+
+8aff719 Foundation 0.2.1 Checkpoint D3: migrate CSV exporter
+
+Regression suite after D3:
+
+100 passed
+
+---
+
+## Checkpoint D4 — Legacy Build Output Assessment
+
+✔ COMPLETE
+
+The remaining legacy build-output components were audited before
+removal or migration.
+
+Classification:
+
+### Legacy JSON Exporter
+
+RETIRE
+
+Reason:
+
+The canonical Foundation `rvdb.bundle.json` supersedes the historical
+generic JSON export.
+
+### Legacy Search Indexer
+
+RETIRE FOR FOUNDATION 0.2.1
+
+Reason:
+
+The implementation is coupled to the historical Game object model
+and duplicates functionality available through the active Foundation
+query, relationship, alias, fuzzy-search, and graph architecture.
+
+A serialized search index may be reconsidered later if dataset size
+or performance requirements justify it.
+
+### Legacy Manifest Builder
+
+MIGRATE
+
+Reason:
+
+Release/build metadata remains useful, but the historical
+implementation depends on the legacy registry, hardcodes an obsolete
+version, and references obsolete build artifacts.
+
+---
+
+## Checkpoint D5 — Foundation Manifest Migration
+
+✔ COMPLETE
+
+Migrated manifest generation into the active Foundation build
+architecture.
+
+Implemented:
+
+- `build/manifest.py`
+- Foundation version metadata
+- UTC generation timestamps
+- entity statistics derived from the active RVGraph
+- entity counts grouped by type
+- explicit artifact inventory
+- portable project-relative artifact paths
+- protection against machine-specific absolute paths
+- version override support
+- Foundation public API integration
+- manifest regression tests
+
+Foundation 0.2.1 manifest version:
+
+0.2.1
+
+Current production entity count:
+
+19
+
+Current entity counts by type:
+
+- core: 2
+- developer: 2
+- game: 4
+- genre: 3
+- manufacturer: 3
+- platform: 4
+- publisher: 1
+
+Regression suite after D5:
+
+107 passed
+
+Production validation:
+
+19 entities checked
+
+19 valid
+
+0 schema errors
+
+0 relationship errors
+
+Canonical graph:
+
+19 nodes
+
+19 edge entries
+
+Checkpoint commit:
+
+Foundation 0.2.1 Checkpoint D5: migrate manifest builder
+
+---
+
+# Current Foundation 0.2.1 State
+
+Foundation architecture:
+
+STABLE
+
+Legacy cleanup:
+
+IN PROGRESS
+
+Automated tests:
+
+107 passing
+
+Production entities:
+
+19
+
+Production validation:
+
+PASS
+
+Canonical bundle build:
+
+PASS
+
+Current active Foundation build modules:
+
+- build/builder.py
+- build/checksum.py
+- build/csv_exporter.py
+- build/manifest.py
+
+The legacy inner `rvdb/` package still exists and must not be removed
+wholesale.
+
+Useful legacy functionality has been migrated incrementally before
+retirement.
+
+Historical `dist/` output files are currently untracked and are not
+canonical Foundation source data.
+
+The tracked `rvdb.bundle.json` is the canonical Foundation bundle and
+must be handled separately from historical `dist/` cleanup.
+
+---
+
+# NEXT CHECKPOINT
+
+## Checkpoint D6 — Retire Superseded Legacy Build Modules
+
+Status:
+
+NEXT
+
+Goal:
+
+Perform one final dependency audit of the legacy build subsystem and
+retire only the modules whose functionality is now fully superseded
+by the active Foundation architecture.
+
+Expected retirement candidates include:
+
+- rvdb/build/json_exporter.py
+- rvdb/build/checksum.py
+- rvdb/build/csv_exporter.py
+- rvdb/build/manifest.py
+- rvdb/build/indexer.py
+- rvdb/indexes.py
+
+Before deleting anything:
+
+1. inspect all remaining imports
+2. inspect tests
+3. inspect CLI dependencies
+4. inspect legacy builder dependencies
+5. confirm Foundation replacements
+6. run Git status
+7. remove only explicitly approved files
+8. run the complete regression suite
+9. run production validation
+10. run the canonical build
+11. run `git diff --check`
+12. review the staged deletion set before committing
+
+The remaining inner `rvdb/` package must continue to be handled
+methodically after D6.
+
+---
+
+# Remaining Foundation 0.2.1 Cleanup Direction
+
+After D6, expected work includes:
+
+- remaining inner `rvdb/` dependency classification
+- retirement or migration of legacy loader/query/registry/linker code
+- cleanup of excluded historical tests
+- review of `engine/migration.py`
+- historical script and artifact cleanup
+- packaging/version metadata
+- fresh-clone reproducibility testing
+- final regression and validation gate
+- milestone documentation
+- Foundation 0.2.1 release checkpoint/tag
+
+Exact checkpoint numbering may change if an audit uncovers a
+dependency that should be isolated into its own checkpoint.
+
+Safety and correctness take priority over minimizing checkpoint
+count.
 
 ---
 
 # End-of-Session Rules
 
-Before ending an RVDB development session:
+These steps are MANDATORY before intentionally ending an RVDB
+development session.
 
-1. Run the complete relevant test suite.
-2. Run production database validation.
-3. Run the canonical build when build-related code has changed.
-4. Run `git diff --check`.
-5. Verify `git status`.
-6. Commit completed checkpoints.
-7. Push completed commits to GitHub.
-8. Create safety tags at major architectural boundaries.
-9. Push important safety/release tags to GitHub.
-10. Leave the working tree clean whenever possible.
+1. Finish the current atomic checkpoint whenever practical.
+2. Run the complete relevant test suite.
+3. Run production database validation.
+4. Run the canonical build when build-related code has changed.
+5. Run `git diff --check`.
+6. Review `git status`.
+7. Review the exact staged files.
+8. Commit every completed and verified checkpoint.
+9. Push completed checkpoint commits to GitHub.
+10. Create and push safety tags at major architectural boundaries
+    when appropriate.
+11. Update `docs/current_milestone.md` with all work completed during
+    the session.
+12. Record the exact NEXT checkpoint in
+    `docs/current_milestone.md`.
+13. Record the current regression-test count and production
+    validation/build state.
+14. Commit the milestone-document update separately.
+15. Push the milestone-document commit to GitHub.
+16. Verify the local branch is synchronized with the remote.
+17. Leave the working tree clean whenever possible.
+18. Verify the final HEAD commit before ending the session.
+
+IMPORTANT:
+
+The milestone documentation update is the FINAL CHECKPOINT of every
+development session.
+
+A session must not intentionally be considered wrapped up until the
+completed work has been committed, pushed, the milestone document
+has been updated and pushed, and the repository state has been
+verified clean.
 
 Temporary test entities must not be committed.
 
@@ -799,11 +1155,15 @@ Generated test artifacts must not replace canonical production data.
 Large cleanup operations must remain separate from architectural
 feature work.
 
+Do not delete a legacy component merely because it appears obsolete.
+
+Every cleanup candidate must first be dependency-checked and tested.
+
 ---
 
 # Resume Instructions
 
-To continue development:
+To continue development in a future ChatGPT session, use:
 
 Continue RVDB Project.
 
@@ -813,10 +1173,18 @@ Expected restart point:
 
 Foundation 0.2.1 — Legacy Cleanup
 
+Checkpoint D6 — Retire Superseded Legacy Build Modules
+
 Status:
 
-NOT STARTED
+NEXT
 
-Begin with a read-only legacy and dependency inventory.
+Begin D6 with a read-only dependency and import audit.
+
+Do not immediately delete the listed retirement candidates.
 
 Continue methodically with small, tested, reversible changes.
+
+---
+
+# End of Current Milestone
