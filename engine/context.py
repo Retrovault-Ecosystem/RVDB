@@ -1,15 +1,35 @@
 """
+=========================================================
 RVDB Engine Context
+=========================================================
 
-Provides shared access to:
-- RVEngine
-- EntityResolver
+Project:
+    RetroVault Database (RVDB)
 
-Uses the current EntityLoader architecture.
+File:
+    engine/context.py
+
+Purpose:
+    Provides shared access to:
+
+    - RVEngine
+    - EntityResolver
+
+    Uses the Foundation 0.2 EntityLoader architecture and
+    canonical project data paths.
+
+Foundation Release:
+    0.2
+
+Checkpoint:
+    C4 — Final Integration and Release Readiness
+
+=========================================================
 """
 
-from engine.loader import EntityLoader
 from engine.graph import build_graph
+from engine.loader import EntityLoader
+from engine.paths import DATA_ROOT
 from engine.query import RVEngine
 from engine.resolver import EntityResolver
 
@@ -21,11 +41,10 @@ _resolver = None
 def load_entities():
 
     loader = EntityLoader(
-        "data"
+        DATA_ROOT
     )
 
     return loader.load()
-
 
 
 def get_engine():
@@ -45,7 +64,6 @@ def get_engine():
         )
 
     return _engine
-
 
 
 def get_resolver():

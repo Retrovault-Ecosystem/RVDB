@@ -17,6 +17,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from engine.paths import DATA_ROOT
 
 import yaml
 
@@ -223,15 +224,24 @@ class EntityLoader:
 
 
 
-def load_entities(directory="data"):
+def load_entities(
+    directory: str | Path | None = None,
+):
     """
     Compatibility wrapper.
 
-    Allows older RVDB modules to use the new
-    EntityLoader architecture.
+    When no directory is supplied, load from the canonical
+    RVDB project data directory.
+
+    Explicit caller-supplied directories remain supported.
     """
+
+    if directory is None:
+
+        directory = DATA_ROOT
 
     loader = EntityLoader(
         directory
     )
 
+    return loader.load()

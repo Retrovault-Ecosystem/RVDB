@@ -1,29 +1,79 @@
 """
+=========================================================
 RVDB Entity Registry
+=========================================================
 
-Provides a centralized in-memory registry
-of all RVDB entities.
+Project:
+    RetroVault Database (RVDB)
 
-This becomes the single source of truth
-for entity lookup throughout RVDB.
+File:
+    services/registry.py
+
+Purpose:
+    Provides a centralized in-memory registry of RVDB
+    entities.
+
+    Project data paths are resolved independently of the
+    shell's current working directory.
+
+Foundation Release:
+    0.2
+
+Checkpoint:
+    C4 — Final Integration and Release Readiness
+
+=========================================================
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import Any
 
 import yaml
 
+from engine.paths import DATA_ROOT
+
 
 class EntityRegistry:
+    """
+    Centralized in-memory entity registry.
+    """
 
-    def __init__(self):
+    def __init__(
+        self,
+        data_path: str | Path | None = None,
+    ) -> None:
 
-        self.by_id = {}
+        self.by_id: dict[
+            str,
+            dict[str, Any],
+        ] = {}
 
-        self.by_name = {}
+        self.by_name: dict[
+            str,
+            str,
+        ] = {}
 
-        self.by_alias = {}
+        self.by_alias: dict[
+            str,
+            str,
+        ] = {}
 
-        self.by_type = {}
+        self.by_type: dict[
+            str,
+            list[str],
+        ] = {}
+
+        if data_path is None:
+
+            self.data_path = DATA_ROOT
+
+        else:
+
+            self.data_path = Path(
+                data_path
+            )
 
         self.load()
 
@@ -31,15 +81,37 @@ class EntityRegistry:
     # Load Database
     # =====================================================
 
-    def load(self):
+    def load(
+        self,
+    ) -> None:
 
-        data_path = Path("data")
+        self.by_id.clear()
 
-        if not data_path.exists():
+        self.by_name.clear()
+
+        self.by_alias.clear()
+
+        self.by_type.clear()
+
+        if not self.data_path.exists():
 
             return
 
-        for yaml_file in data_path.rglob("*.yaml"):
+        yaml_files = list(
+            self.data_path.rglob(
+                "*.yaml"
+            )
+        )
+
+        yaml_files.extend(
+            self.data_path.rglob(
+                "*.yml"
+            )
+        )
+
+        for yaml_file in sorted(
+            yaml_files
+        ):
 
             entity = self.load_entity(
                 yaml_file
@@ -47,7 +119,9 @@ class EntityRegistry:
 
             if entity:
 
-                self.register(entity)
+                self.register(
+                    entity
+                )
 
     # =====================================================
     # Load One Entity
@@ -55,23 +129,28 @@ class EntityRegistry:
 
     def load_entity(
         self,
-        filename,
-    ):
+        filename: Path,
+    ) -> dict[str, Any] | None:
 
         try:
 
             with filename.open(
                 "r",
-                encoding="utf-8"
+                encoding="utf-8",
             ) as file:
 
-                entity = yaml.safe_load(file)
+                entity = yaml.safe_load(
+                    file
+                )
 
         except Exception:
 
             return None
 
-        if not entity:
+        if not isinstance(
+            entity,
+            dict,
+        ):
 
             return None
 
@@ -83,49 +162,65 @@ class EntityRegistry:
 
     def register(
         self,
-        entity,
-    ):
+        entity: dict[str, Any],
+    ) -> None:
 
-        entity_id = entity.get("id")
+        entity_id = entity.get(
+            "id"
+        )
 
-        entity_type = entity.get("type")
+        entity_type = entity.get(
+            "type"
+        )
 
-        name = entity.get("name")
+        name = entity.get(
+            "name"
+        )
 
         aliases = entity.get(
             "aliases",
-            []
+            [],
         )
 
-        if not all([
-            entity_id,
-            entity_type,
-            name,
-        ]):
+        if not all(
+            [
+                entity_id,
+                entity_type,
+                name,
+            ]
+        ):
 
             return
 
-        # ID lookup
         self.by_id[
             entity_id
         ] = entity
 
-        # Name lookup
         self.by_name[
             name.casefold()
         ] = entity_id
 
-        # Alias lookup
-        for alias in aliases:
+        if isinstance(
+            aliases,
+            list,
+        ):
 
-            self.by_alias[
-                alias.casefold()
-            ] = entity_id
+            for alias in aliases:
 
-        # Type lookup
+                if not isinstance(
+                    alias,
+                    str,
+                ):
+
+                    continue
+
+                self.by_alias[
+                    alias.casefold()
+                ] = entity_id
+
         self.by_type.setdefault(
             entity_type,
-            []
+            [],
         ).append(
             entity_id
         )
@@ -137,9 +232,12 @@ class EntityRegistry:
     def exists(
         self,
         entity_id,
-    ):
+    ) -> bool:
 
-        return entity_id in self.by_id
+        return (
+            entity_id
+            in self.by_id
+        )
 
     def get(
         self,
@@ -159,24 +257,32 @@ class EntityRegistry:
 
             return None
 
-        key = name.casefold()
+        key = str(
+            name
+        ).casefold()
 
         if key in self.by_name:
 
-            return self.by_name[key]
+            return self.by_name[
+                key
+            ]
 
         if key in self.by_alias:
 
-            return self.by_alias[key]
+            return self.by_alias[
+                key
+            ]
 
         return None
 
     def entities_of_type(
         self,
         entity_type,
-    ):
+    ) -> list[str]:
 
-        return self.by_type.get(
-            entity_type,
-            []
+        return list(
+            self.by_type.get(
+                entity_type,
+                [],
+            )
         )
