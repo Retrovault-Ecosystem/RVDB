@@ -14,56 +14,240 @@ feature/relationship-resolver
 
 Project Status:
 
-Foundation Release 0.2 — Checkpoint C3 Complete
+Foundation Release 0.2 — COMPLETE
+
+Release Status:
+
+RELEASE READY
 
 ---
 
-# Foundation Release 0.2 Status
+# Foundation 0.2 Overview
+
+Foundation 0.2 establishes the schema-driven architectural foundation
+for the RetroVault Database.
+
+The release moves RVDB away from hardcoded entity definitions,
+validation rules, relationship matrices, builder logic, and
+working-directory-dependent resource paths.
+
+The Foundation 0.2 architecture is now centered around:
+
+- YAML entity schemas
+- YAML entity templates
+- Generic entity construction
+- Schema-driven validation
+- Schema-driven relationships
+- Canonical entity IDs
+- Canonical project paths
+- Entity registry services
+- Relationship resolution
+- Forward and reverse relationship graphs
+- Canonical bundle generation
+- Automated regression testing
+
+The goal of Foundation 0.2 was not to expand the database itself.
+
+The goal was to establish a stable architecture upon which the
+larger RVDB knowledge base can safely be built.
+
+---
+
+# Core Architectural Principles
+
+RVDB follows a data-driven architecture.
+
+## 1. Schemas Define Entities
+
+Python should not hardcode entity fields.
+
+Entity structure belongs in YAML schemas.
+
+---
+
+## 2. Templates Define New Entity Skeletons
+
+Interactive entity creation should use templates rather than
+entity-specific Python builders.
+
+Adding a new entity type should ultimately require:
+
+- one schema
+- one template
+
+without requiring a new Python builder.
+
+---
+
+## 3. Validation Is Schema-Driven
+
+Entity validation should derive its rules from the same schemas
+that define the entities.
+
+This includes:
+
+- required fields
+- optional fields
+- field types
+- relationship structure
+
+---
+
+## 4. Relationships Are Schema-Driven
+
+Relationship definitions belong in entity schemas.
+
+Python must not maintain a separate hardcoded relationship matrix.
+
+Relationship definitions specify:
+
+- relationship name
+- relationship value type
+- target entity type
+
+---
+
+## 5. Canonical IDs Use Dot Notation
+
+Examples:
+
+platform.sega.genesis
+
+platform.nintendo.snes
+
+game.super.mario.world
+
+developer.nintendo.ead
+
+genre.role.playing.game
+
+Underscores should not be introduced into canonical IDs unless
+explicitly preserved through an ID override or compatibility rule.
+
+---
+
+## 6. Project Resources Use Canonical Paths
+
+Runtime behavior must not depend on the shell's current working
+directory.
+
+Project resources are resolved relative to the RVDB project root.
+
+Examples include:
+
+- data
+- schemas
+- templates
+- config
+- bundle output
+
+---
+
+## 7. The Entity Registry Is the Runtime Source of Truth
+
+Loaded entities are exposed through the registry layer.
+
+Runtime consumers should use the current registry and graph
+architecture rather than historical loaders or duplicated data
+structures.
+
+---
+
+## 8. YAML Is the Canonical Source Representation
+
+RVDB entity data is maintained in YAML.
+
+Generated artifacts such as the canonical JSON bundle are derived
+from that source data.
+
+---
+
+# Foundation 0.2 Completed Architecture
+
+The following major architectural components are operational.
+
+- SchemaLoader
+- SchemaValidator
+- RelationshipValidator
+- Type Registry
+- Entity Reference Validation
+- Entity Templates
+- EntityFactory
+- Generic EntityBuilder
+- Namespace ID Generator
+- Relationship Lookup
+- Entity Resolver
+- Entity Registry
+- Entity Loader
+- Runtime Context
+- Forward Relationship Graph
+- Reverse Relationship Graph
+- Canonical Bundle Build
+- Project Path Layer
+- CLI Validation Workflow
+- CLI Create Workflow
+- CLI Build Workflow
+- Automated Foundation Test Suite
+
+---
+
+# Foundation 0.2 Checkpoints
 
 ## Checkpoint A — Schema Foundation
 
 ✔ COMPLETE
 
+Established the Foundation 0.2 schema architecture.
+
 Implemented:
 
-- Dynamic SchemaLoader
-- Common + entity schema merging
-- Schema-driven validation
-- TypeRegistry
-- Entity reference types
-- Entity registry integration
-- Canonical schema foundation
-- Foundation 0.2 data normalization
+- common entity schema
+- entity-specific schemas
+- schema loading
+- common/entity schema merging
+- dynamic field definitions
+- schema-based entity type discovery
+- schema validation foundation
+- type registry
+- entity reference validation
 
-Commit:
+Checkpoint commit:
 
 4ae064d Foundation 0.2 Checkpoint A: complete schema foundation
 
 ---
 
-## Checkpoint B — Schema / Type Test Foundation
+## Checkpoint B — Schema Engine Test Suite
 
 ✔ COMPLETE
 
-Implemented:
+Established regression coverage for the Foundation schema engine.
 
-- SchemaLoader tests
-- TypeRegistry tests
-- EntityReferenceValidator tests
-- SchemaValidator tests
-- Foundation 0.2 pytest test layer
+Coverage includes:
 
-Commit:
+- schema discovery
+- common field merging
+- entity field merging
+- schema isolation
+- unknown schemas
+- type registry behavior
+- entity reference validation
+- typed references
+- reference lists
+
+Checkpoint commit:
 
 9ea4957 Foundation 0.2 Checkpoint B: add schema engine test suite
 
 ---
 
-## Checkpoint C1 — Complete Entity Template Layer
+## Checkpoint C1 — Entity Template Layer
 
 ✔ COMPLETE
 
-Active entity templates:
+Completed the schema-aligned entity template layer.
+
+Entity types with both schemas and templates:
 
 - core
 - developer
@@ -73,12 +257,10 @@ Active entity templates:
 - platform
 - publisher
 
-Every active Foundation 0.2 entity type has:
+The EntityFactory can create template-backed entities for all active
+Foundation entity types.
 
-- schemas/entities/<type>.yaml
-- templates/entities/<type>.yaml
-
-Commit:
+Checkpoint commit:
 
 f1ec2d7 Foundation 0.2 Checkpoint C1: complete entity template layer
 
@@ -88,88 +270,57 @@ f1ec2d7 Foundation 0.2 Checkpoint C1: complete entity template layer
 
 ✔ COMPLETE
 
+Replaced the entity-specific creation direction with a generic
+schema-driven entity builder.
+
 Implemented:
 
-- Generic EntityBuilder
-- Schema-driven field prompting
-- Dynamic entity-type discovery
-- Generic create command
-- Template-based structural defaults
-- Canonical ID generation
-- Typed entity reference resolution
-- Human-readable relationship lookup
-- Entity preview
-- Save confirmation
-- Duplicate-file protection
-- Validation before write
-- Project-root-aware paths
-- CLI operation independent of current working directory
+- schema-discovered entity types
+- generic template-backed creation
+- automatic canonical ID generation
+- schema-driven field prompting
+- string fields
+- integer fields
+- nullable integer fields
+- boolean fields
+- list fields
+- object fields
+- entity references
+- entity reference lists
+- relationship lookup integration
+- entity preview
+- save confirmation
+- duplicate-file protection
+- project-root-aware output paths
+- create command regression tests
+- entity builder regression tests
 
-Supported field types:
-
-- string
-- integer
-- integer_or_null
-- boolean
-- list
-- object
-- entity_reference
-- entity_reference_list
-
-Checkpoint result:
-
-45 tests passing
-
-Commit:
+Checkpoint commit:
 
 26cc76c Foundation 0.2 Checkpoint C2: add generic schema-driven entity builder
 
-Tag:
+Safety tag:
 
 foundation-0.2-c2
 
 ---
 
-# Checkpoint C3 — Schema-Driven Relationships
+## Checkpoint C3 — Schema-Driven Relationships
 
 ✔ COMPLETE
 
-Checkpoint C3 replaced hardcoded Python relationship rules with
-schema-defined relationship architecture.
+Checkpoint C3 completed the migration of relationship behavior into
+the schema architecture.
 
----
-
-## C3a — Relationship Rules in Entity Schemas
-
-✔ COMPLETE
+### C3a — Relationship Rules in Schemas
 
 Implemented:
 
-- Relationship definitions added to entity schemas
-- SchemaLoader relationship merging
-- SchemaLoader get_relationships()
-- RelationshipValidator converted from hardcoded rules
-  to schema-driven validation
-- Relationship target types defined in YAML
-- Core relationship vocabulary normalized to active data/template usage
-
-Current schema-defined relationships include:
-
-### Game
-
-- developed_by → developer
-- published_by → publisher
-- platform → platform
-- genre → genre
-- core → core
-
-### Platform
-
-- supports_core → core
-
-### Core
-
-- supports → platform
+- relationship definitions in entity schemas
+- schema-driven RelationshipValidator
+- removal of the hardcoded relationship matrix
+- relationship target-type validation
+- relationship validator regression tests
 
 Commit:
 
@@ -177,25 +328,17 @@ f40bbba Foundation 0.2 Checkpoint C3a: move relationship rules into schemas
 
 ---
 
-## C3b — Relationship Schema Validation and Builder Integration
-
-✔ COMPLETE
+### C3b — Relationship Schema Validation and Builder Integration
 
 Implemented:
 
-- SchemaDefinitionError
-- Relationship schema validation during SchemaLoader initialization
-- Relationship type validation
-- Required target entity-type definitions
-- Unknown target-type rejection
-- entity_type / entity_types mutual-exclusion validation
-- Future multi-target relationship support
-- EntityBuilder now reads relationship vocabulary from schemas
-- Template relationship placeholders are no longer authoritative
-- Generic relationship prompting
-- Canonical relationship-ID resolution
-- Relationship builder tests
-- Relationship schema-definition tests
+- relationship schema loading
+- relationship schema validation
+- relationship metadata access through SchemaLoader
+- generic builder relationship prompting
+- schema-driven relationship construction
+- relationship schema regression tests
+- expanded EntityBuilder relationship tests
 
 Commit:
 
@@ -203,345 +346,398 @@ Commit:
 
 ---
 
-## C3c — Relationship Data Hardening
-
-✔ COMPLETE
+### C3c — Relationship Data Validation Hardening
 
 Implemented:
 
-- Relationship container validation
-- Unknown relationship rejection
-- Relationship cardinality enforcement
-- entity_reference validation
-- entity_reference_list validation
-- Empty/reference string validation
-- Separation between structural validation and graph validation
+- schema-level validation of relationship containers
+- relationship value-type validation
+- relationship key validation
+- malformed relationship detection
+- separation between structural schema validation and
+  cross-entity relationship validation
+- expanded relationship data validation regression coverage
 
 Commit:
 
 fa7553e Foundation 0.2 Checkpoint C3c: harden schema relationship data validation
 
-Tag:
+Safety tag:
 
 foundation-0.2-c3
 
 ---
 
-# C3 Final Architecture
+# Checkpoint C4 — Final Integration and Release Readiness
 
-Relationship processing now follows:
+✔ COMPLETE
 
-Entity Schema
-
-↓
-
-SchemaLoader
-
-- loads relationship definitions
-- validates schema definitions
-- validates target entity-type declarations
-
-↓
-
-EntityBuilder
-
-- reads relationship definitions
-- prompts for relationship values
-- resolves names and aliases
-- stores canonical entity IDs
-
-↓
-
-SchemaValidator
-
-- validates relationship container
-- rejects unknown relationship names
-- validates relationship cardinality
-- validates stored reference shape
-
-↓
-
-RelationshipValidator
-
-- validates source entity type
-- validates relationship legality
-- validates target entity type
-
-↓
-
-RVGraph
-
-- stores forward edges
-- builds reverse edges
-- supports relationship traversal
+Checkpoint C4 integrated the Foundation architecture into the active
+runtime paths, build system, and resolver test coverage.
 
 ---
 
-# Relationship Responsibility Boundaries
+## C4a — Canonical Runtime Path Integration
 
-## SchemaLoader
+✔ COMPLETE
 
-Responsible for:
+Implemented:
 
-- relationship schema correctness
-- relationship type definitions
-- target entity-type declarations
+- canonical DATA_ROOT integration
+- CWD-independent validation
+- CWD-independent engine context
+- CWD-independent entity registry
+- CWD-independent default entity loading
+- canonical project resource paths
+- project path regression tests
 
-Not responsible for entity data.
+Commit:
 
----
-
-## EntityBuilder
-
-Responsible for:
-
-- interactive relationship entry
-- relationship lookup
-- canonical ID storage
-
-Not responsible for defining relationship vocabulary.
+ede762f Foundation 0.2 Checkpoint C4a: complete canonical runtime path integration
 
 ---
 
-## SchemaValidator
+## C4b — Canonical Bundle Build Integration
 
-Responsible for:
+✔ COMPLETE
 
-- relationship data structure
-- allowed relationship names
-- relationship cardinality
-- reference string structure
+Implemented:
 
-Not responsible for determining whether target IDs actually exist.
+- active CLI build command using the Foundation architecture
+- canonical rvdb.bundle.json regeneration
+- current EntityLoader → RVGraph → bundle pipeline
+- plain entity-data serialization
+- canonical project output path
+- CWD-independent build execution
+- bundle contract regression tests
 
----
+Canonical bundle contract:
 
-## RelationshipValidator
+- nodes
+- edges
 
-Responsible for:
+Current production bundle:
 
-- source → relationship legality
-- relationship → target-type legality
+Nodes: 19
 
-Relationship rules come exclusively from schemas.
+Edges: 19
 
-No hardcoded Python relationship matrix remains.
+Commit:
 
----
-
-## RVGraph
-
-Responsible for:
-
-- entity nodes
-- forward relationship edges
-- reverse relationship edges
-
-Graph behavior remains generic and does not define relationship legality.
+9174550 Foundation 0.2 Checkpoint C4b: integrate canonical bundle build
 
 ---
 
-# Current Foundation Health
+## C4c — Resolver Integration Coverage
 
-End-of-C3 verification:
+✔ COMPLETE
 
-Tests:
+Implemented regression coverage for:
 
-73 passed
+- exact canonical ID resolution
+- exact name resolution
+- alias resolution
+- case-insensitive alias resolution
+- partial-name resolution
+- missing-entity behavior
+- resolver operation outside the project working directory
 
-Database validation:
+Commit:
 
-Entities checked: 19
+3254736 Foundation 0.2 Checkpoint C4c: add resolver integration coverage
 
-Valid: 19
+---
 
-Schema Errors: 0
+# Foundation 0.2 Final Release Gate
 
-Relationship Errors: 0
+✔ PASSED
 
-Validation:
+The complete Foundation 0.2 release gate was executed after
+Checkpoint C4c.
 
-OK
+## Compilation
 
-Working tree:
+PASS
 
-clean
+Foundation Python modules and tests compiled successfully.
+
+---
+
+## Automated Test Suite
+
+Result:
+
+89 passed
+
+Status:
+
+PASS
+
+---
+
+## Production Database Validation
+
+Entities checked:
+
+19
+
+Valid:
+
+19
+
+Schema Errors:
+
+0
+
+Relationship Errors:
+
+0
+
+Result:
+
+Validation OK
+
+Status:
+
+PASS
+
+---
+
+## Canonical Bundle Build
+
+Graph Nodes:
+
+19
+
+Graph Edges:
+
+19
+
+Bundle:
+
+rvdb.bundle.json
+
+Result:
+
+Build complete
+
+Status:
+
+PASS
+
+---
+
+## Bundle Contract
+
+Top-level keys:
+
+- nodes
+- edges
+
+Nodes:
+
+19
+
+Edges:
+
+19
+
+Entity IDs were verified against their bundle node keys.
+
+Result:
+
+PASS
+
+---
+
+## External Working Directory Validation
+
+The production validator was executed from `/tmp` rather than from
+the RVDB project directory.
+
+Result:
+
+Validation OK
+
+Status:
+
+PASS
+
+---
+
+## External Working Directory Build
+
+The production build command was executed from `/tmp`.
+
+The generated bundle was correctly written to the canonical project
+location:
+
+/home/oilcan/rvdb/rvdb.bundle.json
+
+No stray `/tmp/rvdb.bundle.json` was created.
+
+Status:
+
+PASS
+
+---
+
+## Active Foundation Import Check
+
+Active Foundation modules were checked for imports from the
+historical inner `rvdb/` package.
+
+Result:
+
+NONE
+
+Status:
+
+PASS
+
+---
+
+## Legacy Distribution Artifact Check
+
+The historical `dist/` artifacts were checked after validation and
+build execution.
+
+Modifications:
+
+NONE
+
+Status:
+
+PASS
+
+---
+
+## Git State
+
+Branch:
+
+feature/relationship-resolver
+
+Release-gate HEAD:
+
+3254736e7085779acd05040f991da2f559a7e32e
 
 Remote branch:
 
 origin/feature/relationship-resolver
 
+Working tree during release gate:
+
+CLEAN
+
+Local branch synchronized with remote:
+
+YES
+
 Status:
 
-synchronized
+PASS
 
 ---
 
-# Current Active Entity Types
+# Foundation Release 0.2
 
-Foundation 0.2 currently supports:
+Status:
 
-- core
-- developer
-- game
-- genre
-- manufacturer
-- platform
-- publisher
+COMPLETE
 
-Each active entity type has:
+Release readiness:
 
-- schema support
-- template support
-- generic builder support
-- schema validation support
+PASS
 
-Relationship-capable types currently include:
+Foundation 0.2 establishes the production architecture for RVDB.
 
-- game
-- platform
-- core
+The release provides:
 
----
+- schema-driven entities
+- schema-driven validation
+- schema-driven relationships
+- generic entity creation
+- canonical IDs
+- canonical project paths
+- entity registry services
+- relationship resolution
+- forward relationship graph
+- reverse relationship graph
+- canonical bundle generation
+- CWD-independent runtime behavior
+- automated regression testing
 
-# Current Architecture
+Final Foundation 0.2 test count:
 
-RVDB entity creation:
+89
 
-CLI
+Final production entity count:
 
-↓
+19
 
-SchemaLoader
+Final production validation:
 
-↓
+19 valid
 
-EntityBuilder
+0 schema errors
 
-↓
+0 relationship errors
 
-IDGenerator
+Final canonical graph:
 
-↓
+19 nodes
 
-EntityFactory
+19 edge entries
 
-↓
-
-RelationshipLookup / EntityReferenceValidator
-
-↓
-
-SchemaValidator
-
-↓
-
-RelationshipValidator
-
-↓
-
-Preview / Confirmation
-
-↓
-
-YAML output
-
-↓
-
-RVGraph / Reverse Relationship Index
+Foundation 0.2 is ready for the final documentation commit and
+release tag.
 
 ---
 
-# Architectural Principles
+# Historical Safety Tags
 
-1. YAML schemas define entity behavior.
+Foundation checkpoints currently protected by Git tags:
 
-2. Python should implement generic infrastructure rather than
-   entity-specific rules.
+foundation-0.2-c2
 
-3. Entity relationship vocabulary belongs in schemas.
+foundation-0.2-c3
 
-4. Canonical entity IDs are stored in RVDB data.
+The final Foundation release will be protected by:
 
-5. Human-readable names and aliases are resolved only during entry.
-
-6. SchemaValidator validates entity structure.
-
-7. RelationshipValidator validates relationship semantics.
-
-8. RVGraph manages relationship traversal and reverse indexes.
-
-9. Templates provide structural/default entity data.
-
-10. Templates must not become a second relationship-definition system.
-
-11. YAML remains the canonical RVDB data representation.
-
-12. RetroVault and future RVDB consumers should use the same schema layer.
+foundation-0.2
 
 ---
 
-# Canonical ID Rules
+# Long-Term RVDB Vision
 
-Canonical IDs use dot notation.
+RVDB is evolving from a YAML database into the knowledge layer for
+the entire RetroVault ecosystem.
 
-Examples:
+Future applications should consume the same canonical schemas and
+data architecture rather than maintaining separate definitions.
 
-platform.sega.genesis
+Potential consumers include:
 
-game.super.mario.world
+- RetroVault desktop application
+- CLI tools
+- GUI administration tools
+- Web APIs
+- documentation generators
+- search systems
+- metadata exporters
+- compatibility tools
+- emulator configuration tools
+- artwork and media tools
 
-developer.nintendo.ead
-
-genre.role.playing.game
-
-Underscores may remain where required by existing canonical IDs or
-controlled legacy migration.
-
----
-
-# Legacy Package Rule
-
-The inner legacy package:
-
-rvdb/
-
-must remain untouched during Foundation Release 0.2.
-
-Legacy cleanup is deferred to:
-
-Foundation Release 0.2.1 — Legacy Cleanup
-
-Do not delete, rename, migrate, or rewrite legacy package files during
-Foundation 0.2 without a separate controlled audit.
-
-Legacy files are preserved intentionally.
+The Foundation architecture should remain independent of any single
+consumer application.
 
 ---
 
-# Deferred Relationship Features
+# Next Release
 
-The following are intentionally NOT required for C3 completion:
-
-- required relationships
-- minimum relationship cardinality
-- maximum relationship cardinality
-- automatic bidirectional relationship storage
-- inverse relationship declarations
-- relationship metadata
-- relationship ordering
-- relationship weighting
-
-These may be introduced later only when a concrete RVDB requirement
-justifies them.
-
----
-
-# Next Checkpoint
-
-## Foundation 0.2 — Checkpoint C4
-
-### Final Integration and Release Readiness
+## Foundation 0.2.1 — Legacy Cleanup
 
 Status:
 
@@ -549,52 +745,29 @@ NOT STARTED
 
 Primary goal:
 
-Audit Foundation 0.2 as a complete system before declaring the release
-candidate ready.
-
-Expected areas:
-
-- CLI integration
-- SchemaLoader
-- TypeRegistry
-- EntityBuilder
-- EntityFactory
-- SchemaValidator
-- RelationshipValidator
-- EntityReferenceValidator
-- RelationshipLookup
-- RVGraph
-- reverse relationships
-- production data
-- tests
-- build/export compatibility
-- project paths
-- documentation
-
-Checkpoint C4 should begin with a read-only integration inventory.
-
-Do not begin legacy cleanup during C4.
-
----
-
-# Foundation 0.2.1
-
-Planned:
-
-Legacy Cleanup
+Perform a controlled audit and cleanup of obsolete, duplicate,
+historical, and transitional project files without disturbing the
+Foundation 0.2 architecture.
 
 Potential audit targets include:
 
 - inner rvdb/ package
-- duplicate/obsolete modules
-- backup Python files
-- obsolete CLI implementations
-- empty historical files
-- stale build artifacts
+- cli_backup.py
+- engine/query_backup.py
+- engine/query_backup_search.py
+- validator/loader.py
+- validator/types.py
+- commands/loader.py
+- engine/migration.py path assumptions
+- historical dist/ artifacts
+- empty top-level historical files
+- stale virtual-environment material if tracked
+- duplicate or superseded modules
 
-No file should be deleted merely because it appears obsolete.
+No cleanup candidate should be deleted merely because it appears
+obsolete.
 
-Every cleanup candidate must first be:
+Every candidate must first be:
 
 1. identified
 2. dependency-checked
@@ -606,20 +779,25 @@ Every cleanup candidate must first be:
 
 # End-of-Session Rules
 
-Before ending a development session:
+Before ending an RVDB development session:
 
-1. Run the complete pytest suite.
-2. Run RVDB production validation.
-3. Confirm the intended Git branch.
-4. Confirm the working tree is clean.
-5. Commit completed checkpoints.
-6. Push commits to GitHub.
-7. Tag major Foundation checkpoints.
-8. Update this milestone document.
-9. Push milestone documentation.
-10. Never leave temporary entities in data/.
-11. Never casually delete legacy files.
-12. Prefer small, tested, reversible changes.
+1. Run the complete relevant test suite.
+2. Run production database validation.
+3. Run the canonical build when build-related code has changed.
+4. Run `git diff --check`.
+5. Verify `git status`.
+6. Commit completed checkpoints.
+7. Push completed commits to GitHub.
+8. Create safety tags at major architectural boundaries.
+9. Push important safety/release tags to GitHub.
+10. Leave the working tree clean whenever possible.
+
+Temporary test entities must not be committed.
+
+Generated test artifacts must not replace canonical production data.
+
+Large cleanup operations must remain separate from architectural
+feature work.
 
 ---
 
@@ -633,12 +811,12 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Foundation 0.2 — Checkpoint C4
-
-Final Integration and Release Readiness
+Foundation 0.2.1 — Legacy Cleanup
 
 Status:
 
 NOT STARTED
 
-Begin with a read-only Foundation 0.2 integration inventory.
+Begin with a read-only legacy and dependency inventory.
+
+Continue methodically with small, tested, reversible changes.
