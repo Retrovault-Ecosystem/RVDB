@@ -1,35 +1,387 @@
 {
-  "nodes": {
-    "core.snes9x": {
-      "id": "core.snes9x",
-      "type": "core",
-      "name": "Snes9x"
+  "edges": {
+    "core.bsnes": {},
+    "core.snes9x": {},
+    "developer.nintendo.ead": {},
+    "developer.nintendo.rnd1": {},
+    "game.galaga": {
+      "core": [],
+      "developed_by": [],
+      "genre": [],
+      "platform": [],
+      "published_by": []
     },
-    "core.bsnes": {
-      "id": "core.bsnes",
-      "type": "core",
-      "name": "bsnes"
+    "game.super_mario_world": {
+      "developed_by": [
+        "developer.nintendo.ead"
+      ],
+      "genre": [
+        "genre.platformer"
+      ],
+      "platform": [
+        "platform.nintendo.snes"
+      ],
+      "published_by": [
+        "publisher.nintendo"
+      ]
+    },
+    "game.super_metroid": {
+      "developed_by": [
+        "developer.nintendo.rnd1"
+      ],
+      "genre": [
+        "genre.action_adventure"
+      ],
+      "platform": [
+        "platform.nintendo.snes"
+      ],
+      "published_by": [
+        "publisher.nintendo"
+      ]
+    },
+    "game.zelda_link_to_the_past": {
+      "developed_by": [
+        "developer.nintendo.ead"
+      ],
+      "genre": [
+        "genre.rpg"
+      ],
+      "platform": [
+        "platform.nintendo.snes"
+      ],
+      "published_by": [
+        "publisher.nintendo"
+      ]
+    },
+    "genre.action_adventure": {},
+    "genre.platformer": {},
+    "genre.rpg": {},
+    "manufacturer.atari": {},
+    "manufacturer.nintendo": {},
+    "manufacturer.sega": {},
+    "platform.arcade": {
+      "supports_core": []
+    },
+    "platform.nintendo.nes": {
+      "supports_core": []
     },
     "platform.nintendo.snes": {
+      "supports_core": [
+        "core.bsnes",
+        "core.snes9x"
+      ]
+    },
+    "platform.sega.genesis": {
+      "supports_core": []
+    },
+    "publisher.nintendo": {}
+  },
+  "nodes": {
+    "core.bsnes": {
+      "id": "core.bsnes",
+      "name": "bsnes",
+      "type": "core"
+    },
+    "core.snes9x": {
+      "id": "core.snes9x",
+      "name": "Snes9x",
+      "type": "core"
+    },
+    "developer.nintendo.ead": {
+      "aliases": [
+        "EAD",
+        "Entertainment Analysis & Development"
+      ],
+      "id": "developer.nintendo.ead",
+      "name": "Nintendo EAD",
+      "type": "developer"
+    },
+    "developer.nintendo.rnd1": {
+      "aliases": [
+        "R&D1",
+        "Nintendo Research & Development 1"
+      ],
+      "id": "developer.nintendo.rnd1",
+      "name": "Nintendo R&D1",
+      "type": "developer"
+    },
+    "game.galaga": {
+      "aliases": [],
+      "id": "game.galaga",
+      "metadata": {
+        "regions": [
+          "world"
+        ],
+        "rom_path": "/home/oilcan/roms/Starter Suite Roms/Arcade/Galaga.zip",
+        "unresolved_legacy_references": {
+          "core": [
+            "mame_libretro"
+          ],
+          "developer": [
+            "namco"
+          ],
+          "genre": [
+            "shooter"
+          ],
+          "platform": [
+            "arcade"
+          ],
+          "publisher": [
+            "namco"
+          ]
+        }
+      },
+      "name": "Galaga",
+      "relationships": {
+        "core": [],
+        "developed_by": [],
+        "genre": [],
+        "platform": [],
+        "published_by": []
+      },
+      "release_year": 1981,
+      "type": "game"
+    },
+    "game.super_mario_world": {
+      "aliases": [
+        "Super Mario World (SNES)"
+      ],
+      "id": "game.super_mario_world",
+      "name": "Super Mario World",
+      "relationships": {
+        "developed_by": [
+          "developer.nintendo.ead"
+        ],
+        "genre": [
+          "genre.platformer"
+        ],
+        "platform": [
+          "platform.nintendo.snes"
+        ],
+        "published_by": [
+          "publisher.nintendo"
+        ]
+      },
+      "type": "game"
+    },
+    "game.super_metroid": {
+      "aliases": [
+        "Super Metroid (SNES)"
+      ],
+      "id": "game.super_metroid",
+      "name": "Super Metroid",
+      "relationships": {
+        "developed_by": [
+          "developer.nintendo.rnd1"
+        ],
+        "genre": [
+          "genre.action_adventure"
+        ],
+        "platform": [
+          "platform.nintendo.snes"
+        ],
+        "published_by": [
+          "publisher.nintendo"
+        ]
+      },
+      "type": "game"
+    },
+    "game.zelda_link_to_the_past": {
+      "aliases": [
+        "Zelda ALTTP"
+      ],
+      "id": "game.zelda_link_to_the_past",
+      "name": "The Legend of Zelda: A Link to the Past",
+      "relationships": {
+        "developed_by": [
+          "developer.nintendo.ead"
+        ],
+        "genre": [
+          "genre.rpg"
+        ],
+        "platform": [
+          "platform.nintendo.snes"
+        ],
+        "published_by": [
+          "publisher.nintendo"
+        ]
+      },
+      "type": "game"
+    },
+    "genre.action_adventure": {
+      "aliases": [
+        "Action-Adventure",
+        "Action Adventure Game"
+      ],
+      "id": "genre.action_adventure",
+      "name": "Action Adventure",
+      "type": "genre"
+    },
+    "genre.platformer": {
+      "id": "genre.platformer",
+      "name": "Platformer",
+      "type": "genre"
+    },
+    "genre.rpg": {
+      "aliases": [
+        "RPG"
+      ],
+      "id": "genre.rpg",
+      "name": "Role Playing Game",
+      "type": "genre"
+    },
+    "manufacturer.atari": {
+      "aliases": [
+        "Atari Inc.",
+        "Atari Corporation"
+      ],
+      "country": "USA",
+      "id": "manufacturer.atari",
+      "metadata": {
+        "notes": ""
+      },
+      "name": "Atari",
+      "relationships": {},
+      "type": "manufacturer"
+    },
+    "manufacturer.nintendo": {
+      "aliases": [
+        "Nintendo Co., Ltd.",
+        "Nintendo Company",
+        "Nintendo Company Ltd.",
+        "Nintendo Co"
+      ],
+      "country": "Japan",
+      "id": "manufacturer.nintendo",
+      "metadata": {
+        "notes": ""
+      },
+      "name": "Nintendo",
+      "relationships": {},
+      "type": "manufacturer"
+    },
+    "manufacturer.sega": {
+      "aliases": [
+        "Sega Enterprises",
+        "Sega Enterprises Ltd.",
+        "Sega Corporation"
+      ],
+      "country": "Japan",
+      "id": "manufacturer.sega",
+      "metadata": {
+        "notes": ""
+      },
+      "name": "Sega",
+      "relationships": {},
+      "type": "manufacturer"
+    },
+    "platform.arcade": {
+      "aliases": [],
+      "category": [
+        "arcade"
+      ],
+      "generation": null,
+      "id": "platform.arcade",
+      "manufacturer": [],
+      "metadata": {
+        "legacy_manufacturer": [
+          "various"
+        ]
+      },
+      "name": "Arcade",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1972,
+      "type": "platform"
+    },
+    "platform.nintendo.nes": {
+      "aliases": [
+        "NES"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "nes"
+      ],
+      "generation": 3,
+      "id": "platform.nintendo.nes",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Nintendo Entertainment System",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1983,
+      "type": "platform"
+    },
+    "platform.nintendo.snes": {
+      "aliases": [
+        "SNES",
+        "Super NES",
+        "Super Famicom",
+        "Nintendo Super Famicom",
+        "SFC"
+      ],
+      "category": [
+        "console"
+      ],
+      "generation": null,
       "id": "platform.nintendo.snes",
-      "type": "platform",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
       "name": "Super Nintendo",
       "relationships": {
         "supports_core": [
           "core.bsnes",
           "core.snes9x"
         ]
-      }
-    }
-  },
-  "edges": {
-    "core.snes9x": {},
-    "core.bsnes": {},
-    "platform.nintendo.snes": {
-      "supports_core": [
-        "core.bsnes",
-        "core.snes9x"
-      ]
+      },
+      "release_year": null,
+      "type": "platform"
+    },
+    "platform.sega.genesis": {
+      "aliases": [],
+      "category": [
+        "console"
+      ],
+      "generation": null,
+      "id": "platform.sega.genesis",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Sega Genesis",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": null,
+      "type": "platform"
+    },
+    "publisher.nintendo": {
+      "aliases": [
+        "Nintendo Co., Ltd."
+      ],
+      "id": "publisher.nintendo",
+      "name": "Nintendo",
+      "type": "publisher"
     }
   }
 }

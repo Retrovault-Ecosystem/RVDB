@@ -1,4 +1,34 @@
-from engine.context import get_engine
+"""
+=========================================================
+RVDB Build Command
+=========================================================
+
+Project:
+    RetroVault Database (RVDB)
+
+File:
+    commands/build.py
+
+Purpose:
+    Builds the canonical Foundation 0.2 RVDB bundle from
+    the active EntityLoader -> RVGraph architecture.
+
+Foundation Release:
+    0.2
+
+Checkpoint:
+    C4 — Final Integration and Release Readiness
+
+=========================================================
+"""
+
+from build.builder import (
+    build_bundle,
+)
+
+from engine.context import (
+    get_engine,
+)
 
 
 def cmd_build():
@@ -9,10 +39,38 @@ def cmd_build():
 
         graph = engine.graph
 
-        print(f"Graph Nodes : {len(graph.nodes)}")
-        print(f"Graph Edges : {len(graph.edges)}")
+        output = build_bundle(
+            graph
+        )
 
-        print("\nBuild complete.")
+        print(
+            f"Graph Nodes : "
+            f"{len(graph.nodes)}"
+        )
 
-    except Exception as e:
-        print("Build error:", e)
+        print(
+            f"Graph Edges : "
+            f"{len(graph.edges)}"
+        )
+
+        print()
+
+        print(
+            f"Bundle      : {output}"
+        )
+
+        print()
+
+        print(
+            "Build complete."
+        )
+
+        return output
+
+    except Exception as error:
+
+        print(
+            f"Build error: {error}"
+        )
+
+        return None
