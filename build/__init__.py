@@ -32,13 +32,22 @@ from build.csv_exporter import (
     export_entities_csv,
 )
 
+from build.manifest import (
+    DEFAULT_MANIFEST_PATH,
+    DEFAULT_MANIFEST_VERSION,
+    build_manifest,
+)
+
 
 __all__ = [
     "DEFAULT_BUNDLE_PATH",
     "DEFAULT_CHECKSUM_PATH",
     "DEFAULT_CSV_PATH",
+    "DEFAULT_MANIFEST_PATH",
+    "DEFAULT_MANIFEST_VERSION",
     "build_bundle",
     "build_checksums",
+    "build_manifest",
     "export_entities_csv",
     "sha256_file",
 ]
