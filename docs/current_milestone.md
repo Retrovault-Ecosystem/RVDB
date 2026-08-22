@@ -642,4 +642,3 @@ Status:
 NOT STARTED
 
 Begin with a read-only Foundation 0.2 integration inventory.
-
