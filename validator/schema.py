@@ -13,16 +13,22 @@ Purpose:
     Schema-driven validation of RVDB entities.
 
     Entity structure is obtained from SchemaLoader.
-    Field-type validation is delegated to TypeRegistry.
+    Ordinary field-type validation is delegated to
+    TypeRegistry.
 
-    This module intentionally contains no hardcoded
-    entity-type list and no hardcoded field definitions.
+    Relationship containers are additionally validated
+    against schema-defined relationship vocabulary and
+    cardinality.
+
+    Relationship target existence and source/target type
+    compatibility remain the responsibility of the
+    relationship-validation layer.
 
 Foundation Release:
     0.2 — Schema Engine
 
 Checkpoint:
-    A — Schema Foundation
+    C3 — Schema-Driven Relationships
 
 =========================================================
 """
@@ -77,6 +83,7 @@ class SchemaValidator:
             entity,
             "data",
         ):
+
             entity = entity.data
 
         errors: list[str] = []
@@ -137,6 +144,12 @@ class SchemaValidator:
         )
 
         self._validate_types(
+            entity,
+            schema,
+            errors,
+        )
+
+        self._validate_relationships(
             entity,
             schema,
             errors,
@@ -208,7 +221,7 @@ class SchemaValidator:
                 )
 
     # =====================================================
-    # Type Validation
+    # Ordinary Field Type Validation
     # =====================================================
 
     def _validate_types(
@@ -306,3 +319,225 @@ class SchemaValidator:
                         f"Expected {expected_type}"
                     )
                 )
+
+    # =====================================================
+    # Relationship Container Validation
+    # =====================================================
+
+    def _validate_relationships(
+        self,
+        entity: dict[str, Any],
+        schema: dict[str, Any],
+        errors: list[str],
+    ) -> None:
+        """
+        Validate the structure of an entity's relationships.
+
+        This layer checks:
+
+        - relationships is a mapping
+        - relationship names are declared by the schema
+        - relationship values match declared cardinality
+        - stored references are non-empty strings
+
+        It does NOT check whether target entities exist.
+        It does NOT check source/target type compatibility.
+
+        Those checks belong to RelationshipValidator and
+        the graph-validation workflow.
+        """
+
+        if "relationships" not in entity:
+            return
+
+        relationships = entity.get(
+            "relationships"
+        )
+
+        # TypeRegistry already reports:
+        #
+        #     relationships: Expected object
+        #
+        # Avoid producing a duplicate error here.
+
+        if not isinstance(
+            relationships,
+            dict,
+        ):
+
+            return
+
+        definitions = schema.get(
+            "relationships",
+            {},
+        )
+
+        if not isinstance(
+            definitions,
+            dict,
+        ):
+
+            return
+
+        for (
+            relationship_name,
+            value,
+        ) in relationships.items():
+
+            definition = definitions.get(
+                relationship_name
+            )
+
+            if definition is None:
+
+                errors.append(
+                    (
+                        "relationships."
+                        f"{relationship_name}: "
+                        "Unknown relationship"
+                    )
+                )
+
+                continue
+
+            if not isinstance(
+                definition,
+                dict,
+            ):
+
+                errors.append(
+                    (
+                        "relationships."
+                        f"{relationship_name}: "
+                        "Invalid relationship schema"
+                    )
+                )
+
+                continue
+
+            expected_type = definition.get(
+                "type"
+            )
+
+            if (
+                expected_type
+                == "entity_reference_list"
+            ):
+
+                self._validate_relationship_list(
+                    relationship_name,
+                    value,
+                    errors,
+                )
+
+                continue
+
+            if (
+                expected_type
+                == "entity_reference"
+            ):
+
+                self._validate_relationship_reference(
+                    relationship_name,
+                    value,
+                    errors,
+                )
+
+                continue
+
+            # Normally unreachable because SchemaLoader
+            # validates relationship schema types first.
+
+            errors.append(
+                (
+                    "relationships."
+                    f"{relationship_name}: "
+                    "Unsupported relationship type "
+                    f"'{expected_type}'"
+                )
+            )
+
+    # =====================================================
+    # Relationship List
+    # =====================================================
+
+    def _validate_relationship_list(
+        self,
+        relationship_name: str,
+        value: Any,
+        errors: list[str],
+    ) -> None:
+
+        prefix = (
+            "relationships."
+            f"{relationship_name}"
+        )
+
+        if not isinstance(
+            value,
+            list,
+        ):
+
+            errors.append(
+                (
+                    f"{prefix}: "
+                    "Expected entity_reference_list"
+                )
+            )
+
+            return
+
+        for (
+            index,
+            reference,
+        ) in enumerate(
+            value
+        ):
+
+            if (
+                not isinstance(
+                    reference,
+                    str,
+                )
+                or not reference.strip()
+            ):
+
+                errors.append(
+                    (
+                        f"{prefix}[{index}]: "
+                        "Expected non-empty "
+                        "entity reference string"
+                    )
+                )
+
+    # =====================================================
+    # Single Relationship Reference
+    # =====================================================
+
+    def _validate_relationship_reference(
+        self,
+        relationship_name: str,
+        value: Any,
+        errors: list[str],
+    ) -> None:
+
+        prefix = (
+            "relationships."
+            f"{relationship_name}"
+        )
+
+        if (
+            not isinstance(
+                value,
+                str,
+            )
+            or not value.strip()
+        ):
+
+            errors.append(
+                (
+                    f"{prefix}: "
+                    "Expected non-empty "
+                    "entity reference string"
+                )
+            )
