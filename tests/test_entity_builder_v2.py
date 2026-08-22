@@ -13,7 +13,7 @@ Foundation Release:
     0.2
 
 Checkpoint:
-    C2 — Generic Entity Builder
+    C3 — Schema-Driven Relationships
 
 =========================================================
 """
@@ -111,8 +111,10 @@ def test_build_manufacturer(
         == "Japan"
     )
 
+    assert entity["relationships"] == {}
 
-def test_build_game(
+
+def test_build_game_with_empty_relationships(
     monkeypatch,
 ):
 
@@ -121,6 +123,11 @@ def test_build_game(
         [
             "Example Game",
             "1994",
+            "",
+            "",
+            "",
+            "",
+            "",
             "y",
         ],
     )
@@ -145,27 +152,74 @@ def test_build_game(
 
     assert entity[
         "relationships"
-    ][
+    ] == {
+        "developed_by": [],
+        "published_by": [],
+        "platform": [],
+        "genre": [],
+        "core": [],
+    }
+
+
+def test_build_game_with_relationships(
+    monkeypatch,
+):
+
+    _mock_inputs(
+        monkeypatch,
+        [
+            "Relationship Test Game",
+            "1994",
+            "developer.nintendo.ead",
+            "publisher.nintendo",
+            "platform.nintendo.snes",
+            "genre.platformer",
+            "core.snes9x",
+            "y",
+        ],
+    )
+
+    builder = EntityBuilder()
+
+    entity = builder.build(
+        "game"
+    )
+
+    assert entity is not None
+
+    relationships = entity[
+        "relationships"
+    ]
+
+    assert relationships[
         "developed_by"
-    ] == []
+    ] == [
+        "developer.nintendo.ead"
+    ]
 
-    assert entity[
-        "relationships"
-    ][
+    assert relationships[
         "published_by"
-    ] == []
+    ] == [
+        "publisher.nintendo"
+    ]
 
-    assert entity[
-        "relationships"
-    ][
+    assert relationships[
         "platform"
-    ] == []
+    ] == [
+        "platform.nintendo.snes"
+    ]
 
-    assert entity[
-        "relationships"
-    ][
+    assert relationships[
         "genre"
-    ] == []
+    ] == [
+        "genre.platformer"
+    ]
+
+    assert relationships[
+        "core"
+    ] == [
+        "core.snes9x"
+    ]
 
 
 def test_build_platform(
@@ -182,6 +236,7 @@ def test_build_platform(
             "console",
             "cartridge",
             "rom, bin",
+            "",
             "y",
         ],
     )
@@ -236,9 +291,45 @@ def test_build_platform(
 
     assert entity[
         "relationships"
+    ] == {
+        "supports_core": [],
+    }
+
+
+def test_build_platform_relationship(
+    monkeypatch,
+):
+
+    _mock_inputs(
+        monkeypatch,
+        [
+            "Core Test Console",
+            "manufacturer.nintendo",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "core.snes9x",
+            "y",
+        ],
+    )
+
+    builder = EntityBuilder()
+
+    entity = builder.build(
+        "platform"
+    )
+
+    assert entity is not None
+
+    assert entity[
+        "relationships"
     ][
         "supports_core"
-    ] == []
+    ] == [
+        "core.snes9x"
+    ]
 
 
 def test_build_platform_accepts_canonical_reference(
@@ -250,6 +341,7 @@ def test_build_platform_accepts_canonical_reference(
         [
             "Canonical Test",
             "manufacturer.sega",
+            "",
             "",
             "",
             "",
@@ -272,6 +364,36 @@ def test_build_platform_accepts_canonical_reference(
     ] == [
         "manufacturer.sega"
     ]
+
+
+def test_build_core_relationship(
+    monkeypatch,
+):
+
+    _mock_inputs(
+        monkeypatch,
+        [
+            "Example Core",
+            "platform.nintendo.snes",
+            "y",
+        ],
+    )
+
+    builder = EntityBuilder()
+
+    entity = builder.build(
+        "core"
+    )
+
+    assert entity is not None
+
+    assert entity[
+        "relationships"
+    ] == {
+        "supports": [
+            "platform.nintendo.snes"
+        ],
+    }
 
 
 def test_cancel_creation(

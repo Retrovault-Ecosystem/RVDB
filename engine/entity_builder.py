@@ -12,22 +12,17 @@ File:
 Purpose:
     Builds RVDB entities interactively from YAML schemas.
 
-    The builder no longer contains entity-specific methods
-    such as build_platform(), build_game(), etc.
+    Both ordinary entity fields and relationships are
+    driven by SchemaLoader.
 
-    Entity behavior is driven by:
-
-        SchemaLoader
-        EntityFactory
-        IDGenerator
-        RelationshipLookup
-        EntityReferenceValidator
+    Templates provide structural/default data only.
+    Relationship vocabulary is defined by schemas.
 
 Foundation Release:
     0.2
 
 Checkpoint:
-    C2 — Generic Entity Builder
+    C3 — Schema-Driven Relationships
 
 =========================================================
 """
@@ -125,6 +120,11 @@ class EntityBuilder:
             schema,
         )
 
+        self._populate_schema_relationships(
+            entity,
+            schema,
+        )
+
         if not self.preview(
             entity
         ):
@@ -206,7 +206,7 @@ class EntityBuilder:
         schema: dict[str, Any],
     ) -> None:
         """
-        Prompt for fields defined by the entity schema.
+        Prompt for ordinary fields defined by the schema.
         """
 
         fields = schema.get(
@@ -264,6 +264,68 @@ class EntityBuilder:
 
             entity[
                 field_name
+            ] = value
+
+    # =====================================================
+    # Schema Relationships
+    # =====================================================
+
+    def _populate_schema_relationships(
+        self,
+        entity: dict[str, Any],
+        schema: dict[str, Any],
+    ) -> None:
+        """
+        Populate entity relationships directly from schema
+        relationship definitions.
+
+        Template relationship placeholders are not used as
+        the source of relationship vocabulary.
+        """
+
+        definitions = schema.get(
+            "relationships",
+            {},
+        )
+
+        entity[
+            "relationships"
+        ] = {}
+
+        if not isinstance(
+            definitions,
+            dict,
+        ):
+
+            return
+
+        relationships = entity[
+            "relationships"
+        ]
+
+        for (
+            relationship_name,
+            relationship_schema,
+        ) in definitions.items():
+
+            if not isinstance(
+                relationship_schema,
+                dict,
+            ):
+
+                continue
+
+            value = self._prompt_field(
+                relationship_name,
+                relationship_schema,
+                required=False,
+            )
+
+            if value is _SKIP_FIELD:
+                continue
+
+            relationships[
+                relationship_name
             ] = value
 
     # =====================================================
@@ -797,8 +859,11 @@ class EntityBuilder:
         entity: dict[str, Any],
     ) -> None:
         """
-        Remove example placeholder values from fields that
-        should begin empty in newly created entities.
+        Remove example placeholder values from template
+        fields that should begin empty.
+
+        Relationship structure is reconstructed later
+        directly from the schema.
         """
 
         if isinstance(
@@ -809,47 +874,6 @@ class EntityBuilder:
             entity[
                 "aliases"
             ] = []
-
-        relationships = entity.get(
-            "relationships"
-        )
-
-        if isinstance(
-            relationships,
-            dict,
-        ):
-
-            self._clear_relationship_values(
-                relationships
-            )
-
-    def _clear_relationship_values(
-        self,
-        relationships: dict[str, Any],
-    ) -> None:
-
-        for (
-            key,
-            value,
-        ) in relationships.items():
-
-            if isinstance(
-                value,
-                list,
-            ):
-
-                relationships[
-                    key
-                ] = []
-
-            elif isinstance(
-                value,
-                dict,
-            ):
-
-                self._clear_relationship_values(
-                    value
-                )
 
     # =====================================================
     # Preview / Confirmation
