@@ -12,8 +12,18 @@ File:
 Purpose:
     Loads, merges and caches RVDB schemas.
 
+    Resolved schemas contain:
+
+        required
+        optional
+        fields
+        relationships
+
 Foundation Release:
     0.2 — Schema Engine
+
+Checkpoint:
+    C3 — Schema-Driven Relationships
 
 =========================================================
 """
@@ -31,8 +41,7 @@ from engine.paths import SCHEMA_ROOT
 
 class SchemaNotFoundError(Exception):
     """
-    Raised when an entity schema
-    cannot be located.
+    Raised when an entity schema cannot be located.
     """
 
     pass
@@ -146,6 +155,25 @@ class SchemaLoader:
             ]
         )
 
+    def get_relationships(
+        self,
+        entity_type,
+    ) -> dict[str, Any]:
+        """
+        Return relationship definitions for one entity type.
+        """
+
+        schema = self.get_schema(
+            entity_type
+        )
+
+        return deepcopy(
+            schema.get(
+                "relationships",
+                {},
+            )
+        )
+
     # =====================================================
     # Internal
     # =====================================================
@@ -190,6 +218,7 @@ class SchemaLoader:
             "required": [],
             "optional": [],
             "fields": {},
+            "relationships": {},
         }
 
         resolved["required"] = list(
@@ -244,6 +273,22 @@ class SchemaLoader:
 
             entity.get(
                 "fields",
+                {},
+            )
+        )
+
+        resolved["relationships"].update(
+
+            common.get(
+                "relationships",
+                {},
+            )
+        )
+
+        resolved["relationships"].update(
+
+            entity.get(
+                "relationships",
                 {},
             )
         )

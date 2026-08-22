@@ -38,3 +38,10 @@ fields:
   extensions:
     type: list
     description: Common ROM or software extensions
+
+relationships:
+
+  supports_core:
+    type: entity_reference_list
+    entity_type: core
+    description: Emulator cores supporting this platform

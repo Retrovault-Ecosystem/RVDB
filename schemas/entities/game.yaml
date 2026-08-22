@@ -12,3 +12,30 @@ fields:
   release_year:
     type: integer_or_null
     description: Original release year
+
+relationships:
+
+  developed_by:
+    type: entity_reference_list
+    entity_type: developer
+    description: Game developers
+
+  published_by:
+    type: entity_reference_list
+    entity_type: publisher
+    description: Game publishers
+
+  platform:
+    type: entity_reference_list
+    entity_type: platform
+    description: Platforms on which the game exists
+
+  genre:
+    type: entity_reference_list
+    entity_type: genre
+    description: Game genres
+
+  core:
+    type: entity_reference_list
+    entity_type: core
+    description: Emulator cores associated with the game

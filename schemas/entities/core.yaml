@@ -7,3 +7,10 @@ required: []
 optional: []
 
 fields: {}
+
+relationships:
+
+  supports:
+    type: entity_reference_list
+    entity_type: platform
+    description: Platforms supported by this core
