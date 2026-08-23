@@ -1,6 +1,6 @@
 # RVDB Current Milestone
 
-_Last Updated: 2026-08-22_
+_Last Updated: 2026-08-23_
 
 ---
 
@@ -997,15 +997,85 @@ Foundation 0.2.1 Checkpoint D5: migrate manifest builder
 
 ---
 
+# Foundation 0.2.1 Checkpoint D6 — Legacy Runtime Retirement
+
+✔ COMPLETE THROUGH D6-C4C
+
+Checkpoint D6 completed the controlled retirement of the historical
+inner `rvdb/` runtime after useful functionality was migrated or
+confirmed superseded by the active Foundation architecture.
+
+The retirement was performed incrementally through dependency-audited,
+tested checkpoints rather than as a wholesale deletion.
+
+Completed D6 work includes:
+
+- retirement of superseded legacy build-output modules
+- retirement of the historical search-index implementation
+- retirement of superseded legacy query functionality
+- retirement of the remaining historical entity object model
+- retirement of the legacy loader
+- retirement of the legacy registry
+- retirement of the legacy linker
+- retirement of the legacy relationship implementation
+- retirement of the legacy resolver
+- verification that no active Foundation imports depend on the retired
+  runtime
+
+The active Foundation runtime is now authoritative.
+
+Active runtime components include:
+
+- cli.py
+- engine/loader.py
+- engine/graph.py
+- engine/query.py
+- engine/resolver.py
+- engine/context.py
+- services/registry.py
+- validator/schema.py
+- validator/relationships.py
+- build/builder.py
+- build/checksum.py
+- build/csv_exporter.py
+- build/manifest.py
+
+D6-C4C verification baseline:
+
+- active Foundation compilation: PASS
+- CLI help: PASS
+- query smoke test: PASS
+- search smoke test: PASS
+- show smoke test: PASS
+- related smoke test: PASS
+- automated regression suite: 107 passed
+- production entities checked: 19
+- production entities valid: 19
+- schema errors: 0
+- relationship errors: 0
+- canonical graph nodes: 19
+- canonical graph edge entries: 19
+- canonical bundle build: PASS
+- `git diff --check`: PASS
+
+The historical inner `rvdb/` Python runtime has therefore completed
+its controlled retirement from the Foundation architecture.
+
+Historical `dist/` output files remain non-canonical artifacts and
+must continue to be handled separately from the tracked canonical
+`rvdb.bundle.json`.
+
+---
+
 # Current Foundation 0.2.1 State
 
 Foundation architecture:
 
 STABLE
 
-Legacy cleanup:
+Legacy runtime retirement:
 
-IN PROGRESS
+COMPLETE
 
 Automated tests:
 
@@ -1023,30 +1093,13 @@ Canonical bundle build:
 
 PASS
 
-Current active Foundation build modules:
-
-- build/builder.py
-- build/checksum.py
-- build/csv_exporter.py
-- build/manifest.py
-
-The legacy inner `rvdb/` package still exists and must not be removed
-wholesale.
-
-Useful legacy functionality has been migrated incrementally before
-retirement.
-
-Historical `dist/` output files are currently untracked and are not
-canonical Foundation source data.
-
-The tracked `rvdb.bundle.json` is the canonical Foundation bundle and
-must be handled separately from historical `dist/` cleanup.
+The active Foundation implementation is the runtime source of truth.
 
 ---
 
 # NEXT CHECKPOINT
 
-## Checkpoint D6 — Retire Superseded Legacy Build Modules
+## Post-D6 Foundation 0.2.1 Cleanup Audit
 
 Status:
 
@@ -1054,59 +1107,24 @@ NEXT
 
 Goal:
 
-Perform one final dependency audit of the legacy build subsystem and
-retire only the modules whose functionality is now fully superseded
-by the active Foundation architecture.
+Continue the remaining Foundation 0.2.1 cleanup outside the retired
+legacy runtime while preserving the verified Foundation baseline.
 
-Expected retirement candidates include:
+Expected work includes:
 
-- rvdb/build/json_exporter.py
-- rvdb/build/checksum.py
-- rvdb/build/csv_exporter.py
-- rvdb/build/manifest.py
-- rvdb/build/indexer.py
-- rvdb/indexes.py
-
-Before deleting anything:
-
-1. inspect all remaining imports
-2. inspect tests
-3. inspect CLI dependencies
-4. inspect legacy builder dependencies
-5. confirm Foundation replacements
-6. run Git status
-7. remove only explicitly approved files
-8. run the complete regression suite
-9. run production validation
-10. run the canonical build
-11. run `git diff --check`
-12. review the staged deletion set before committing
-
-The remaining inner `rvdb/` package must continue to be handled
-methodically after D6.
-
----
-
-# Remaining Foundation 0.2.1 Cleanup Direction
-
-After D6, expected work includes:
-
-- remaining inner `rvdb/` dependency classification
-- retirement or migration of legacy loader/query/registry/linker code
 - cleanup of excluded historical tests
 - review of `engine/migration.py`
 - historical script and artifact cleanup
 - packaging/version metadata
 - fresh-clone reproducibility testing
 - final regression and validation gate
-- milestone documentation
+- final Foundation 0.2.1 milestone documentation
 - Foundation 0.2.1 release checkpoint/tag
 
-Exact checkpoint numbering may change if an audit uncovers a
-dependency that should be isolated into its own checkpoint.
+All remaining cleanup must continue to be dependency-checked, tested,
+and isolated from architectural feature work.
 
-Safety and correctness take priority over minimizing checkpoint
-count.
+Safety and correctness take priority over minimizing checkpoint count.
 
 ---
 
@@ -1173,17 +1191,17 @@ Expected restart point:
 
 Foundation 0.2.1 — Legacy Cleanup
 
-Checkpoint D6 — Retire Superseded Legacy Build Modules
+Post-D6 Foundation 0.2.1 Cleanup Audit
 
 Status:
 
 NEXT
 
-Begin D6 with a read-only dependency and import audit.
+The historical inner `rvdb/` Python runtime has completed controlled
+retirement through D6-C4C.
 
-Do not immediately delete the listed retirement candidates.
-
-Continue methodically with small, tested, reversible changes.
+Continue with the remaining non-runtime cleanup work methodically,
+using small, tested, reversible checkpoints.
 
 ---
 
