@@ -1142,7 +1142,7 @@ NEXT
 
 Remaining release-hardening work includes:
 
-- define `pyproject.toml` release/package metadata
+- conventional installed-package metadata is deferred beyond Foundation 0.2.1
 - finalize the project license decision and `LICENSE`
 - update `docs/changelog.md` for Foundation 0.2.1
 - perform the final Foundation 0.2.1 regression/validation/build gate
@@ -1231,7 +1231,7 @@ README creation, and clean-clone reproducibility verification are
 complete.
 
 Continue with the remaining release-hardening work methodically:
-`pyproject.toml`, license decision, changelog update, final release gate,
+license decision, final release gate,
 milestone completion, and the Foundation 0.2.1 release tag.
 
 ---
