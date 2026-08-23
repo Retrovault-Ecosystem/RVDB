@@ -1143,8 +1143,7 @@ NEXT
 Remaining release-hardening work includes:
 
 - conventional installed-package metadata is deferred beyond Foundation 0.2.1
-- finalize the project license decision and `LICENSE`
-- update `docs/changelog.md` for Foundation 0.2.1
+- Foundation 0.2.1 will ship without an explicit open-source license
 - perform the final Foundation 0.2.1 regression/validation/build gate
 - finalize milestone release status
 - create the Foundation 0.2.1 release tag
@@ -1231,7 +1230,7 @@ README creation, and clean-clone reproducibility verification are
 complete.
 
 Continue with the remaining release-hardening work methodically:
-license decision, final release gate,
+final release gate,
 milestone completion, and the Foundation 0.2.1 release tag.
 
 ---

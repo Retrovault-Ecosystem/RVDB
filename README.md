@@ -269,8 +269,9 @@ documentation and metadata.
 
 ## License
 
-License metadata has not yet been finalized for the Foundation 0.2.1
-release.
+Foundation 0.2.1 is currently distributed without an explicit open-source
+license.
 
-See `LICENSE` once the project's license decision has been formally
-recorded.
+The repository intentionally does not include a `LICENSE` file at this
+checkpoint. A future release may add a license after the project's
+licensing policy is formally decided.
