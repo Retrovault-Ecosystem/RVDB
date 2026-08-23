@@ -37,6 +37,5 @@ collect_ignore = [
 
     "test_builder.py",
 
-    "test_validator.py",
 
 ]
