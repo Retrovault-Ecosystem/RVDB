@@ -10,7 +10,7 @@ RetroVault Database (RVDB)
 
 Repository Branch:
 
-feature/relationship-resolver
+develop
 
 Project Status:
 
