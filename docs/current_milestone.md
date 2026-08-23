@@ -741,7 +741,7 @@ consumer application.
 
 Status:
 
-RELEASE HARDENING
+COMPLETE
 
 Primary goal:
 
@@ -1134,19 +1134,27 @@ Verified Foundation baseline:
 - canonical branch: `develop`
 - clean-clone reproducibility: PASS
 
-## Remaining Foundation 0.2.1 Release Work
+## Foundation 0.2.1 Release Closure
 
 Status:
 
-NEXT
+RELEASE READY
 
-Remaining release-hardening work includes:
+Completed release-hardening decisions and gates:
 
 - conventional installed-package metadata is deferred beyond Foundation 0.2.1
-- Foundation 0.2.1 will ship without an explicit open-source license
-- perform the final Foundation 0.2.1 regression/validation/build gate
-- finalize milestone release status
-- create the Foundation 0.2.1 release tag
+- Foundation 0.2.1 ships without an explicit open-source license
+- final compile gate: PASS
+- final regression suite: 110 passing
+- final production validation: 19 valid / 0 schema errors / 0 relationship errors
+- final canonical build: 19 nodes / 19 edge entries
+- final build cleanliness: PASS
+- canonical branch: `develop`
+- local/remote synchronization: PASS
+
+Remaining release operation:
+
+- create and push the `foundation-0.2.1` release tag
 
 Architectural feature work and large-scale data expansion remain deferred
 until the Foundation 0.2.1 release-hardening sequence is complete.
@@ -1217,21 +1225,18 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Foundation 0.2.1 — Release Hardening
-
-Remaining Foundation 0.2.1 Release Work
+Foundation 0.2.1 — Release Tag
 
 Status:
 
 NEXT
 
-Post-D6 cleanup, branch integration, dependency metadata, canonical
-README creation, and clean-clone reproducibility verification are
-complete.
+Foundation 0.2.1 implementation, cleanup, documentation, release metadata
+decisions, clean-clone reproducibility verification, and final release
+gates are complete.
 
-Continue with the remaining release-hardening work methodically:
-final release gate,
-milestone completion, and the Foundation 0.2.1 release tag.
+The next operation is to create and push the `foundation-0.2.1` tag from
+the finalized `develop` HEAD.
 
 ---
 
