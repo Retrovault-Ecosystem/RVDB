@@ -741,7 +741,7 @@ consumer application.
 
 Status:
 
-IN PROGRESS
+RELEASE HARDENING
 
 Primary goal:
 
@@ -1097,34 +1097,63 @@ The active Foundation implementation is the runtime source of truth.
 
 ---
 
-# NEXT CHECKPOINT
+# CURRENT FOUNDATION 0.2.1 RELEASE-HARDENING STATE
 
-## Post-D6 Foundation 0.2.1 Cleanup Audit
+## Post-D6 Cleanup and Reproducibility
+
+Status:
+
+COMPLETE
+
+Completed work includes:
+
+- retired obsolete historical tests
+- retired obsolete ID migration scaffolding
+- retired historical Phase-D scaffolding
+- corrected the canonical runtime version to 0.2.1
+- retired empty root skeleton files
+- normalized the `services` package
+- defined the runtime dependency contract as `PyYAML>=6.0`
+- fast-forwarded `develop` to the completed Foundation branch
+- verified a true clean clone from the default GitHub branch
+- verified isolated `.venv` creation from a clean clone
+- verified runtime installation from `requirements.txt`
+- verified pytest remains a development-only dependency
+- added and verified the canonical project README
+
+Verified Foundation baseline:
+
+- RVDB version: 0.2.1
+- production entities: 19
+- valid entities: 19
+- schema errors: 0
+- relationship errors: 0
+- graph nodes: 19
+- graph edge entries: 19
+- automated regression tests: 110 passing
+- canonical branch: `develop`
+- clean-clone reproducibility: PASS
+
+## Remaining Foundation 0.2.1 Release Work
 
 Status:
 
 NEXT
 
-Goal:
+Remaining release-hardening work includes:
 
-Continue the remaining Foundation 0.2.1 cleanup outside the retired
-legacy runtime while preserving the verified Foundation baseline.
+- define `pyproject.toml` release/package metadata
+- finalize the project license decision and `LICENSE`
+- update `docs/changelog.md` for Foundation 0.2.1
+- perform the final Foundation 0.2.1 regression/validation/build gate
+- finalize milestone release status
+- create the Foundation 0.2.1 release tag
 
-Expected work includes:
+Architectural feature work and large-scale data expansion remain deferred
+until the Foundation 0.2.1 release-hardening sequence is complete.
 
-- cleanup of excluded historical tests
-- review of `engine/migration.py`
-- historical script and artifact cleanup
-- packaging/version metadata
-- fresh-clone reproducibility testing
-- final regression and validation gate
-- final Foundation 0.2.1 milestone documentation
-- Foundation 0.2.1 release checkpoint/tag
-
-All remaining cleanup must continue to be dependency-checked, tested,
-and isolated from architectural feature work.
-
-Safety and correctness take priority over minimizing checkpoint count.
+Safety, reproducibility, and independently verified checkpoints continue
+to take priority over minimizing checkpoint count.
 
 ---
 
@@ -1189,19 +1218,21 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Foundation 0.2.1 — Legacy Cleanup
+Foundation 0.2.1 — Release Hardening
 
-Post-D6 Foundation 0.2.1 Cleanup Audit
+Remaining Foundation 0.2.1 Release Work
 
 Status:
 
 NEXT
 
-The historical inner `rvdb/` Python runtime has completed controlled
-retirement through D6-C4C.
+Post-D6 cleanup, branch integration, dependency metadata, canonical
+README creation, and clean-clone reproducibility verification are
+complete.
 
-Continue with the remaining non-runtime cleanup work methodically,
-using small, tested, reversible checkpoints.
+Continue with the remaining release-hardening work methodically:
+`pyproject.toml`, license decision, changelog update, final release gate,
+milestone completion, and the Foundation 0.2.1 release tag.
 
 ---
 
