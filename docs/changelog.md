@@ -1,5 +1,58 @@
 # RVDB Changelog
 
+## Foundation 0.2.1 — Release Hardening
+
+### Legacy Cleanup
+
+- Removed obsolete backup artifacts.
+- Removed superseded validator modules and obsolete validator tests.
+- Untracked the accidentally committed root virtual environment.
+- Migrated the active build pipeline away from retired legacy runtime code.
+- Retired unused legacy exporters, build modules, query components, loader tests,
+  and the historical inner `rvdb/` runtime.
+- Retired obsolete ID migration scaffolding.
+- Retired historical Phase-D scaffolding.
+- Removed empty root skeleton files.
+- Normalized the `services` package.
+
+### Runtime and Release Metadata
+
+- Corrected the canonical runtime version to `0.2.1`.
+- Defined the runtime dependency contract as `PyYAML>=6.0`.
+- Added the canonical project README.
+- Verified `pytest` remains a development-only dependency.
+
+### Reproducibility
+
+- Fast-forwarded `develop` to the completed Foundation implementation.
+- Verified a true clean clone from the default GitHub branch.
+- Verified isolated `.venv` creation from a clean clone.
+- Verified runtime installation from `requirements.txt`.
+- Verified the canonical build does not dirty the repository.
+
+### Verified Foundation Baseline
+
+RVDB version         : 0.2.1
+Entities checked     : 19
+Valid entities       : 19
+Schema Errors        : 0
+Relationship Errors  : 0
+Graph Nodes          : 19
+Graph Edge Entries   : 19
+Regression Tests     : 110 passing
+Clean Clone          : PASS
+Canonical Branch     : develop
+
+### Status
+
+Foundation 0.2.1 is in final release hardening.
+
+Architectural feature work and large-scale database expansion remain deferred
+until the Foundation 0.2.1 release-hardening sequence is complete.
+
+---
+
+
 ## 2026-07-15
 
 ### Entity Architecture Stabilization
