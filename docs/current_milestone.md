@@ -1138,7 +1138,7 @@ Verified Foundation baseline:
 
 Status:
 
-RELEASE READY
+RELEASED
 
 Completed release-hardening decisions and gates:
 
@@ -1152,9 +1152,10 @@ Completed release-hardening decisions and gates:
 - canonical branch: `develop`
 - local/remote synchronization: PASS
 
-Remaining release operation:
+Release operation completed:
 
-- create and push the `foundation-0.2.1` release tag
+- `foundation-0.2.1` annotated release tag created and pushed
+- release tag points to the finalized Foundation 0.2.1 release commit
 
 Architectural feature work and large-scale data expansion remain deferred
 until the Foundation 0.2.1 release-hardening sequence is complete.
@@ -1225,18 +1226,18 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Foundation 0.2.1 — Release Tag
+Post-Foundation 0.2.1 — Next Milestone Planning
 
 Status:
 
 NEXT
 
-Foundation 0.2.1 implementation, cleanup, documentation, release metadata
-decisions, clean-clone reproducibility verification, and final release
-gates are complete.
+Foundation 0.2.1 is complete, released, tagged, pushed, tested, validated,
+and reproducible from a clean clone.
 
-The next operation is to create and push the `foundation-0.2.1` tag from
-the finalized `develop` HEAD.
+Begin the next development session by reviewing the roadmap and selecting
+the next RVDB milestone before starting new architectural or data-expansion
+work.
 
 ---
 
