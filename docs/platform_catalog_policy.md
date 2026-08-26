@@ -356,3 +356,72 @@ technical, compatibility, or emulation-platform distinction justifies
 the boundary.
 
 Large-scale population will proceed through small controlled batches.
+
+---
+
+# 15. Multi-Word System IDs and Filenames
+
+Platform system names containing multiple words may use multiple canonical
+namespace segments.
+
+Example:
+
+`Game Boy`
+
+may be represented canonically as:
+
+`platform.nintendo.game.boy`
+
+A longer system name may extend the namespace:
+
+`Game Boy Color`
+
+may be represented as:
+
+`platform.nintendo.game.boy.color`
+
+The manufacturer namespace remains the first platform-specific segment.
+
+Filesystem names must remain readable and deterministic.
+
+For a multi-segment system namespace, the platform filename should join
+the system namespace segments using underscores.
+
+Examples:
+
+Canonical ID:
+
+`platform.nintendo.game.boy`
+
+Canonical path:
+
+`data/platforms/nintendo/game_boy.yaml`
+
+Canonical ID:
+
+`platform.nintendo.game.boy.color`
+
+Canonical path:
+
+`data/platforms/nintendo/game_boy_color.yaml`
+
+Canonical ID:
+
+`platform.nintendo.n64`
+
+Canonical path:
+
+`data/platforms/nintendo/n64.yaml`
+
+Existing stable IDs such as:
+
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.sega.genesis`
+
+remain unchanged.
+
+Canonical IDs must not be renamed merely to make filenames shorter.
+
+The canonical entity ID remains authoritative; the filename is an
+organizational representation of the system namespace.
