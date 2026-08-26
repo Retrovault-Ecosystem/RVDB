@@ -1750,6 +1750,90 @@ Expected restart point:
 P2A11 — Select and Research Platform Population Batch 10
 
 
+# NEXT CHECKPOINT
+
+## P2A21 — Select and Research Platform Population Batch 12
+
+Status:
+
+NEXT
+
+---
+
+# Batch 11 Completion Baseline
+
+The Sega SG-1000 Batch 11 population was completed and committed.
+
+Commit:
+
+`499850a` — `data: add Sega SG-1000 platform batch 11`
+
+Canonical entity:
+
+`platform.sega.sg1000`
+
+Canonical name:
+
+`Sega SG-1000`
+
+Production baseline:
+
+- entities: 40
+- platforms: 25
+- graph nodes: 40
+- graph edges: 40
+- regression tests: 145 passing
+- validation: 40 valid
+- schema errors: 0
+- relationship errors: 0
+
+The Batch 11 production record is:
+
+`data/platforms/sega/sg1000.yaml`
+
+The canonical bundle is:
+
+`rvdb.bundle.json`
+
+Batch 11 is complete.
+
+---
+
+# Current Objective
+
+Select and research the next small, controlled platform population batch
+after completion of Sega SG-1000 Batch 11.
+
+Current candidate direction:
+
+- Sega SC-3000 after explicit canonical entity-boundary review
+
+Additional candidate directions may be considered only after auditing the
+remaining platform catalog and existing manufacturer coverage.
+
+---
+
+# Required Work
+
+1. audit remaining manufacturer/platform candidates
+2. select a coherent Batch 12 scope
+3. verify manufacturer coverage
+4. determine canonical entity boundaries
+5. determine canonical IDs and filesystem paths
+6. research canonical names and justified aliases
+7. research release years
+8. determine valid platform categories
+9. determine controlled media values
+10. determine defensible software-image extensions
+11. identify any boundary decisions requiring explicit deferral
+12. explicitly defer unsupported metadata
+13. write and review the Batch 12 planning document
+14. commit the planning document before production creation
+
+No Batch 12 production YAML should be created until the Batch 12 planning
+checkpoint is complete.
+
+
 ## P2A2 — Controlled Platform Catalog Foundation
 
 Status:
