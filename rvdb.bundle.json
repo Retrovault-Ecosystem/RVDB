@@ -71,6 +71,9 @@
     "platform.atari.7800": {
       "supports_core": []
     },
+    "platform.atari.8.bit.computers": {
+      "supports_core": []
+    },
     "platform.atari.jaguar": {
       "supports_core": []
     },
@@ -431,6 +434,37 @@
         "supports_core": []
       },
       "release_year": 1986,
+      "type": "platform"
+    },
+    "platform.atari.8.bit.computers": {
+      "aliases": [],
+      "category": [
+        "computer"
+      ],
+      "extensions": [
+        "atr",
+        "xfd",
+        "atx",
+        "cas"
+      ],
+      "id": "platform.atari.8.bit.computers",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge",
+        "floppy",
+        "cassette"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari 8-bit Computers",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1979,
       "type": "platform"
     },
     "platform.atari.jaguar": {

@@ -1,0 +1,35 @@
+id: platform.atari.8.bit.computers
+type: platform
+
+name: Atari 8-bit Computers
+
+aliases: []
+
+manufacturer:
+  - manufacturer.atari
+
+release_year: 1979
+
+category:
+  - computer
+
+media:
+  - cartridge
+  - floppy
+  - cassette
+
+extensions:
+  - atr
+  - xfd
+  - atx
+  - cas
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
