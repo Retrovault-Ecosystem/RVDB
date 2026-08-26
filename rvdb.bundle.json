@@ -62,6 +62,15 @@
     "platform.arcade": {
       "supports_core": []
     },
+    "platform.atari.2600": {
+      "supports_core": []
+    },
+    "platform.atari.5200": {
+      "supports_core": []
+    },
+    "platform.atari.7800": {
+      "supports_core": []
+    },
     "platform.nintendo.game.boy": {
       "supports_core": []
     },
@@ -311,6 +320,90 @@
         "supports_core": []
       },
       "release_year": 1972,
+      "type": "platform"
+    },
+    "platform.atari.2600": {
+      "aliases": [
+        "Atari 2600 VCS"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "a26"
+      ],
+      "id": "platform.atari.2600",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari 2600",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1977,
+      "type": "platform"
+    },
+    "platform.atari.5200": {
+      "aliases": [
+        "Atari 5200 SuperSystem"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "a52"
+      ],
+      "id": "platform.atari.5200",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari 5200",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1982,
+      "type": "platform"
+    },
+    "platform.atari.7800": {
+      "aliases": [
+        "Atari 7800 ProSystem"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "a78"
+      ],
+      "id": "platform.atari.7800",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari 7800",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1986,
       "type": "platform"
     },
     "platform.nintendo.game.boy": {
