@@ -1,0 +1,31 @@
+id: platform.nintendo.ds
+type: platform
+
+name: Nintendo DS
+
+aliases:
+  - NDS
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 2004
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - nds
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

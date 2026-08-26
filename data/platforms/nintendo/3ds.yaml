@@ -1,0 +1,31 @@
+id: platform.nintendo.3ds
+type: platform
+
+name: Nintendo 3DS
+
+aliases:
+  - 3DS
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 2011
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - 3ds
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

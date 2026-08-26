@@ -71,7 +71,16 @@
     "platform.atari.7800": {
       "supports_core": []
     },
+    "platform.nintendo.3ds": {
+      "supports_core": []
+    },
+    "platform.nintendo.ds": {
+      "supports_core": []
+    },
     "platform.nintendo.game.boy": {
+      "supports_core": []
+    },
+    "platform.nintendo.game.boy.advance": {
       "supports_core": []
     },
     "platform.nintendo.game.boy.color": {
@@ -406,6 +415,62 @@
       "release_year": 1986,
       "type": "platform"
     },
+    "platform.nintendo.3ds": {
+      "aliases": [
+        "3DS"
+      ],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "3ds"
+      ],
+      "id": "platform.nintendo.3ds",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Nintendo 3DS",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2011,
+      "type": "platform"
+    },
+    "platform.nintendo.ds": {
+      "aliases": [
+        "NDS"
+      ],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "nds"
+      ],
+      "id": "platform.nintendo.ds",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Nintendo DS",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2004,
+      "type": "platform"
+    },
     "platform.nintendo.game.boy": {
       "aliases": [],
       "category": [
@@ -430,6 +495,34 @@
         "supports_core": []
       },
       "release_year": 1989,
+      "type": "platform"
+    },
+    "platform.nintendo.game.boy.advance": {
+      "aliases": [
+        "GBA"
+      ],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "gba"
+      ],
+      "id": "platform.nintendo.game.boy.advance",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Game Boy Advance",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2001,
       "type": "platform"
     },
     "platform.nintendo.game.boy.color": {

@@ -1,0 +1,31 @@
+id: platform.nintendo.game.boy.advance
+type: platform
+
+name: Game Boy Advance
+
+aliases:
+  - GBA
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 2001
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - gba
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
