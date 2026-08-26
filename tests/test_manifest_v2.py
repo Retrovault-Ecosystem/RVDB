@@ -116,7 +116,7 @@ def test_manifest_contains_entity_statistics(
         statistics[
             "total_entities"
         ]
-        == 39
+        == 40
     )
 
     assert statistics[
@@ -127,7 +127,7 @@ def test_manifest_contains_entity_statistics(
         "game": 4,
         "genre": 3,
         "manufacturer": 3,
-        "platform": 24,
+        "platform": 25,
         "publisher": 1,
     }
 

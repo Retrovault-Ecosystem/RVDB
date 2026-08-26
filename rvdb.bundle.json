@@ -134,6 +134,9 @@
     "platform.sega.saturn": {
       "supports_core": []
     },
+    "platform.sega.sg1000": {
+      "supports_core": []
+    },
     "publisher.nintendo": {}
   },
   "nodes": {
@@ -1000,6 +1003,35 @@
         "supports_core": []
       },
       "release_year": 1994,
+      "type": "platform"
+    },
+    "platform.sega.sg1000": {
+      "aliases": [
+        "SG-1000",
+        "Sega SG1000"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "sg"
+      ],
+      "id": "platform.sega.sg1000",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Sega SG-1000",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1983,
       "type": "platform"
     },
     "publisher.nintendo": {

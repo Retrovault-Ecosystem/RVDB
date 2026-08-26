@@ -1,0 +1,32 @@
+id: platform.sega.sg1000
+type: platform
+
+name: Sega SG-1000
+
+aliases:
+  - SG-1000
+  - Sega SG1000
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1983
+
+category:
+  - console
+
+media:
+  - cartridge
+
+extensions:
+  - sg
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
