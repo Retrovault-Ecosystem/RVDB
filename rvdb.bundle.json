@@ -77,6 +77,9 @@
     "platform.atari.lynx": {
       "supports_core": []
     },
+    "platform.atari.st": {
+      "supports_core": []
+    },
     "platform.nintendo.3ds": {
       "supports_core": []
     },
@@ -481,6 +484,34 @@
         "supports_core": []
       },
       "release_year": 1989,
+      "type": "platform"
+    },
+    "platform.atari.st": {
+      "aliases": [],
+      "category": [
+        "computer"
+      ],
+      "extensions": [
+        "st",
+        "msa",
+        "stx"
+      ],
+      "id": "platform.atari.st",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "floppy"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari ST",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1985,
       "type": "platform"
     },
     "platform.nintendo.3ds": {

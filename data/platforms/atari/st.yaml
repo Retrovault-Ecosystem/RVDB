@@ -1,0 +1,32 @@
+id: platform.atari.st
+type: platform
+
+name: Atari ST
+
+aliases: []
+
+manufacturer:
+  - manufacturer.atari
+
+release_year: 1985
+
+category:
+  - computer
+
+media:
+  - floppy
+
+extensions:
+  - st
+  - msa
+  - stx
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
