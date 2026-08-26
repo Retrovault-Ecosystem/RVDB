@@ -1,0 +1,32 @@
+id: platform.nintendo.wii.u
+type: platform
+
+name: Wii U
+
+aliases: []
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 2012
+
+category:
+  - console
+
+media:
+  - optical-disc
+
+extensions:
+  - wud
+  - wux
+  - wua
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

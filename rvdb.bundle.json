@@ -104,6 +104,9 @@
     "platform.nintendo.wii": {
       "supports_core": []
     },
+    "platform.nintendo.wii.u": {
+      "supports_core": []
+    },
     "platform.sega.dreamcast": {
       "supports_core": []
     },
@@ -703,6 +706,34 @@
         "supports_core": []
       },
       "release_year": 2006,
+      "type": "platform"
+    },
+    "platform.nintendo.wii.u": {
+      "aliases": [],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "wud",
+        "wux",
+        "wua"
+      ],
+      "id": "platform.nintendo.wii.u",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "optical-disc"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Wii U",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2012,
       "type": "platform"
     },
     "platform.sega.dreamcast": {
