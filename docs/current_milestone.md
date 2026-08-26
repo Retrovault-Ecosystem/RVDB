@@ -1780,3 +1780,221 @@ checkpoint is complete.
 Expected restart point:
 
 P2A4 — Select and Research Platform Population Batch 3
+
+---
+
+# Phase 2A — Atari Platform Batch 3 Completion
+
+## P2A4 — Atari Platform Population Batch 3
+
+Status:
+
+COMPLETE
+
+Planning commit:
+
+`44420ec` — `docs: plan Atari platform batch 3`
+
+Production commit:
+
+`8fdb6ab` — `data: add Atari platform batch 3`
+
+Production entities added:
+
+- `platform.atari.2600`
+- `platform.atari.5200`
+- `platform.atari.7800`
+
+Canonical production paths:
+
+- `data/platforms/atari/2600.yaml`
+- `data/platforms/atari/5200.yaml`
+- `data/platforms/atari/7800.yaml`
+
+Atari Batch 3 established Atari's first production platform coverage in
+RVDB.
+
+The batch completed the following controlled process:
+
+1. Batch 3 manufacturer/platform candidate audit
+2. Atari batch selection
+3. three-platform scope definition
+4. metadata research
+5. explicit plan document creation
+6. plan-only commit and push
+7. production YAML creation
+8. Platform v2 contract verification
+9. dataset-count baseline updates
+10. production validation
+11. complete regression verification
+12. canonical bundle regeneration
+13. batch documentation alignment
+14. production commit and push
+
+---
+
+# Current Phase 2A Verification Baseline
+
+Branch:
+
+`develop`
+
+Production entities:
+
+28
+
+Platform entities:
+
+13
+
+Production validation:
+
+- entities checked: 28
+- valid entities: 28
+- schema errors: 0
+- relationship errors: 0
+
+Automated regression suite:
+
+145 passing
+
+Canonical graph:
+
+- nodes: 28
+- edges: 28
+
+Canonical bundle:
+
+`rvdb.bundle.json`
+
+Canonical bundle build:
+
+PASS
+
+Working tree after Atari Batch 3 production commit:
+
+CLEAN
+
+Local/remote synchronization:
+
+PASS
+
+---
+
+# Current Platform Catalog
+
+Production platforms:
+
+- `platform.arcade`
+- `platform.atari.2600`
+- `platform.atari.5200`
+- `platform.atari.7800`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.color`
+- `platform.nintendo.n64`
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.sega.dreamcast`
+- `platform.sega.game.gear`
+- `platform.sega.genesis`
+- `platform.sega.saturn`
+
+Platform count:
+
+13
+
+---
+
+# Phase 2A Deferred Decisions
+
+The following work remains intentionally deferred.
+
+## Sega Master System / Mark III
+
+Do not create production YAML until RVDB explicitly decides the canonical
+entity boundary between:
+
+- Sega Mark III
+- overseas Master System
+- Japanese Master System
+
+## Optional Platform Metadata
+
+Continue deferring unsupported or insufficiently normalized values for:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+## Emulator-Core Relationships
+
+Do not invent `supports_core` relationships.
+
+Populate them only after the required canonical core entities exist and
+the relationships are researched separately.
+
+## Additional Atari Families
+
+The following Atari platform families remain outside Batch 3 and require
+their own controlled planning:
+
+- Atari 8-bit computers
+- Atari XEGS
+- Atari Lynx
+- Atari Jaguar
+- Atari Jaguar CD
+- Atari ST
+- modern Atari VCS
+- Atari arcade hardware families
+
+---
+
+# NEXT CHECKPOINT
+
+## P2A5 — Select and Research Platform Population Batch 4
+
+Status:
+
+NEXT
+
+Goal:
+
+Select the next small, controlled platform population batch before creating
+additional production YAML.
+
+Required work:
+
+1. audit remaining manufacturer/platform candidates
+2. select a coherent Batch 4 scope
+3. verify manufacturer coverage
+4. determine canonical entity boundaries
+5. determine canonical IDs and paths
+6. research names and aliases
+7. research release years
+8. determine valid categories
+9. determine controlled media values
+10. determine defensible extensions
+11. explicitly defer unsupported metadata
+12. write and review the Batch 4 plan
+13. commit the plan separately before production creation
+
+Candidate directions may include:
+
+- additional Nintendo platforms
+- additional Atari platforms
+- Sega Master System only after explicit entity-boundary review
+- another manufacturer after creating or verifying its canonical
+  manufacturer entity
+
+Population must continue to follow:
+
+- `docs/platform_contract.md`
+- `docs/platform_catalog_policy.md`
+
+No Batch 4 production YAML should be created until the Batch 4 planning
+checkpoint is complete.
+
+Expected restart point:
+
+P2A5 — Select and Research Platform Population Batch 4
