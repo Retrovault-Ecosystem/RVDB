@@ -1498,8 +1498,8 @@ Platform entities:
 
 Production validation:
 
-- entities checked: 38
-- valid: 38
+- entities checked: 39
+- valid: 39
 - schema errors: 0
 - relationship errors: 0
 

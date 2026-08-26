@@ -1,0 +1,33 @@
+id: platform.sega.master.system
+type: platform
+
+name: Sega Master System
+
+aliases:
+  - Sega Mark III
+  - Sega Mark 3
+  - Master System / Mark III
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1985
+
+category:
+  - console
+
+media:
+  - cartridge
+
+extensions:
+  - sms
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

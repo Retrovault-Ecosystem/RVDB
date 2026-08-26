@@ -72,11 +72,11 @@ def test_build_bundle_contains_all_entities(
 
     assert len(
         bundle["nodes"]
-    ) == 38
+    ) == 39
 
     assert len(
         bundle["edges"]
-    ) == 38
+    ) == 39
 
 
 def test_build_bundle_serializes_entity_data(
@@ -214,4 +214,4 @@ def test_build_bundle_is_cwd_independent(
 
     assert len(
         bundle["nodes"]
-    ) == 38
+    ) == 39
