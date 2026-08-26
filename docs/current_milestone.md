@@ -1376,3 +1376,203 @@ Phase 2A — Post-P2A1 Platform Catalog Planning
 ---
 
 # End of Current Milestone
+
+---
+
+# Phase 2A — Platform Catalog Expansion Progress
+
+## P2A2 — Controlled Platform Catalog Foundation
+
+Status:
+
+COMPLETE THROUGH NINTENDO PLATFORM BATCH 1
+
+P2A2 established the policy, naming, schema-vocabulary, and controlled
+population process required for safe platform catalog expansion.
+
+Completed work includes:
+
+- finalized the canonical Platform Entity Contract v2 documentation
+- defined the canonical platform catalog policy
+- established manufacturer-specific platform paths:
+  `data/platforms/<manufacturer>/<system>.yaml`
+- normalized Sega Genesis to:
+  `data/platforms/sega/genesis.yaml`
+- defined multi-word platform ID and filename policy
+- established canonical multi-segment IDs such as:
+  `platform.nintendo.game.boy`
+- established deterministic filenames such as:
+  `data/platforms/nintendo/game_boy.yaml`
+- planned Nintendo Platform Batch 1
+- defined and implemented the controlled Platform v2 media vocabulary
+- aligned the Platform Contract and Nintendo batch documentation with the
+  controlled media vocabulary
+- created and verified Nintendo Platform Batch 1
+- updated dataset-dependent regression baselines
+- regenerated and verified the canonical bundle
+
+Controlled Platform v2 media vocabulary:
+
+- `cartridge`
+- `floppy`
+- `optical-disc`
+- `cassette`
+- `digital`
+
+Relevant Phase 2A commits:
+
+- `98609ed` — `feat: add generic schema constraints`
+- `eb18ca7` — `feat: implement Platform Entity Contract v2`
+- `eacbd10` — `docs: finalize Platform Entity Contract v2`
+- `5106513` — `docs: define canonical platform catalog policy`
+- `efd8909` — `data: normalize Sega Genesis platform path`
+- `bef088c` — `docs: define multi-word platform naming policy`
+- `03ad37d` — `docs: plan Nintendo platform batch 1`
+- `4519892` — `feat: define platform media vocabulary`
+- `f515fe0` — `data: add Nintendo platform batch 1`
+
+---
+
+## Nintendo Platform Batch 1
+
+Status:
+
+COMPLETE
+
+Production entities added:
+
+- `platform.nintendo.n64`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.color`
+
+Canonical production paths:
+
+- `data/platforms/nintendo/n64.yaml`
+- `data/platforms/nintendo/game_boy.yaml`
+- `data/platforms/nintendo/game_boy_color.yaml`
+
+The production platform catalog now contains seven platform entities:
+
+- `platform.arcade`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.color`
+- `platform.nintendo.n64`
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.sega.genesis`
+
+Nintendo Batch 1 deliberately omitted unsupported or insufficiently
+researched optional metadata.
+
+Deferred fields include:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+No unsupported `supports_core` relationships were introduced.
+
+---
+
+# Current Phase 2A Verification Baseline
+
+Branch:
+
+`develop`
+
+Production entities:
+
+22
+
+Platform entities:
+
+7
+
+Production validation:
+
+- entities checked: 22
+- valid entities: 22
+- schema errors: 0
+- relationship errors: 0
+
+Automated regression suite:
+
+145 passing
+
+Canonical graph:
+
+- nodes: 22
+- edges: 22
+
+Canonical bundle:
+
+`rvdb.bundle.json`
+
+Canonical bundle build:
+
+PASS
+
+Nintendo Batch 1 commit:
+
+`f515fe0` — `data: add Nintendo platform batch 1`
+
+---
+
+# Current Phase 2A Decision
+
+The Platform Entity Contract v2 and controlled catalog-population process
+have now been exercised successfully against the first new production
+platform batch.
+
+Nintendo Platform Batch 1 is complete.
+
+Do not begin uncontrolled or large-scale platform population.
+
+Continue using small, researched, explicitly planned platform batches.
+
+---
+
+# NEXT CHECKPOINT
+
+## P2A3 — Select and Research Platform Population Batch 2
+
+Status:
+
+NEXT
+
+Goal:
+
+Select the next small, controlled platform population batch and research
+its canonical identities and defensible metadata before creating production
+YAML.
+
+The next batch must be planned before production entities are created.
+
+Required planning work:
+
+1. select the manufacturer or coherent platform family for Batch 2
+2. define the exact platform scope
+3. verify required manufacturer entities already exist
+4. determine canonical platform IDs
+5. determine canonical filesystem paths
+6. research canonical names and justified aliases
+7. research release years
+8. determine required platform categories
+9. determine controlled media values
+10. research defensible software-image extensions
+11. identify optional fields that have sufficient evidence
+12. explicitly defer unsupported or speculative metadata
+13. document the proposed batch before production YAML creation
+
+Population must continue to follow:
+
+- `docs/platform_contract.md`
+- `docs/platform_catalog_policy.md`
+
+No Batch 2 production YAML should be created until its planning checkpoint
+has been reviewed and accepted.
+
+Expected restart point:
+
+P2A3 — Select and Research Platform Population Batch 2
