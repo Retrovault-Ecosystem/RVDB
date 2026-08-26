@@ -2259,3 +2259,291 @@ checkpoint is complete.
 Expected restart point:
 
 P2A6 — Select and Research Platform Population Batch 5
+
+---
+
+# Phase 2A — Nintendo Console Platform Batch 5 Completion
+
+## P2A6 — Nintendo Console Platform Population Batch 5
+
+Status:
+
+COMPLETE
+
+Planning commit:
+
+`e66d1d6` — `docs: plan Nintendo console platform batch 5`
+
+Production commit:
+
+`3276395` — `data: add Nintendo console platform batch 5`
+
+Documentation repair commit:
+
+`a3dea82` — `docs: remove duplicate Nintendo batch 5 result`
+
+Production entities added:
+
+- `platform.nintendo.gamecube`
+- `platform.nintendo.wii`
+
+Canonical production paths:
+
+- `data/platforms/nintendo/gamecube.yaml`
+- `data/platforms/nintendo/wii.yaml`
+
+Batch 5 extends Nintendo production coverage with two optical-disc home
+console platforms:
+
+- Nintendo GameCube
+- Wii
+
+The controlled production process completed:
+
+1. Batch 5 candidate audit
+2. Nintendo console batch selection
+3. GameCube and Wii entity-boundary review
+4. canonical ID and filesystem-path decisions
+5. release-year and naming research
+6. conservative optical-disc extension selection
+7. Wii hardware-revision boundary review
+8. Wii U explicit deferral
+9. plan document creation
+10. plan-only commit and push
+11. production YAML creation
+12. Platform v2 contract verification
+13. dataset-count baseline updates
+14. complete regression verification
+15. production validation
+16. canonical bundle regeneration
+17. implementation-result documentation alignment
+18. production commit and push
+19. duplicate implementation-result cleanup
+
+Wii U remains deliberately excluded from Batch 5 and should receive its own
+controlled platform-population decision in a future batch.
+
+Wii hardware models/revisions including RVL-001, RVL-101, and Wii mini
+(RVL-201) remain represented by the canonical Wii platform rather than
+separate RVDB platform entities.
+
+Optional Platform v2 metadata remains deferred where not yet normalized:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+The `supports_core` relationship remains empty pending separately researched
+canonical core entities and relationship work.
+
+---
+
+# Current Phase 2A Verification Baseline
+
+Branch:
+
+`develop`
+
+Production entities:
+
+33
+
+Platform entities:
+
+18
+
+Production validation:
+
+- entities checked: 33
+- valid entities: 33
+- schema errors: 0
+- relationship errors: 0
+
+Automated regression suite:
+
+145 passing
+
+Canonical graph:
+
+- nodes: 33
+- edges: 33
+
+Canonical bundle:
+
+`rvdb.bundle.json`
+
+Canonical bundle build:
+
+PASS
+
+Working tree after Nintendo Console Batch 5 production and documentation
+repair commits:
+
+CLEAN
+
+Local/remote synchronization:
+
+PASS
+
+---
+
+# Current Platform Catalog
+
+Production platforms:
+
+- `platform.arcade`
+- `platform.atari.2600`
+- `platform.atari.5200`
+- `platform.atari.7800`
+- `platform.nintendo.3ds`
+- `platform.nintendo.ds`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.advance`
+- `platform.nintendo.game.boy.color`
+- `platform.nintendo.gamecube`
+- `platform.nintendo.n64`
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.nintendo.wii`
+- `platform.sega.dreamcast`
+- `platform.sega.game.gear`
+- `platform.sega.genesis`
+- `platform.sega.saturn`
+
+Platform count:
+
+18
+
+---
+
+# Phase 2A Deferred Decisions
+
+The following work remains intentionally deferred.
+
+## Nintendo DSi
+
+Do not create a production DSi entity until RVDB explicitly decides whether
+Nintendo DSi is:
+
+- a separate canonical platform
+- a DS-family platform variant
+- or represented through a future normalized family model
+
+Hardware capability differences and DSiWare support require deliberate
+boundary review.
+
+## Wii U
+
+Wii U remains outside Batch 5 and should be handled as a separate canonical
+platform in a future controlled batch.
+
+## Sega Master System / Mark III
+
+Do not create production YAML until RVDB explicitly decides the canonical
+entity boundary between:
+
+- Sega Mark III
+- overseas Master System
+- Japanese Master System
+
+## Optional Platform Metadata
+
+Continue deferring unsupported or insufficiently normalized values for:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+## Emulator-Core Relationships
+
+Do not invent `supports_core` relationships.
+
+Populate them only after the required canonical core entities exist and
+the relationships are researched separately.
+
+## Additional Atari Families
+
+The following Atari platform families remain outside the completed Atari
+Batch 3 and require their own controlled planning:
+
+- Atari 8-bit computers
+- Atari XEGS
+- Atari Lynx
+- Atari Jaguar
+- Atari Jaguar CD
+- Atari ST
+- modern Atari VCS
+- Atari arcade hardware families
+
+## Nintendo Hardware Revisions
+
+Do not automatically create separate platform entities for:
+
+- Game Boy Advance SP
+- Game Boy micro
+- Nintendo DS Lite
+- Nintendo DSi XL
+- Nintendo 2DS
+- New Nintendo 3DS
+- New Nintendo 3DS XL
+- New Nintendo 2DS XL
+- Wii RVL-001
+- Wii RVL-101
+- Wii mini / RVL-201
+
+Hardware revision alone is not sufficient to establish a new canonical
+RVDB platform entity.
+
+---
+
+# NEXT CHECKPOINT
+
+## P2A7 — Select and Research Platform Population Batch 6
+
+Status:
+
+NEXT
+
+Goal:
+
+Select the next small, controlled platform population batch before creating
+additional production YAML.
+
+Required work:
+
+1. audit remaining manufacturer/platform candidates
+2. select a coherent Batch 6 scope
+3. verify manufacturer coverage
+4. determine canonical entity boundaries
+5. determine canonical IDs and filesystem paths
+6. research canonical names and justified aliases
+7. research release years
+8. determine valid platform categories
+9. determine controlled media values
+10. determine defensible software-image extensions
+11. identify any boundary decisions requiring explicit deferral
+12. explicitly defer unsupported metadata
+13. write and review the Batch 6 plan
+14. commit the plan separately before production creation
+
+Candidate directions may include:
+
+- additional Atari platforms
+- Wii U as a separate Nintendo platform
+- Sega Master System only after explicit entity-boundary review
+- another manufacturer after creating or verifying its canonical
+  manufacturer entity
+
+Population must continue to follow:
+
+- `docs/platform_contract.md`
+- `docs/platform_catalog_policy.md`
+
+No Batch 6 production YAML should be created until the Batch 6 planning
+checkpoint is complete.
+
+Expected restart point:
+
+P2A7 — Select and Research Platform Population Batch 6
