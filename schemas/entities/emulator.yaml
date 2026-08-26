@@ -1,0 +1,63 @@
+# =====================================================
+# RVDB Emulator Entity Schema v1
+# =====================================================
+
+required: []
+
+optional:
+  - developer
+  - operating_systems
+  - launch_mechanisms
+  - official_website
+  - source_repository
+  - status
+
+fields:
+
+  developer:
+    type: entity_reference_list
+    entity_type: developer
+    description: Canonical emulator developer or project entity IDs
+
+  operating_systems:
+    type: list
+    items:
+      type: string
+    description: Operating systems on which the emulator is available
+
+  launch_mechanisms:
+    type: list
+    items:
+      type: string
+    description: Supported mechanisms used to launch or integrate the emulator
+
+  official_website:
+    type: string
+    description: Official emulator project website
+
+  source_repository:
+    type: string
+    description: Emulator project source repository
+
+  status:
+    type: string
+    enum:
+      - active
+      - maintenance
+      - archived
+      - discontinued
+      - experimental
+      - unknown
+    description: Current software project status
+
+relationships:
+
+  supports_platform:
+    type: entity_reference_list
+    entity_type: platform
+    description: Platforms supported by this emulator
+
+  supports_core:
+    type: entity_reference_list
+    entity_type: core
+    description: Cores explicitly associated with this emulator where evidence supports the relationship
