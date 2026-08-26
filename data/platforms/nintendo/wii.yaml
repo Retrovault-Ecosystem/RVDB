@@ -1,0 +1,32 @@
+id: platform.nintendo.wii
+type: platform
+
+name: Wii
+
+aliases: []
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 2006
+
+category:
+  - console
+
+media:
+  - optical-disc
+
+extensions:
+  - iso
+  - wbfs
+  - rvz
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

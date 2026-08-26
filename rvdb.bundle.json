@@ -86,6 +86,9 @@
     "platform.nintendo.game.boy.color": {
       "supports_core": []
     },
+    "platform.nintendo.gamecube": {
+      "supports_core": []
+    },
     "platform.nintendo.n64": {
       "supports_core": []
     },
@@ -97,6 +100,9 @@
         "core.bsnes",
         "core.snes9x"
       ]
+    },
+    "platform.nintendo.wii": {
+      "supports_core": []
     },
     "platform.sega.dreamcast": {
       "supports_core": []
@@ -551,6 +557,37 @@
       "release_year": 1998,
       "type": "platform"
     },
+    "platform.nintendo.gamecube": {
+      "aliases": [
+        "GameCube"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "iso",
+        "gcm",
+        "gcz",
+        "rvz"
+      ],
+      "id": "platform.nintendo.gamecube",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "optical-disc"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Nintendo GameCube",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2001,
+      "type": "platform"
+    },
     "platform.nintendo.n64": {
       "aliases": [
         "N64"
@@ -638,6 +675,34 @@
         ]
       },
       "release_year": null,
+      "type": "platform"
+    },
+    "platform.nintendo.wii": {
+      "aliases": [],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "iso",
+        "wbfs",
+        "rvz"
+      ],
+      "id": "platform.nintendo.wii",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "optical-disc"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Wii",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 2006,
       "type": "platform"
     },
     "platform.sega.dreamcast": {
