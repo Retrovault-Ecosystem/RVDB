@@ -1,0 +1,30 @@
+id: platform.atari.lynx
+type: platform
+
+name: Atari Lynx
+
+aliases: []
+
+manufacturer:
+  - manufacturer.atari
+
+release_year: 1989
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - lnx
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

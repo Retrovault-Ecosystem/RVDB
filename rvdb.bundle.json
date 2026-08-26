@@ -71,6 +71,12 @@
     "platform.atari.7800": {
       "supports_core": []
     },
+    "platform.atari.jaguar": {
+      "supports_core": []
+    },
+    "platform.atari.lynx": {
+      "supports_core": []
+    },
     "platform.nintendo.3ds": {
       "supports_core": []
     },
@@ -422,6 +428,59 @@
         "supports_core": []
       },
       "release_year": 1986,
+      "type": "platform"
+    },
+    "platform.atari.jaguar": {
+      "aliases": [],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "jag",
+        "j64"
+      ],
+      "id": "platform.atari.jaguar",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari Jaguar",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1993,
+      "type": "platform"
+    },
+    "platform.atari.lynx": {
+      "aliases": [],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "lnx"
+      ],
+      "id": "platform.atari.lynx",
+      "manufacturer": [
+        "manufacturer.atari"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Atari Lynx",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1989,
       "type": "platform"
     },
     "platform.nintendo.3ds": {

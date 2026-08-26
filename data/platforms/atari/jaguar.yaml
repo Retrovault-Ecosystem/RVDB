@@ -1,0 +1,31 @@
+id: platform.atari.jaguar
+type: platform
+
+name: Atari Jaguar
+
+aliases: []
+
+manufacturer:
+  - manufacturer.atari
+
+release_year: 1993
+
+category:
+  - console
+
+media:
+  - cartridge
+
+extensions:
+  - jag
+  - j64
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
