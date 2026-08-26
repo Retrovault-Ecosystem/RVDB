@@ -3139,3 +3139,337 @@ checkpoint is complete.
 Expected restart point:
 
 P2A9 — Select and Research Platform Population Batch 8
+
+---
+
+# Phase 2A — Atari ST Platform Batch 8 Completion
+
+## P2A9 — Atari ST Platform Population Batch 8
+
+Status:
+
+COMPLETE
+
+Planning commit:
+
+`dfcc9a5` — `docs: plan Atari ST platform batch 8`
+
+Production commit:
+
+`cb3d190` — `data: add Atari ST platform batch 8`
+
+Production entity added:
+
+- `platform.atari.st`
+
+Production file added:
+
+- `data/platforms/atari/st.yaml`
+
+Atari ST Platform Batch 8 expanded the controlled Atari production
+catalog with one canonical computer platform:
+
+- Atari ST
+
+The batch completed the controlled Phase 2A population sequence:
+
+1. candidate audit
+2. Atari ST batch selection
+3. manufacturer verification
+4. canonical ID and path selection
+5. ST-family entity-boundary review
+6. release-year decision
+7. computer-category decision
+8. floppy-media decision
+9. conservative extension selection
+10. emulator-core relationship deferral
+11. optional metadata deferral
+12. explicit plan creation and review
+13. separate planning commit and push
+14. Atari ST production YAML creation
+15. targeted platform-contract validation
+16. full production validation
+17. canonical bundle rebuild
+18. exact stale-baseline discovery
+19. count-sensitive regression baseline synchronization
+20. complete regression verification
+21. implementation-result documentation
+22. final production review
+23. separate production commit and push
+
+The production record uses only vocabulary already supported by
+Platform Entity Contract v2.
+
+No schema expansion was required.
+
+Atari ST uses:
+
+- canonical ID: `platform.atari.st`
+- manufacturer: `manufacturer.atari`
+- release year: `1985`
+- category: `computer`
+- media: `floppy`
+- extensions:
+  - `st`
+  - `msa`
+  - `stx`
+
+No emulator-core relationships were invented.
+
+The production record intentionally retains an empty `supports_core`
+relationship list.
+
+The following ST-family entities remain deliberately absent:
+
+- `platform.atari.ste`
+- `platform.atari.tt`
+- `platform.atari.falcon`
+
+These boundaries remain deferred for separate canonical review.
+
+---
+
+# Current Phase 2A Verification Baseline
+
+Branch:
+
+`develop`
+
+Production entities:
+
+37
+
+Platform entities:
+
+22
+
+Production validation:
+
+- entities checked: 37
+- valid: 37
+- schema errors: 0
+- relationship errors: 0
+
+Regression suite:
+
+145 passing
+
+Canonical graph:
+
+- nodes: 37
+- edges: 37
+
+Canonical bundle:
+
+`rvdb.bundle.json`
+
+Canonical bundle build:
+
+PASS
+
+Working tree after Atari ST Batch 8 production commit:
+
+CLEAN
+
+Local/remote synchronization:
+
+PASS
+
+---
+
+# Current Platform Catalog
+
+Production platforms:
+
+- `platform.arcade`
+- `platform.atari.2600`
+- `platform.atari.5200`
+- `platform.atari.7800`
+- `platform.atari.jaguar`
+- `platform.atari.lynx`
+- `platform.atari.st`
+- `platform.nintendo.3ds`
+- `platform.nintendo.ds`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.advance`
+- `platform.nintendo.game.boy.color`
+- `platform.nintendo.gamecube`
+- `platform.nintendo.n64`
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.nintendo.wii`
+- `platform.nintendo.wii.u`
+- `platform.sega.dreamcast`
+- `platform.sega.game.gear`
+- `platform.sega.genesis`
+- `platform.sega.saturn`
+
+Platform count:
+
+22
+
+---
+
+# Phase 2A Deferred Decisions
+
+The following work remains intentionally deferred.
+
+## Atari Jaguar CD
+
+Do not create a production Jaguar CD entity until RVDB explicitly decides
+the canonical entity boundary between the base Atari Jaguar platform and
+the Jaguar CD attachment.
+
+Do not automatically:
+
+- create `platform.atari.jaguar.cd`
+- create `data/platforms/atari/jaguar_cd.yaml`
+- add `optical-disc` to the base Atari Jaguar solely because of Jaguar CD
+- add Jaguar CD software-image extensions to the base Atari Jaguar
+
+Jaguar CD may ultimately require a separate platform, add-on, accessory,
+hardware relationship, or another future normalized representation.
+
+## Atari ST Family
+
+The following related machines remain outside the completed Atari ST
+Batch 8 and require separate canonical entity-boundary review:
+
+- Atari STE
+- Atari TT
+- Atari Falcon
+
+Do not automatically create:
+
+- `platform.atari.ste`
+- `platform.atari.tt`
+- `platform.atari.falcon`
+
+Do not merge their machine-specific capabilities into the canonical Atari ST
+production record without separate research and modeling.
+
+## Nintendo DSi
+
+Do not create a production DSi entity until RVDB explicitly decides whether
+Nintendo DSi is:
+
+- a separate canonical platform
+- a DS-family platform variant
+- or represented through a future normalized family model
+
+Hardware capability differences and DSiWare support require deliberate
+boundary review.
+
+## Sega Master System / Mark III
+
+Do not create production YAML until RVDB explicitly decides the canonical
+entity boundary between:
+
+- Sega Mark III
+- overseas Master System
+- Japanese Master System
+
+## Optional Platform Metadata
+
+Continue deferring unsupported or insufficiently normalized values for:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+## Emulator-Core Relationships
+
+Do not invent `supports_core` relationships.
+
+Populate them only after the required canonical core entities exist and the
+relationships are researched separately.
+
+## Additional Atari Families
+
+The following Atari platform families remain outside the completed Atari
+production batches and require their own controlled planning:
+
+- Atari 8-bit computers
+- Atari XEGS
+- modern Atari VCS
+- Atari arcade hardware families
+
+Atari Jaguar CD remains separately deferred because its entity boundary
+requires an explicit modeling decision.
+
+Atari STE, Atari TT, and Atari Falcon remain separately deferred because
+their boundaries relative to Atari ST require explicit canonical review.
+
+## Nintendo Hardware Revisions
+
+Do not automatically create separate platform entities for:
+
+- Game Boy Advance SP
+- Game Boy micro
+- Nintendo DS Lite
+- Nintendo DSi XL
+- Nintendo 2DS
+- New Nintendo 3DS
+- New Nintendo 3DS XL
+- New Nintendo 2DS XL
+- Wii RVL-001
+- Wii RVL-101
+- Wii mini / RVL-201
+
+Hardware revision alone is not sufficient to establish a new canonical
+RVDB platform entity.
+
+---
+
+# NEXT CHECKPOINT
+
+## P2A10 — Select and Research Platform Population Batch 9
+
+Status:
+
+NEXT
+
+Goal:
+
+Select the next small, controlled platform population batch before creating
+additional production YAML.
+
+Required work:
+
+1. audit remaining manufacturer/platform candidates
+2. select a coherent Batch 9 scope
+3. verify manufacturer coverage
+4. determine canonical entity boundaries
+5. determine canonical IDs and filesystem paths
+6. research canonical names and justified aliases
+7. research release years
+8. determine valid platform categories
+9. determine controlled media values
+10. determine defensible software-image extensions
+11. identify any boundary decisions requiring explicit deferral
+12. explicitly defer unsupported metadata
+13. write and review the Batch 9 plan
+14. commit the plan separately before production creation
+
+Candidate directions may include:
+
+- Atari 8-bit computer family after explicit boundary review
+- Atari XEGS after explicit boundary review
+- another Atari family after explicit canonical review
+- additional Nintendo platforms after explicit entity-boundary review
+- Sega Master System only after explicit entity-boundary review
+- another manufacturer after creating or verifying its canonical
+  manufacturer entity
+
+Population must continue to follow:
+
+- `docs/platform_contract.md`
+- `docs/platform_catalog_policy.md`
+
+No Batch 9 production YAML should be created until the Batch 9 planning
+checkpoint is complete.
+
+Expected restart point:
+
+P2A10 — Select and Research Platform Population Batch 9
