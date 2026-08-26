@@ -1226,7 +1226,7 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Phase 2A — P2A1 Platform Entity Contract v2
+Phase 2A — Post-P2A1 Platform Catalog Planning
 
 Status:
 
@@ -1235,12 +1235,15 @@ NEXT
 Foundation 0.2.1 is complete, released, tagged, pushed, tested, validated,
 and reproducible from a clean clone.
 
-Phase 2A has been selected as the next active RVDB development milestone.
+Phase 2A is active.
 
 P2A0 platform architecture and schema-capability audits are complete.
 
-Continue with P2A1 by defining and testing the canonical Platform Entity
-Contract v2 before beginning large-scale platform data population.
+P2A1 Platform Entity Contract v2 is complete, implemented, tested,
+validated, and build-verified.
+
+Continue by selecting the next controlled Phase 2A platform-catalog
+expansion checkpoint before beginning large-scale platform YAML creation.
 
 ---
 
@@ -1303,35 +1306,72 @@ large-scale platform data population.
 
 Status:
 
-NEXT
+COMPLETE
 
 Goal:
 
-Define the canonical RVDB platform metadata contract required for
-large-scale platform database expansion.
+Define and implement the canonical RVDB platform metadata contract required
+for controlled large-scale platform database expansion.
 
-The contract must distinguish stable canonical platform identity from
-regional naming, hardware classification, release information,
-software/media characteristics, emulation metadata, and relationships.
+Completed:
 
-P2A1 must be completed before mass platform YAML creation begins.
+- defined the canonical Platform Entity Contract v2
+- classified required and optional platform fields
+- made `category` a required platform field
+- established controlled category values:
+  - `console`
+  - `handheld`
+  - `computer`
+  - `arcade`
+- added optional `family`
+- added typed `regions`
+- added typed `media`
+- added typed `extensions`
+- added typed `architecture`
+- preserved manufacturer reference semantics
+- preserved nullable release-year semantics
+- preserved nullable generation semantics
+- preserved `supports_core` relationship semantics
+- added generic reusable schema constraint support
+- added schema-definition validation for constraints
+- added builder-side constrained-list enforcement
+- updated the Platform Entity Template v2
+- added Platform Contract v2 regression coverage
+- updated existing builder regression fixtures for the new contract
+- audited all four Foundation platform entities against Platform v2
+- confirmed no forced production YAML migration edits were required
+- preserved existing justified NES media and extension data
+- preserved all existing platform relationships
+- preserved Arcade transitional legacy-manufacturer metadata
 
-Planned sequence:
+Verification:
 
-1. define canonical platform metadata requirements
-2. classify fields as required, optional, metadata, or relationships
-3. define normalized vocabulary where appropriate
-4. add schema tests before schema expansion
-5. update the platform schema
-6. update the platform entity template
-7. migrate the four Foundation platform entities
-8. validate all production entities
-9. run the complete regression suite
-10. document and commit the finalized Platform Entity Contract v2
+- regression suite: 144 passed
+- production entities checked: 19
+- production entities valid: 19
+- schema errors: 0
+- relationship errors: 0
+- canonical graph nodes: 19
+- canonical graph edges: 19
+- canonical bundle: `rvdb.bundle.json`
+- canonical bundle build: PASS
+- branch: `develop`
+
+Implementation commits:
+
+- `98609ed` — `feat: add generic schema constraints`
+- `eb18ca7` — `feat: implement Platform Entity Contract v2`
+
+Decision:
+
+P2A1 is complete.
+
+Large-scale platform data population may now proceed only through controlled
+Phase 2A checkpoints using the finalized Platform Entity Contract v2.
 
 Expected restart point:
 
-Phase 2A — P2A1 Platform Entity Contract v2
+Phase 2A — Post-P2A1 Platform Catalog Planning
 
 ---
 

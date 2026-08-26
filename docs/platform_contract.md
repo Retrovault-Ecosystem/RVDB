@@ -348,7 +348,7 @@ A validated structured representation is required first.
 # Schema Capability Requirements
 
 The Phase 2 platform audit confirmed that the Foundation schema engine
-currently validates these ordinary types:
+supports these ordinary types:
 
 - `string`
 - `integer`
@@ -359,43 +359,64 @@ currently validates these ordinary types:
 - `entity_reference`
 - `entity_reference_list`
 
-The current `object` type validates only that a value is a mapping.
+P2A1 added generic reusable schema constraints without introducing
+platform-specific validator logic.
 
-The current generic `list` type does not provide Platform v2 controlled
-vocabulary semantics.
+Implemented generic constraint capabilities include:
 
-Before large-scale platform population, the schema architecture should be
-extended carefully enough to support normalized structured platform data.
+- string `enum` constraints
+- typed `list.items`
+- controlled string vocabularies inside list items
+- schema-definition validation for malformed constraints
+- builder-side enforcement of constrained list values
 
-Required capability work should remain generic and reusable rather than
-platform-specific.
+Constraint grammar is intentionally bounded:
 
-Candidate capabilities include:
+- `enum` is supported for string fields
+- `items` is supported for list fields
+- list item types are limited to ordinary non-reference item types
+- entity-reference lists continue to use `entity_reference_list`
+- relationship target typing continues to use `entity_type`
 
-- typed list items
-- controlled list vocabularies
-- controlled string vocabularies
-- typed mapping values
-- structured object validation where justified
+The current `object` type still validates only that a value is a mapping.
 
-Exact implementation details must be determined through tests before
-changing production schemas.
+Typed mapping values and structured object validation remain deferred until
+a concrete Platform v2 requirement justifies extending the schema language.
 
 ---
 
-# Initial Migration Scope
+# Initial Migration Result
 
-The current Foundation dataset contains four platform entities:
+The Foundation dataset contains four platform entities:
 
 - Arcade
 - Nintendo Entertainment System
 - Super Nintendo
 - Sega Genesis
 
-These entities will be migrated only after the Platform Entity Contract v2
-schema is implemented and tested.
+The four entities were audited against Platform Entity Contract v2 after
+the schema and builder changes were implemented.
 
-No mass platform YAML population should begin before that migration passes:
+Migration result:
+
+NO FORCED DATA EDITS REQUIRED
+
+All four existing platform entities already satisfy the finalized required
+Platform v2 contract.
+
+The new Platform v2 fields are optional and were not added with empty,
+guessed, or speculative values merely to match the entity template.
+
+Existing justified data was preserved:
+
+- all four platforms already provide a valid canonical `category`
+- NES retains its existing `media` value
+- NES retains its existing `extensions` value
+- existing manufacturer relationships remain unchanged
+- existing `supports_core` relationships remain unchanged
+- Arcade retains transitional `legacy_manufacturer` metadata
+
+The migration gate passed:
 
 - schema validation
 - relationship validation
@@ -450,15 +471,40 @@ Checkpoint:
 
 P2A1 — Platform Entity Contract v2
 
+Status:
+
+COMPLETE
+
 Design audit:
 
 COMPLETE
 
 Contract specification:
 
-PROPOSED
+FINALIZED
+
+Implementation:
+
+COMPLETE
+
+Verification baseline:
+
+- generic schema constraints implemented
+- Platform Schema v2 implemented
+- Platform Entity Template v2 implemented
+- schema-driven builder constraint enforcement implemented
+- four Foundation platform entities audited
+- forced production migration edits required: none
+- production entities checked: 19
+- production entities valid: 19
+- schema errors: 0
+- relationship errors: 0
+- regression suite: 144 passed
+- canonical graph nodes: 19
+- canonical graph edges: 19
+- canonical bundle build: PASS
 
 Next:
 
-Define and test the minimum generic schema capabilities required to enforce
-the Platform Entity Contract v2.
+Begin the next Phase 2A checkpoint for controlled large-scale platform
+catalog expansion.
