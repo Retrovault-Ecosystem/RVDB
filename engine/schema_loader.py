@@ -69,6 +69,25 @@ class SchemaLoader:
         "entity_reference_list",
     }
 
+    FIELD_TYPES = {
+        "string",
+        "integer",
+        "integer_or_null",
+        "boolean",
+        "list",
+        "object",
+        "entity_reference",
+        "entity_reference_list",
+    }
+
+    LIST_ITEM_TYPES = {
+        "string",
+        "integer",
+        "integer_or_null",
+        "boolean",
+        "object",
+    }
+
     def __init__(
         self,
         schema_root: str | Path | None = None,
@@ -251,13 +270,23 @@ class SchemaLoader:
         self,
     ) -> None:
         """
-        Validate schema-level relationship definitions.
+        Validate schema-level field and relationship definitions.
 
         This validates the schema itself, not entity data.
         """
 
         available_types = set(
             self._entity_schemas.keys()
+        )
+
+        common_fields = self._common_schema.get(
+            "fields",
+            {},
+        )
+
+        self._validate_field_block(
+            "<common>",
+            common_fields,
         )
 
         common_relationships = (
@@ -278,6 +307,16 @@ class SchemaLoader:
             schema,
         ) in self._entity_schemas.items():
 
+            fields = schema.get(
+                "fields",
+                {},
+            )
+
+            self._validate_field_block(
+                entity_type,
+                fields,
+            )
+
             relationships = schema.get(
                 "relationships",
                 {},
@@ -288,6 +327,284 @@ class SchemaLoader:
                 relationships,
                 available_types,
             )
+
+    def _validate_field_block(
+        self,
+        source_type: str,
+        fields: Any,
+    ) -> None:
+
+        if fields is None:
+            return
+
+        if not isinstance(
+            fields,
+            dict,
+        ):
+
+            raise SchemaDefinitionError(
+                (
+                    f"{source_type}: "
+                    "'fields' must be a mapping"
+                )
+            )
+
+        for (
+            field_name,
+            definition,
+        ) in fields.items():
+
+            if (
+                not isinstance(
+                    field_name,
+                    str,
+                )
+                or not field_name.strip()
+            ):
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{source_type}: field names "
+                        "must be non-empty strings"
+                    )
+                )
+
+            self._validate_field_definition(
+                source_type,
+                field_name,
+                definition,
+            )
+
+    def _validate_field_definition(
+        self,
+        source_type: str,
+        field_name: str,
+        definition: Any,
+    ) -> None:
+
+        prefix = (
+            f"{source_type}.{field_name}"
+        )
+
+        if not isinstance(
+            definition,
+            dict,
+        ):
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: field definition "
+                    "must be a mapping"
+                )
+            )
+
+        field_type = definition.get(
+            "type"
+        )
+
+        if field_type not in self.FIELD_TYPES:
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: invalid field "
+                    f"type '{field_type}'"
+                )
+            )
+
+        enum = definition.get(
+            "enum"
+        )
+
+        if enum is not None:
+
+            if field_type != "string":
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'enum' is only "
+                        "valid for string fields"
+                    )
+                )
+
+            self._validate_enum_constraint(
+                prefix,
+                field_type,
+                enum,
+            )
+
+        items = definition.get(
+            "items"
+        )
+
+        if items is not None:
+
+            if field_type != "list":
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'items' is only "
+                        "valid for list fields"
+                    )
+                )
+
+            self._validate_items_constraint(
+                prefix,
+                items,
+            )
+
+    def _validate_enum_constraint(
+        self,
+        prefix: str,
+        value_type: str,
+        enum: Any,
+    ) -> None:
+
+        if (
+            not isinstance(
+                enum,
+                list,
+            )
+            or not enum
+        ):
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: 'enum' must be "
+                    "a non-empty list"
+                )
+            )
+
+        for value in enum:
+
+            if not self._value_matches_type(
+                value_type,
+                value,
+            ):
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: enum value "
+                        f"{value!r} does not match "
+                        f"type '{value_type}'"
+                    )
+                )
+
+    def _validate_items_constraint(
+        self,
+        prefix: str,
+        items: Any,
+    ) -> None:
+
+        if not isinstance(
+            items,
+            dict,
+        ):
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: 'items' must be "
+                    "a mapping"
+                )
+            )
+
+        item_type = items.get(
+            "type"
+        )
+
+        if item_type not in self.LIST_ITEM_TYPES:
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: invalid item "
+                    f"type '{item_type}'"
+                )
+            )
+
+        enum = items.get(
+            "enum"
+        )
+
+        if enum is not None:
+
+            if item_type != "string":
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}.items: 'enum' is only "
+                        "valid for string items"
+                    )
+                )
+
+            self._validate_enum_constraint(
+                f"{prefix}.items",
+                item_type,
+                enum,
+            )
+
+    @staticmethod
+    def _value_matches_type(
+        value_type: str,
+        value: Any,
+    ) -> bool:
+
+        if value_type == "string":
+            return isinstance(
+                value,
+                str,
+            )
+
+        if value_type == "integer":
+            return (
+                isinstance(
+                    value,
+                    int,
+                )
+                and not isinstance(
+                    value,
+                    bool,
+                )
+            )
+
+        if value_type == "integer_or_null":
+            return (
+                value is None
+                or (
+                    isinstance(
+                        value,
+                        int,
+                    )
+                    and not isinstance(
+                        value,
+                        bool,
+                    )
+                )
+            )
+
+        if value_type == "boolean":
+            return isinstance(
+                value,
+                bool,
+            )
+
+        if value_type == "list":
+            return isinstance(
+                value,
+                list,
+            )
+
+        if value_type == "object":
+            return isinstance(
+                value,
+                dict,
+            )
+
+        if value_type in {
+            "entity_reference",
+            "entity_reference_list",
+        }:
+            return True
+
+        return False
 
     def _validate_relationship_block(
         self,

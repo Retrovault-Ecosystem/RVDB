@@ -177,13 +177,25 @@ class TypeRegistry:
     @staticmethod
     def _string(
         value,
+        enum=None,
         **_,
     ) -> bool:
 
-        return isinstance(
+        if not isinstance(
             value,
             str,
-        )
+        ):
+
+            return False
+
+        if (
+            enum is not None
+            and value not in enum
+        ):
+
+            return False
+
+        return True
 
     @staticmethod
     def _integer(
@@ -214,16 +226,57 @@ class TypeRegistry:
             or cls._integer(value)
         )
 
-    @staticmethod
     def _list(
+        self,
         value,
+        items=None,
         **_,
     ) -> bool:
 
-        return isinstance(
+        if not isinstance(
             value,
             list,
+        ):
+
+            return False
+
+        if items is None:
+
+            return True
+
+        if not isinstance(
+            items,
+            dict,
+        ):
+
+            return False
+
+        item_type = items.get(
+            "type"
         )
+
+        if not item_type:
+
+            return False
+
+        item_options = {
+            key: option
+            for key, option
+            in items.items()
+            if key != "type"
+        }
+
+        for item in value:
+
+            if not self.validate(
+                item_type,
+                item,
+                **item_options,
+            ):
+
+                return False
+
+        return True
 
     @staticmethod
     def _object(
