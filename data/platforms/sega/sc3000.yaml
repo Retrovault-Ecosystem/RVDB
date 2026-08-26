@@ -1,0 +1,29 @@
+id: platform.sega.sc3000
+type: platform
+
+name: Sega SC-3000
+
+aliases:
+  - SC-3000
+  - Sega SC-3000
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1983
+
+category:
+  - computer
+
+media:
+  - cartridge
+  - cassette
+
+extensions:
+  - sc
+  - sg
+  - bit
+
+relationships:
+
+  supports_core: []
