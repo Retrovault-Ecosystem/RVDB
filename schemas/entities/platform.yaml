@@ -1,16 +1,19 @@
 # =====================================================
-# RVDB Platform Schema
+# RVDB Platform Schema v2
 # =====================================================
 
-required: []
+required:
+  - category
 
 optional:
   - manufacturer
+  - family
   - release_year
   - generation
-  - category
+  - regions
   - media
   - extensions
+  - architecture
 
 fields:
 
@@ -18,6 +21,10 @@ fields:
     type: entity_reference_list
     entity_type: manufacturer
     description: Canonical platform manufacturer IDs
+
+  family:
+    type: string
+    description: Canonical hardware or platform family name
 
   release_year:
     type: integer_or_null
@@ -29,15 +36,38 @@ fields:
 
   category:
     type: list
-    description: Platform categories
+    items:
+      type: string
+      enum:
+        - console
+        - handheld
+        - computer
+        - arcade
+    description: Canonical platform classifications
+
+  regions:
+    type: list
+    items:
+      type: string
+    description: Regions in which the platform was officially released
 
   media:
     type: list
-    description: Physical or digital media types
+    items:
+      type: string
+    description: Physical or digital media types supported by the platform
 
   extensions:
     type: list
-    description: Common ROM or software extensions
+    items:
+      type: string
+    description: Common software, ROM, or disk-image extensions
+
+  architecture:
+    type: list
+    items:
+      type: string
+    description: Canonical processor or hardware architecture identifiers
 
 relationships:
 

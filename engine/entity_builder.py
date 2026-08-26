@@ -41,6 +41,8 @@ from engine.id_generator import IDGenerator
 from engine.relationship_lookup import (
     RelationshipLookup,
 )
+from engine.type_registry import TypeRegistry
+
 from engine.schema_loader import (
     SchemaLoader,
     SchemaNotFoundError,
@@ -394,6 +396,7 @@ class EntityBuilder:
             return self._prompt_list(
                 label,
                 required,
+                field_schema,
             )
 
         if field_type == "object":
@@ -585,6 +588,7 @@ class EntityBuilder:
         self,
         label: str,
         required: bool,
+        field_schema: dict[str, Any] | None = None,
     ) -> list[str]:
 
         while True:
@@ -620,6 +624,35 @@ class EntityBuilder:
             ]
 
             if values:
+
+                if field_schema is not None:
+
+                    type_options = {
+                        key: option
+                        for key, option
+                        in field_schema.items()
+                        if key
+                        not in {
+                            "type",
+                            "description",
+                            "required",
+                        }
+                    }
+
+                    registry = TypeRegistry()
+
+                    if not registry.validate(
+                        "list",
+                        values,
+                        **type_options,
+                    ):
+
+                        print(
+                            f"{label} contains an invalid value."
+                        )
+
+                        continue
+
                 return values
 
             if not required:

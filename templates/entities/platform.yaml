@@ -1,4 +1,6 @@
-# RVDB Platform Entity Template
+# =====================================================
+# RVDB Platform Entity Template v2
+# =====================================================
 
 id: platform.manufacturer.system
 
@@ -12,12 +14,22 @@ aliases:
 manufacturer:
   - manufacturer.id
 
-release_year: 0000
+family: ""
 
-generation: 0
+release_year: null
+
+generation: null
 
 category:
   - console
+
+regions: []
+
+media: []
+
+extensions: []
+
+architecture: []
 
 relationships:
 

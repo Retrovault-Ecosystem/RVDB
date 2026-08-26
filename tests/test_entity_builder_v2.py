@@ -231,11 +231,14 @@ def test_build_platform(
         [
             "Example Console",
             "Nintendo",
+            "",
             "1990",
             "4",
             "console",
+            "",
             "cartridge",
             "rom, bin",
+            "",
             "",
             "y",
         ],
@@ -308,6 +311,9 @@ def test_build_platform_relationship(
             "",
             "",
             "",
+            "console",
+            "",
+            "",
             "",
             "",
             "core.snes9x",
@@ -342,6 +348,9 @@ def test_build_platform_accepts_canonical_reference(
             "Canonical Test",
             "manufacturer.sega",
             "",
+            "",
+            "",
+            "console",
             "",
             "",
             "",
@@ -426,3 +435,41 @@ def test_unknown_entity_type():
     )
 
     assert entity is None
+
+
+def test_build_platform_rejects_invalid_category(
+    monkeypatch,
+):
+
+    _mock_inputs(
+        monkeypatch,
+        [
+            "Constraint Test Console",
+            "manufacturer.nintendo",
+            "",
+            "",
+            "",
+            "toaster",
+            "console",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "y",
+        ],
+    )
+
+    builder = EntityBuilder()
+
+    entity = builder.build(
+        "platform"
+    )
+
+    assert entity is not None
+
+    assert entity[
+        "category"
+    ] == [
+        "console"
+    ]
