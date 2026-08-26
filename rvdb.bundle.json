@@ -80,7 +80,16 @@
         "core.snes9x"
       ]
     },
+    "platform.sega.dreamcast": {
+      "supports_core": []
+    },
+    "platform.sega.game.gear": {
+      "supports_core": []
+    },
     "platform.sega.genesis": {
+      "supports_core": []
+    },
+    "platform.sega.saturn": {
       "supports_core": []
     },
     "publisher.nintendo": {}
@@ -445,6 +454,64 @@
       "release_year": null,
       "type": "platform"
     },
+    "platform.sega.dreamcast": {
+      "aliases": [
+        "Sega Dreamcast"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "gdi",
+        "cdi",
+        "chd"
+      ],
+      "id": "platform.sega.dreamcast",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "media": [
+        "optical-disc"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Dreamcast",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1998,
+      "type": "platform"
+    },
+    "platform.sega.game.gear": {
+      "aliases": [
+        "Sega Game Gear"
+      ],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "gg"
+      ],
+      "id": "platform.sega.game.gear",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Game Gear",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1990,
+      "type": "platform"
+    },
     "platform.sega.genesis": {
       "aliases": [],
       "category": [
@@ -464,6 +531,36 @@
         "supports_core": []
       },
       "release_year": null,
+      "type": "platform"
+    },
+    "platform.sega.saturn": {
+      "aliases": [
+        "Saturn"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "cue",
+        "ccd",
+        "chd"
+      ],
+      "id": "platform.sega.saturn",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "media": [
+        "optical-disc"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Sega Saturn",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1994,
       "type": "platform"
     },
     "publisher.nintendo": {

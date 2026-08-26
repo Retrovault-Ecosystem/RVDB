@@ -1,0 +1,33 @@
+id: platform.sega.dreamcast
+type: platform
+
+name: Dreamcast
+
+aliases:
+  - Sega Dreamcast
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1998
+
+category:
+  - console
+
+media:
+  - optical-disc
+
+extensions:
+  - gdi
+  - cdi
+  - chd
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

@@ -1,0 +1,33 @@
+id: platform.sega.saturn
+type: platform
+
+name: Sega Saturn
+
+aliases:
+  - Saturn
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1994
+
+category:
+  - console
+
+media:
+  - optical-disc
+
+extensions:
+  - cue
+  - ccd
+  - chd
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

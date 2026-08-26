@@ -1,0 +1,31 @@
+id: platform.sega.game.gear
+type: platform
+
+name: Game Gear
+
+aliases:
+  - Sega Game Gear
+
+manufacturer:
+  - manufacturer.sega
+
+release_year: 1990
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - gg
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
