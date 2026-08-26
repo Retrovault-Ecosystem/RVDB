@@ -411,6 +411,43 @@ def test_build_core_relationship(
     }
 
 
+def test_build_frontend_relationships(
+    monkeypatch,
+):
+
+    _mock_inputs(
+        monkeypatch,
+        [
+            "Example Frontend",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "y",
+        ],
+    )
+
+    builder = EntityBuilder()
+
+    entity = builder.build(
+        "frontend"
+    )
+
+    assert entity is not None
+
+    assert entity[
+        "relationships"
+    ] == {
+        "launches_emulator": [],
+        "launches_core": [],
+    }
+
+
 def test_cancel_creation(
     monkeypatch,
 ):

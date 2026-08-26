@@ -1,0 +1,70 @@
+# =====================================================
+# RVDB Frontend Entity Schema v1
+# =====================================================
+
+required: []
+
+optional:
+  - developer
+  - operating_systems
+  - launch_mechanisms
+  - official_website
+  - source_repository
+  - status
+  - evidence
+
+fields:
+
+  developer:
+    type: entity_reference_list
+    entity_type: developer
+    description: Canonical frontend developer or project entity IDs
+
+  operating_systems:
+    type: list
+    items:
+      type: string
+    description: Operating systems on which the frontend is available
+
+  launch_mechanisms:
+    type: list
+    items:
+      type: string
+    description: Supported mechanisms used to launch or integrate emulators and cores
+
+  official_website:
+    type: string
+    description: Official frontend project website
+
+  source_repository:
+    type: string
+    description: Frontend project source repository
+
+  status:
+    type: string
+    enum:
+      - active
+      - maintenance
+      - archived
+      - discontinued
+      - experimental
+      - unknown
+    description: Current frontend project status
+
+  evidence:
+    type: list
+    items:
+      type: string
+    description: Evidence references supporting frontend identity or integration claims
+
+relationships:
+
+  launches_emulator:
+    type: entity_reference_list
+    entity_type: emulator
+    description: Emulators explicitly launched or integrated by this frontend
+
+  launches_core:
+    type: entity_reference_list
+    entity_type: core
+    description: Cores explicitly launched or integrated by this frontend

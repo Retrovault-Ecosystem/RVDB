@@ -47,6 +47,7 @@ def test_supported_entity_types():
     expected = {
         "core",
         "developer",
+        "frontend",
         "game",
         "genre",
         "manufacturer",

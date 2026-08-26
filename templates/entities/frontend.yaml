@@ -1,0 +1,15 @@
+# =====================================================
+# RVDB Frontend Entity Template v1
+# =====================================================
+
+id: frontend.name
+
+type: frontend
+
+name: Frontend Name
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
