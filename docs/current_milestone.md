@@ -1756,7 +1756,58 @@ P2A11 — Select and Research Platform Population Batch 10
 
 Status:
 
-NEXT
+COMPLETE
+
+---
+
+# Batch 12 Completion Baseline
+
+The Sega SC-3000 Batch 12 population was completed and committed.
+
+Planning commit:
+
+`2268c70` — `docs: add P2A21 Sega SC-3000 plan`
+
+Production commit:
+
+`71317c1` — `data: add Sega SC-3000 platform batch 12`
+
+Canonical entity:
+
+`platform.sega.sc3000`
+
+Canonical name:
+
+`Sega SC-3000`
+
+Production record:
+
+`data/platforms/sega/sc3000.yaml`
+
+Batch 12 decisions:
+
+- SC-3000 is a distinct canonical platform.
+- SC-3000H remains within the SC-3000 platform boundary.
+- SG-1000 remains a separate canonical platform.
+- category: `computer`
+- release year: `1983`
+- media: `cartridge`, `cassette`
+- extensions: `sc`, `sg`, `bit`
+- `supports_core` remains empty.
+- unsupported metadata remains omitted.
+
+Verified production baseline:
+
+- entities: 41
+- platforms: 26
+- graph nodes: 41
+- graph edges: 41
+- regression tests: 145 passing
+- validation: 41 valid
+- schema errors: 0
+- relationship errors: 0
+
+Batch 12 production and regression verification completed successfully.
 
 ---
 
