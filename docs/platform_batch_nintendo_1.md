@@ -249,25 +249,34 @@ is established.
 
 ---
 
-# Media Vocabulary Gate
+# Media Vocabulary Result
 
 Nintendo documentation establishes cartridge/Game Pak media for all three
 systems.
 
-Candidate normalized value:
+Canonical normalized value:
 
 `cartridge`
 
-However, the Platform Entity Contract states that media values should use
-a normalized schema-controlled vocabulary.
+P2A2G resolved the Platform v2 media-vocabulary gate.
 
-The current Platform v2 schema validates media as a typed string list but
-does not yet constrain the vocabulary.
+The Platform schema now controls media values through `list.items.enum`.
+
+Initial canonical media vocabulary:
+
+- `cartridge`
+- `floppy`
+- `optical-disc`
+- `cassette`
+- `digital`
 
 Decision:
 
-Do not populate `media` in Nintendo Batch 1 production YAML until the media
-vocabulary requirement is resolved explicitly.
+Nintendo Batch 1 may populate:
+
+`media: [cartridge]`
+
+for Nintendo 64, Game Boy, and Game Boy Color.
 
 ---
 
@@ -322,6 +331,7 @@ The initial records should contain only:
 - `manufacturer`
 - `release_year`
 - `category`
+- `media`
 - `extensions`
 - `relationships`
 - minimal existing-compatible metadata where justified
@@ -334,11 +344,11 @@ Deferred optional fields must remain omitted.
 
 Before Nintendo Batch 1 is committed:
 
-1. resolve the media vocabulary decision
-2. create exactly three platform YAML files
-3. verify canonical IDs and paths
-4. verify manufacturer references
-5. verify required categories
+1. create exactly three platform YAML files
+2. verify canonical IDs and paths
+3. verify manufacturer references
+4. verify required categories
+5. verify controlled media values
 6. verify proposed extensions
 7. verify no speculative optional fields were introduced
 8. run production validation
@@ -376,5 +386,6 @@ Expected post-batch platform count:
 
 # Next Decision
 
-Resolve the Platform v2 media vocabulary requirement before creating the
-three Nintendo Batch 1 YAML entities.
+The Platform v2 media vocabulary requirement is resolved.
+
+Proceed with creation of the three Nintendo Batch 1 platform entities.

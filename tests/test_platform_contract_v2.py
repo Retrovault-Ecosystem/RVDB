@@ -1,4 +1,5 @@
 from engine.schema_loader import SchemaLoader
+from validator.schema import SchemaValidator
 
 
 def _platform_schema():
@@ -72,7 +73,7 @@ def test_platform_regions_is_typed_string_list():
     }
 
 
-def test_platform_media_is_typed_string_list():
+def test_platform_media_is_controlled_string_list():
 
     schema = _platform_schema()
 
@@ -86,6 +87,13 @@ def test_platform_media_is_typed_string_list():
 
     assert media["items"] == {
         "type": "string",
+        "enum": [
+            "cartridge",
+            "floppy",
+            "optical-disc",
+            "cassette",
+            "digital",
+        ],
     }
 
 
@@ -177,4 +185,31 @@ def test_platform_supports_core_relationship_is_preserved():
     assert (
         supports_core["entity_type"]
         == "core"
+    )
+
+def test_platform_rejects_unknown_media_value():
+
+    validator = SchemaValidator()
+
+    entity = {
+        "id": "platform.example.system",
+        "type": "platform",
+        "name": "Example System",
+        "category": [
+            "console",
+        ],
+        "media": [
+            "laser-crystal",
+        ],
+    }
+
+    result = validator.validate(
+        entity
+    )
+
+    assert not result.valid
+
+    assert any(
+        "media" in error
+        for error in result.errors
     )

@@ -55,6 +55,12 @@ fields:
     type: list
     items:
       type: string
+      enum:
+        - cartridge
+        - floppy
+        - optical-disc
+        - cassette
+        - digital
     description: Physical or digital media types supported by the platform
 
   extensions:

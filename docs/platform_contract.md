@@ -228,23 +228,26 @@ Status:
 
 OPTIONAL
 
-Schema direction:
+Schema type:
 
-validated list
+controlled string list
 
 Purpose:
 
 Records canonical software/media formats associated with the platform.
 
-Examples may include:
+Normalized vocabulary:
 
-- cartridge
-- floppy
-- optical-disc
-- digital
-- cassette
+- `cartridge`
+- `floppy`
+- `optical-disc`
+- `cassette`
+- `digital`
 
-The final vocabulary must be normalized and schema-controlled.
+The vocabulary is schema-controlled through `list.items.enum`.
+
+Additional media values must not be introduced directly into production
+data without first extending the canonical schema vocabulary deliberately.
 
 ---
 
