@@ -1,6 +1,6 @@
 # RVDB Current Milestone
 
-_Last Updated: 2026-08-23_
+_Last Updated: 2026-08-26_
 
 ---
 
@@ -1226,7 +1226,7 @@ Read docs/current_milestone.md and continue from the current milestone.
 
 Expected restart point:
 
-Post-Foundation 0.2.1 — Next Milestone Planning
+Phase 2A — P2A1 Platform Entity Contract v2
 
 Status:
 
@@ -1235,9 +1235,103 @@ NEXT
 Foundation 0.2.1 is complete, released, tagged, pushed, tested, validated,
 and reproducible from a clean clone.
 
-Begin the next development session by reviewing the roadmap and selecting
-the next RVDB milestone before starting new architectural or data-expansion
-work.
+Phase 2A has been selected as the next active RVDB development milestone.
+
+P2A0 platform architecture and schema-capability audits are complete.
+
+Continue with P2A1 by defining and testing the canonical Platform Entity
+Contract v2 before beginning large-scale platform data population.
+
+---
+
+# Phase 2A — Platform Database Expansion
+
+Status:
+
+IN PROGRESS
+
+Foundation prerequisite:
+
+- Foundation 0.2.1 released
+- release tag: `foundation-0.2.1`
+- canonical branch: `develop`
+- Foundation regression baseline: 110 tests passing
+- Foundation validation baseline: 19 valid entities
+- schema errors: 0
+- relationship errors: 0
+
+## P2A0 — Platform Architecture Audit
+
+Status:
+
+COMPLETE
+
+Completed:
+
+- audited current production platform dataset
+- confirmed 4 existing platform entities
+- audited platform schema and entity template
+- audited common entity schema
+- audited schema loader
+- audited schema validator
+- audited entity builder field handling
+- audited relationship schema capabilities
+- confirmed supported ordinary schema field types:
+  - `string`
+  - `integer`
+  - `integer_or_null`
+  - `boolean`
+  - `list`
+  - `object`
+  - `entity_reference`
+  - `entity_reference_list`
+- confirmed relationship schema types:
+  - `entity_reference`
+  - `entity_reference_list`
+- confirmed schema-defined relationship target typing
+- confirmed current platform schema is intentionally minimal
+- confirmed current platform contract is insufficient for the planned
+  complete structured platform catalog
+- confirmed Foundation regression baseline remains green
+
+Decision:
+
+Expand and formalize the platform entity contract before beginning
+large-scale platform data population.
+
+## P2A1 — Platform Entity Contract v2
+
+Status:
+
+NEXT
+
+Goal:
+
+Define the canonical RVDB platform metadata contract required for
+large-scale platform database expansion.
+
+The contract must distinguish stable canonical platform identity from
+regional naming, hardware classification, release information,
+software/media characteristics, emulation metadata, and relationships.
+
+P2A1 must be completed before mass platform YAML creation begins.
+
+Planned sequence:
+
+1. define canonical platform metadata requirements
+2. classify fields as required, optional, metadata, or relationships
+3. define normalized vocabulary where appropriate
+4. add schema tests before schema expansion
+5. update the platform schema
+6. update the platform entity template
+7. migrate the four Foundation platform entities
+8. validate all production entities
+9. run the complete regression suite
+10. document and commit the finalized Platform Entity Contract v2
+
+Expected restart point:
+
+Phase 2A — P2A1 Platform Entity Contract v2
 
 ---
 
