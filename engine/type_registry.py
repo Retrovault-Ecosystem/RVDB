@@ -43,10 +43,15 @@ class TypeRegistry:
     Registry of RVDB schema type validators.
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        reference_validator: EntityReferenceValidator | None = None,
+    ) -> None:
 
         self.reference_validator = (
-            EntityReferenceValidator()
+            reference_validator
+            if reference_validator is not None
+            else EntityReferenceValidator()
         )
 
         self._validators: dict[

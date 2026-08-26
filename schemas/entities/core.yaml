@@ -1,12 +1,52 @@
 # =====================================================
-# RVDB Core Schema
+# RVDB Core Entity Schema v1
 # =====================================================
 
 required: []
 
-optional: []
+optional:
+  - emulator
+  - status
+  - official_website
+  - source_repository
+  - documentation
+  - evidence
 
-fields: {}
+fields:
+
+  emulator:
+    type: entity_reference_list
+    entity_type: emulator
+    description: Canonical emulator or project entity IDs associated with this core
+
+  status:
+    type: string
+    enum:
+      - active
+      - maintenance
+      - archived
+      - discontinued
+      - experimental
+      - unknown
+    description: Current core project status
+
+  official_website:
+    type: string
+    description: Official core project website
+
+  source_repository:
+    type: string
+    description: Core project source repository
+
+  documentation:
+    type: string
+    description: Official core documentation source
+
+  evidence:
+    type: list
+    items:
+      type: string
+    description: Evidence references supporting core identity or compatibility claims
 
 relationships:
 

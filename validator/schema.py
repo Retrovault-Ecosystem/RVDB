@@ -48,6 +48,10 @@ from engine.type_registry import (
     UnknownTypeError,
 )
 
+from engine.entity_reference import (
+    EntityReferenceValidator,
+)
+
 
 @dataclass(slots=True)
 class ValidationResult:
@@ -64,11 +68,22 @@ class SchemaValidator:
     Validate RVDB entities against resolved YAML schemas.
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        registry=None,
+    ) -> None:
 
         self.loader = SchemaLoader()
 
-        self.types = TypeRegistry()
+        reference_validator = (
+            EntityReferenceValidator(registry)
+            if registry is not None
+            else None
+        )
+
+        self.types = TypeRegistry(
+            reference_validator=reference_validator,
+        )
 
     # =====================================================
     # Public API

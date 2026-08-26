@@ -383,6 +383,12 @@ def test_build_core_relationship(
         monkeypatch,
         [
             "Example Core",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "platform.nintendo.snes",
             "y",
         ],
