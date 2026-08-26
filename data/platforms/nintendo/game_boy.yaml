@@ -1,0 +1,30 @@
+id: platform.nintendo.game.boy
+type: platform
+
+name: Game Boy
+
+aliases: []
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 1989
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - gb
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

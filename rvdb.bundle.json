@@ -62,6 +62,15 @@
     "platform.arcade": {
       "supports_core": []
     },
+    "platform.nintendo.game.boy": {
+      "supports_core": []
+    },
+    "platform.nintendo.game.boy.color": {
+      "supports_core": []
+    },
+    "platform.nintendo.n64": {
+      "supports_core": []
+    },
     "platform.nintendo.nes": {
       "supports_core": []
     },
@@ -293,6 +302,88 @@
         "supports_core": []
       },
       "release_year": 1972,
+      "type": "platform"
+    },
+    "platform.nintendo.game.boy": {
+      "aliases": [],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "gb"
+      ],
+      "id": "platform.nintendo.game.boy",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Game Boy",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1989,
+      "type": "platform"
+    },
+    "platform.nintendo.game.boy.color": {
+      "aliases": [],
+      "category": [
+        "handheld"
+      ],
+      "extensions": [
+        "gbc"
+      ],
+      "id": "platform.nintendo.game.boy.color",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Game Boy Color",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1998,
+      "type": "platform"
+    },
+    "platform.nintendo.n64": {
+      "aliases": [
+        "N64"
+      ],
+      "category": [
+        "console"
+      ],
+      "extensions": [
+        "n64",
+        "v64",
+        "z64"
+      ],
+      "id": "platform.nintendo.n64",
+      "manufacturer": [
+        "manufacturer.nintendo"
+      ],
+      "media": [
+        "cartridge"
+      ],
+      "metadata": {
+        "notes": "",
+        "retroarch_supported": true
+      },
+      "name": "Nintendo 64",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1996,
       "type": "platform"
     },
     "platform.nintendo.nes": {

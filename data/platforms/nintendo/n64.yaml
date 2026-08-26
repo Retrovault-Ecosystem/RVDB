@@ -1,0 +1,33 @@
+id: platform.nintendo.n64
+type: platform
+
+name: Nintendo 64
+
+aliases:
+  - N64
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 1996
+
+category:
+  - console
+
+media:
+  - cartridge
+
+extensions:
+  - n64
+  - v64
+  - z64
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""

@@ -1,0 +1,30 @@
+id: platform.nintendo.game.boy.color
+type: platform
+
+name: Game Boy Color
+
+aliases: []
+
+manufacturer:
+  - manufacturer.nintendo
+
+release_year: 1998
+
+category:
+  - handheld
+
+media:
+  - cartridge
+
+extensions:
+  - gbc
+
+relationships:
+
+  supports_core: []
+
+metadata:
+
+  retroarch_supported: true
+
+  notes: ""
