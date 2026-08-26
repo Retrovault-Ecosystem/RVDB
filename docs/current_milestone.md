@@ -1998,3 +1998,264 @@ checkpoint is complete.
 Expected restart point:
 
 P2A5 — Select and Research Platform Population Batch 4
+
+---
+
+# Phase 2A — Nintendo Handheld Platform Batch 4 Completion
+
+## P2A5 — Nintendo Handheld Platform Population Batch 4
+
+Status:
+
+COMPLETE
+
+Planning commit:
+
+`a75af50` — `docs: plan Nintendo handheld platform batch 4`
+
+Production commit:
+
+`fd0d0ae` — `data: add Nintendo handheld platform batch 4`
+
+Production entities added:
+
+- `platform.nintendo.game.boy.advance`
+- `platform.nintendo.ds`
+- `platform.nintendo.3ds`
+
+Canonical production paths:
+
+- `data/platforms/nintendo/game_boy_advance.yaml`
+- `data/platforms/nintendo/ds.yaml`
+- `data/platforms/nintendo/3ds.yaml`
+
+Nintendo Handheld Batch 4 extends the existing Nintendo handheld lineage
+beyond Game Boy and Game Boy Color.
+
+The controlled production scope contains:
+
+- Game Boy Advance
+- Nintendo DS
+- Nintendo 3DS
+
+Nintendo DSi remains deliberately excluded pending a separate canonical
+entity-boundary decision.
+
+The batch completed the following controlled process:
+
+1. Batch 4 candidate audit
+2. Nintendo handheld batch selection
+3. three-platform scope definition
+4. canonical naming and path decisions
+5. metadata research
+6. Nintendo DSi boundary deferral
+7. explicit plan document creation
+8. plan-only commit and push
+9. production YAML creation
+10. Platform v2 contract verification
+11. dataset-count baseline updates
+12. production validation
+13. complete regression verification
+14. canonical bundle regeneration
+15. batch documentation alignment
+16. production commit and push
+
+---
+
+# Current Phase 2A Verification Baseline
+
+Branch:
+
+`develop`
+
+Production entities:
+
+31
+
+Platform entities:
+
+16
+
+Production validation:
+
+- entities checked: 31
+- valid entities: 31
+- schema errors: 0
+- relationship errors: 0
+
+Automated regression suite:
+
+145 passing
+
+Canonical graph:
+
+- nodes: 31
+- edges: 31
+
+Canonical bundle:
+
+`rvdb.bundle.json`
+
+Canonical bundle build:
+
+PASS
+
+Working tree after Nintendo Handheld Batch 4 production commit:
+
+CLEAN
+
+Local/remote synchronization:
+
+PASS
+
+---
+
+# Current Platform Catalog
+
+Production platforms:
+
+- `platform.arcade`
+- `platform.atari.2600`
+- `platform.atari.5200`
+- `platform.atari.7800`
+- `platform.nintendo.3ds`
+- `platform.nintendo.ds`
+- `platform.nintendo.game.boy`
+- `platform.nintendo.game.boy.advance`
+- `platform.nintendo.game.boy.color`
+- `platform.nintendo.n64`
+- `platform.nintendo.nes`
+- `platform.nintendo.snes`
+- `platform.sega.dreamcast`
+- `platform.sega.game.gear`
+- `platform.sega.genesis`
+- `platform.sega.saturn`
+
+Platform count:
+
+16
+
+---
+
+# Phase 2A Deferred Decisions
+
+The following work remains intentionally deferred.
+
+## Nintendo DSi
+
+Do not create a production DSi entity until RVDB explicitly decides whether
+Nintendo DSi is:
+
+- a separate canonical platform
+- a DS-family platform variant
+- or represented through a future normalized family model
+
+Hardware capability differences and DSiWare support require deliberate
+boundary review.
+
+## Sega Master System / Mark III
+
+Do not create production YAML until RVDB explicitly decides the canonical
+entity boundary between:
+
+- Sega Mark III
+- overseas Master System
+- Japanese Master System
+
+## Optional Platform Metadata
+
+Continue deferring unsupported or insufficiently normalized values for:
+
+- `family`
+- `generation`
+- `regions`
+- `architecture`
+
+## Emulator-Core Relationships
+
+Do not invent `supports_core` relationships.
+
+Populate them only after the required canonical core entities exist and
+the relationships are researched separately.
+
+## Additional Atari Families
+
+The following Atari platform families remain outside the completed Atari
+Batch 3 and require their own controlled planning:
+
+- Atari 8-bit computers
+- Atari XEGS
+- Atari Lynx
+- Atari Jaguar
+- Atari Jaguar CD
+- Atari ST
+- modern Atari VCS
+- Atari arcade hardware families
+
+## Nintendo Hardware Revisions
+
+Do not automatically create separate platform entities for:
+
+- Game Boy Advance SP
+- Game Boy micro
+- Nintendo DS Lite
+- Nintendo DSi XL
+- Nintendo 2DS
+- New Nintendo 3DS
+- New Nintendo 3DS XL
+- New Nintendo 2DS XL
+
+Hardware revision alone is not sufficient to establish a new canonical
+RVDB platform entity.
+
+---
+
+# NEXT CHECKPOINT
+
+## P2A6 — Select and Research Platform Population Batch 5
+
+Status:
+
+NEXT
+
+Goal:
+
+Select the next small, controlled platform population batch before creating
+additional production YAML.
+
+Required work:
+
+1. audit remaining manufacturer/platform candidates
+2. select a coherent Batch 5 scope
+3. verify manufacturer coverage
+4. determine canonical entity boundaries
+5. determine canonical IDs and filesystem paths
+6. research canonical names and justified aliases
+7. research release years
+8. determine valid platform categories
+9. determine controlled media values
+10. determine defensible software-image extensions
+11. identify any boundary decisions requiring explicit deferral
+12. explicitly defer unsupported metadata
+13. write and review the Batch 5 plan
+14. commit the plan separately before production creation
+
+Candidate directions may include:
+
+- additional Atari platforms
+- additional Nintendo console platforms
+- Sega Master System only after explicit entity-boundary review
+- another manufacturer after creating or verifying its canonical
+  manufacturer entity
+
+Population must continue to follow:
+
+- `docs/platform_contract.md`
+- `docs/platform_catalog_policy.md`
+
+No Batch 5 production YAML should be created until the Batch 5 planning
+checkpoint is complete.
+
+Expected restart point:
+
+P2A6 — Select and Research Platform Population Batch 5
