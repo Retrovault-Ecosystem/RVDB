@@ -1,0 +1,30 @@
+# =====================================================
+# RVDB Compatibility Entity Template v1
+# =====================================================
+
+id: compatibility.subject.platform
+
+type: compatibility
+
+name: Compatibility Claim
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: ""
+
+platform: ""
+
+playability: unknown
+
+evidence:
+  - source: ""
+    url: ""
+    checked_at: ""
+
+version: ""
+
+notes: ""

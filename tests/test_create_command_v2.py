@@ -45,6 +45,7 @@ def test_supported_entity_types():
     )
 
     expected = {
+        "compatibility",
         "core",
         "developer",
         "frontend",
@@ -108,6 +109,16 @@ def test_output_directory():
         == (
             DATA_ROOT
             / "publishers"
+        )
+    )
+
+    assert (
+        _output_directory(
+            "compatibility"
+        )
+        == (
+            DATA_ROOT
+            / "compatibilities"
         )
     )
 

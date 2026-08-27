@@ -100,20 +100,42 @@ def _output_directory(
     """
     Return the canonical data directory for an entity type.
 
-    Foundation 0.2 currently follows the repository
-    convention:
+    Foundation 0.2 currently derives the storage directory
+    from the singular entity type using the repository's
+    regular pluralization convention:
 
-        platform      -> data/platforms
-        game          -> data/games
-        developer     -> data/developers
+        platform       -> data/platforms
+        game           -> data/games
+        developer      -> data/developers
+        compatibility  -> data/compatibilities
+
+    Singular names ending in consonant + ``y`` use the
+    standard ``y`` -> ``ies`` plural form. Other entity
+    types retain the existing ``s`` suffix behavior.
 
     A schema-defined storage path can replace this
     convention in a later release if needed.
     """
 
+    if (
+        len(entity_type) >= 2
+        and entity_type.endswith("y")
+        and entity_type[-2].lower()
+        not in "aeiou"
+    ):
+        directory_name = (
+            entity_type[:-1]
+            + "ies"
+        )
+    else:
+        directory_name = (
+            entity_type
+            + "s"
+        )
+
     return (
         DATA_ROOT
-        / f"{entity_type}s"
+        / directory_name
     )
 
 
