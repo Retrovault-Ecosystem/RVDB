@@ -1,0 +1,75 @@
+# =====================================================
+# RVDB Compatibility Entity Schema v1
+# =====================================================
+
+required:
+  - subject
+  - platform
+  - playability
+  - evidence
+
+optional:
+  - version
+  - notes
+
+fields:
+
+  subject:
+    type: entity_reference
+    entity_types:
+      - emulator
+      - core
+    description: Canonical emulator or core entity ID making the compatibility claim
+
+  platform:
+    type: entity_reference
+    entity_type: platform
+    description: Canonical platform entity ID targeted by the compatibility claim
+
+  playability:
+    type: string
+    enum:
+      - playable
+      - playable_limited
+      - experimental
+      - historical_only
+      - unknown
+    description: Evidence-backed operational playability state
+
+  evidence:
+    type: list
+    min_items: 1
+    items:
+      type: object
+      required:
+        - source
+        - url
+        - checked_at
+      optional:
+        - version
+        - notes
+      fields:
+        source:
+          type: string
+          description: Human-readable evidence source
+        url:
+          type: string
+          description: Evidence source URL
+        checked_at:
+          type: string
+          description: Date or timestamp when the evidence was checked
+        version:
+          type: string
+          description: Software version to which this evidence applies
+        notes:
+          type: string
+          description: Additional evidence-specific notes
+    description: Evidence records supporting the compatibility assertion
+
+  version:
+    type: string
+    description: Emulator or core version to which the compatibility assertion applies
+
+  notes:
+    type: string
+    description: Additional compatibility claim notes
