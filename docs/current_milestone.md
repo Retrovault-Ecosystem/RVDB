@@ -4069,3 +4069,53 @@ The next authorized implementation area remains the first-class
 compatibility claim entity contract.
 
 No production compatibility data has been added yet.
+
+
+## P2B4-B.26.70 — Generic List Minimum Constraint
+
+Status:
+
+COMPLETE
+
+Commit:
+
+- `a82b848` — `feat: add generic list minimum constraint`
+
+Implemented:
+
+- generic `min_items` constraint for list field definitions
+- non-negative integer schema contract for `min_items`
+- explicit support for `min_items: 0`
+- rejection of negative, float, string, null, and boolean `min_items` values
+- rejection of `min_items` on non-list field definitions
+- runtime enforcement of minimum list cardinality
+- nested-list support for the same generic constraint
+- preservation of existing list `items` constraint behavior
+- dedicated generic `min_items` regression coverage
+- no compatibility-specific validation logic
+- no production schema or data changes
+
+Validation:
+
+- 265 tests passed
+- 41 production entities checked
+- 41 valid
+- 0 schema errors
+- 0 relationship errors
+- runtime version remains `RVDB 0.2.1`
+
+Architecture decision:
+
+Compatibility evidence may now use the generic list cardinality contract to
+require at least one evidence item through `min_items: 1`, without introducing
+compatibility-specific list validation.
+
+The generic nested-object, multi-target entity-reference, and list minimum
+constraint prerequisites are now available for the first-class compatibility
+claim entity contract.
+
+The next authorized implementation area remains the first-class
+compatibility claim entity contract.
+
+Compatibility implementation itself has not begun, and no production
+compatibility data has been added yet.
