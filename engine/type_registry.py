@@ -235,6 +235,7 @@ class TypeRegistry:
         self,
         value,
         items=None,
+        min_items=None,
         **_,
     ) -> bool:
 
@@ -244,6 +245,26 @@ class TypeRegistry:
         ):
 
             return False
+
+        if min_items is not None:
+
+            if (
+                not isinstance(
+                    min_items,
+                    int,
+                )
+                or isinstance(
+                    min_items,
+                    bool,
+                )
+                or min_items < 0
+            ):
+
+                return False
+
+            if len(value) < min_items:
+
+                return False
 
         if items is None:
 

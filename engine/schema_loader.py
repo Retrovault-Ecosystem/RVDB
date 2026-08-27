@@ -471,6 +471,40 @@ class SchemaLoader:
                 enum,
             )
 
+        if "min_items" in definition:
+
+            min_items = definition[
+                "min_items"
+            ]
+
+            if field_type != "list":
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'min_items' is only "
+                        "valid for list fields"
+                    )
+                )
+
+            if (
+                not isinstance(
+                    min_items,
+                    int,
+                )
+                or isinstance(
+                    min_items,
+                    bool,
+                )
+                or min_items < 0
+            ):
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'min_items' must be "
+                        "a non-negative integer"
+                    )
+                )
+
         items = definition.get(
             "items"
         )
@@ -608,6 +642,31 @@ class SchemaLoader:
         )
 
         if value_type == "list":
+
+            if "min_items" in definition:
+
+                min_items = definition[
+                    "min_items"
+                ]
+
+                if (
+                    not isinstance(
+                        min_items,
+                        int,
+                    )
+                    or isinstance(
+                        min_items,
+                        bool,
+                    )
+                    or min_items < 0
+                ):
+
+                    raise SchemaDefinitionError(
+                        (
+                            f"{prefix}: 'min_items' must be "
+                            "a non-negative integer"
+                        )
+                    )
 
             items = definition.get(
                 "items"
