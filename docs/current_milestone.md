@@ -4019,3 +4019,53 @@ The next authorized implementation area is the first-class
 compatibility claim entity contract.
 
 No production compatibility data has been added yet.
+
+
+## P2B4-B.26.67 — Generic Multi-Target Entity References
+
+Status:
+
+COMPLETE
+
+Commit:
+
+- `a9dde62` — `feat: add multi-target entity references`
+
+Implemented:
+
+- generic multi-target constraints for `entity_reference` fields
+- `entity_types` schema support for references that may target more than
+  one canonical entity type
+- preservation of existing singular `entity_type` reference semantics
+- mutual exclusivity between `entity_type` and `entity_types`
+- schema-definition validation for malformed `entity_types` constraints
+- rejection of empty multi-target lists
+- rejection of non-string and empty target-type values
+- rejection of duplicate target entity types
+- rejection of unknown target entity types
+- runtime validation against any allowed target entity type
+- backward compatibility for existing singular typed references
+- dedicated multi-target entity-reference regression coverage
+
+Validation:
+
+- 247 tests passed
+- 41 production entities checked
+- 41 valid
+- 0 schema errors
+- 0 relationship errors
+- runtime version remains `RVDB 0.2.1`
+
+Architecture decision:
+
+Compatibility claims may reference more than one canonical subject class
+without introducing compatibility-specific reference logic.
+
+The generic `entity_types` contract will support compatibility modeling
+where a reference may legitimately target entities such as emulators,
+cores, frontends, or other explicitly authorized entity classes.
+
+The next authorized implementation area remains the first-class
+compatibility claim entity contract.
+
+No production compatibility data has been added yet.
