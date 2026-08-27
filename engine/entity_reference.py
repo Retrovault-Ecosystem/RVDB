@@ -58,13 +58,28 @@ class EntityReferenceValidator:
         self,
         value,
         entity_type=None,
+        entity_types=None,
     ) -> bool:
         """
         Validate one canonical entity ID.
 
-        If entity_type is supplied, the referenced entity
-        must also match that type.
+        ``entity_type`` preserves the original singular
+        expected-type contract.
+
+        ``entity_types`` permits a reference to target one
+        of several explicitly allowed entity types.
+
+        The two constraints are mutually exclusive.
         """
+
+        if (
+            entity_type is not None
+            and entity_types is not None
+        ):
+            raise ValueError(
+                "entity_type and entity_types are "
+                "mutually exclusive"
+            )
 
         if not isinstance(
             value,
@@ -79,13 +94,23 @@ class EntityReferenceValidator:
         if entity is None:
             return False
 
-        if entity_type is None:
-            return True
-
-        return (
-            entity.get("type")
-            == entity_type
+        actual_type = entity.get(
+            "type"
         )
+
+        if entity_type is not None:
+            return (
+                actual_type
+                == entity_type
+            )
+
+        if entity_types is not None:
+            return (
+                actual_type
+                in entity_types
+            )
+
+        return True
 
     # =====================================================
     # Reference List

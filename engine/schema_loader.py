@@ -287,6 +287,7 @@ class SchemaLoader:
         self._validate_field_block(
             "<common>",
             common_fields,
+            available_types,
         )
 
         common_relationships = (
@@ -315,6 +316,7 @@ class SchemaLoader:
             self._validate_field_block(
                 entity_type,
                 fields,
+                available_types,
             )
 
             relationships = schema.get(
@@ -332,6 +334,7 @@ class SchemaLoader:
         self,
         source_type: str,
         fields: Any,
+        available_types: set[str],
     ) -> None:
 
         if fields is None:
@@ -373,6 +376,7 @@ class SchemaLoader:
                 source_type,
                 field_name,
                 definition,
+                available_types,
             )
 
     def _validate_field_definition(
@@ -380,6 +384,7 @@ class SchemaLoader:
         source_type: str,
         field_name: str,
         definition: Any,
+        available_types: set[str],
     ) -> None:
 
         prefix = (
@@ -409,6 +414,40 @@ class SchemaLoader:
                     f"{prefix}: invalid field "
                     f"type '{field_type}'"
                 )
+            )
+
+        entity_type = definition.get(
+            "entity_type"
+        )
+
+        entity_types = definition.get(
+            "entity_types"
+        )
+
+        if (
+            entity_type is not None
+            or entity_types is not None
+        ):
+
+            if field_type not in {
+                "entity_reference",
+                "entity_reference_list",
+            }:
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'entity_type' and "
+                        "'entity_types' are only valid "
+                        "for entity-reference fields"
+                    )
+                )
+
+            self._validate_reference_targets(
+                prefix,
+                entity_type,
+                entity_types,
+                available_types,
+                require_target=False,
             )
 
         enum = definition.get(
@@ -450,6 +489,7 @@ class SchemaLoader:
             self._validate_items_constraint(
                 prefix,
                 items,
+                available_types,
             )
 
         if field_type == "object":
@@ -457,6 +497,7 @@ class SchemaLoader:
             self._validate_nested_constraints(
                 prefix,
                 definition,
+                available_types,
             )
 
     def _validate_enum_constraint(
@@ -500,6 +541,7 @@ class SchemaLoader:
         self,
         prefix: str,
         items: Any,
+        available_types: set[str],
     ) -> None:
 
         if not isinstance(
@@ -551,12 +593,14 @@ class SchemaLoader:
         self._validate_nested_constraints(
             f"{prefix}.items",
             items,
+            available_types,
         )
 
     def _validate_nested_constraints(
         self,
         prefix: str,
         definition: dict[str, Any],
+        available_types: set[str],
     ) -> None:
 
         value_type = definition.get(
@@ -574,6 +618,7 @@ class SchemaLoader:
                 self._validate_items_constraint(
                     prefix,
                     items,
+                    available_types,
                 )
 
             return
@@ -693,6 +738,7 @@ class SchemaLoader:
         self._validate_field_block(
             prefix,
             fields,
+            available_types,
         )
 
         for (
@@ -703,6 +749,7 @@ class SchemaLoader:
             self._validate_nested_constraints(
                 f"{prefix}.{field_name}",
                 field_definition,
+                available_types,
             )
 
     @staticmethod
@@ -864,6 +911,24 @@ class SchemaLoader:
             "entity_types"
         )
 
+        self._validate_reference_targets(
+            prefix,
+            entity_type,
+            entity_types,
+            available_types,
+            require_target=True,
+        )
+
+    def _validate_reference_targets(
+        self,
+        prefix: str,
+        entity_type: Any,
+        entity_types: Any,
+        available_types: set[str],
+        *,
+        require_target: bool,
+    ) -> list[str]:
+
         if (
             entity_type is not None
             and entity_types is not None
@@ -882,21 +947,28 @@ class SchemaLoader:
             and entity_types is None
         ):
 
-            raise SchemaDefinitionError(
-                (
-                    f"{prefix}: relationship must "
-                    "define a target entity type"
+            if require_target:
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: reference must "
+                        "define a target entity type"
+                    )
                 )
-            )
+
+            return []
 
         targets: list[str] = []
 
         if entity_type is not None:
 
-            if not isinstance(
-                entity_type,
-                str,
-            ) or not entity_type.strip():
+            if (
+                not isinstance(
+                    entity_type,
+                    str,
+                )
+                or not entity_type.strip()
+            ):
 
                 raise SchemaDefinitionError(
                     (
@@ -948,6 +1020,18 @@ class SchemaLoader:
                     target
                 )
 
+            if (
+                len(set(targets))
+                != len(targets)
+            ):
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: 'entity_types' "
+                        "must not contain duplicates"
+                    )
+                )
+
         for target in targets:
 
             if target not in available_types:
@@ -958,6 +1042,8 @@ class SchemaLoader:
                         f"entity type '{target}'"
                     )
                 )
+
+        return targets
 
     # =====================================================
     # Schema Merge
