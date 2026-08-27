@@ -4375,3 +4375,184 @@ Production safety remains in effect:
 
 The next authorized work must remain controlled and must not introduce
 production compatibility data without a separate explicit checkpoint.
+
+## P2B4-B.26.84 — Compatibility Creation and Population Boundary
+
+Status:
+
+DESIGN ACCEPTED — IMPLEMENTATION NOT YET STARTED
+
+Purpose:
+
+Freeze the creation, storage, and initial population boundary for first-class
+compatibility entities before introducing a compatibility template or any
+production compatibility assertions.
+
+Repository evidence:
+
+- `compatibility` is registered through
+  `schemas/entities/compatibility.yaml`
+- the generic `create` command requires both:
+  - a registered entity schema
+  - a matching entity template
+- `templates/entities/compatibility.yaml` does not currently exist
+- compatibility therefore remains unavailable through normal interactive
+  entity creation
+- no production compatibility directory currently exists
+- no production compatibility YAML currently exists
+- current canonical compatibility-capable subjects include:
+  - `core.bsnes`
+  - `core.snes9x`
+- no production `emulator` entities currently exist
+- canonical platform entities are already available for controlled future
+  compatibility assertions
+
+Creation boundary:
+
+- compatibility creation must remain disabled until a dedicated
+  `templates/entities/compatibility.yaml` checkpoint is explicitly authorized
+- schema registration by itself does not authorize interactive creation
+- introducing the compatibility template will constitute an explicit change
+  to the supported `create` entity-type surface
+- template introduction must receive dedicated regression coverage
+- no compatibility entity may be written merely as a side effect of template
+  introduction or template testing
+
+Canonical storage decision:
+
+- production compatibility entities will use:
+  `data/compatibilities/`
+- the plural directory follows the generic create-command convention for the
+  singular entity type `compatibility`
+- nested organization beneath `data/compatibilities/` may be introduced later
+  if production scale justifies it
+- no compatibility production directory is created by this design checkpoint
+
+Compatibility identity:
+
+- compatibility remains a first-class entity and therefore receives its own
+  canonical RVDB ID
+- IDs continue to use the generic RVDB ID-generation contract
+- the initial canonical namespace is:
+  `compatibility.<slug>`
+- compatibility IDs must identify the compatibility assertion itself rather
+  than replacing the canonical IDs of its subject or platform
+- the exact human-readable naming convention used to generate compatibility
+  IDs must be frozen before the first production assertion is added
+
+Template boundary:
+
+A future compatibility template may represent the established schema fields:
+
+- `id`
+- `type`
+- `name`
+- `aliases`
+- `subject`
+- `platform`
+- `playability`
+- `evidence`
+- `version`
+- `notes`
+- `relationships`
+- `metadata`
+
+The template must not introduce fields outside the registered compatibility
+schema.
+
+The template must not introduce deferred fields such as:
+
+- `confidence`
+- `compatibility_state`
+- `bios`
+- `firmware`
+
+Reference-entry behavior:
+
+- `subject` must resolve to an existing canonical `core` or `emulator`
+- `platform` must resolve to an existing canonical `platform`
+- frontend entities remain excluded as compatibility subjects
+- compatibility creation must use the generic typed entity-reference machinery
+  rather than compatibility-specific reference logic
+
+Evidence-entry behavior:
+
+- compatibility remains evidence-backed
+- at least one evidence item is required
+- each evidence item requires:
+  - `source`
+  - `url`
+  - `checked_at`
+- evidence may optionally include:
+  - `version`
+  - `notes`
+- template implementation must not weaken the existing `min_items: 1`
+  evidence contract
+- placeholder/template evidence must not be mistaken for production evidence
+
+Production population boundary:
+
+Template implementation does not authorize production compatibility
+population.
+
+The first production compatibility assertion requires a separate explicit
+checkpoint after template behavior has been implemented and regression-tested.
+
+That first production checkpoint must:
+
+1. select one existing canonical core subject
+2. select one existing canonical platform target
+3. establish a human-readable compatibility entity name
+4. establish its generated canonical compatibility ID
+5. research the operational compatibility claim
+6. capture at least one qualifying evidence record
+7. select the playability value supported by that evidence
+8. validate the resulting entity through the normal production validator
+9. review the assertion before any broader compatibility population begins
+
+Population remains deliberately incremental.
+
+The first successful compatibility assertion must not authorize:
+
+- bulk generation
+- compatibility census work
+- automatic inference of compatibility from existing relationships
+- conversion of every `supports` or `supports_core` relationship into a
+  compatibility claim
+- emulator compatibility population before canonical emulator entities exist
+
+Evidence policy boundary:
+
+Existing platform/core relationships are discovery hints only.
+
+A relationship such as a core supporting a platform does not, by itself,
+satisfy the compatibility evidence contract.
+
+Compatibility assertions require independently reviewable evidence captured in
+the compatibility entity itself.
+
+Still deferred:
+
+- compatibility confidence vocabulary
+- machine-readable evidence authority/source classification
+- BIOS/firmware compatibility modeling
+- additional compatibility target classes
+- frontend as an operational compatibility subject
+- compatibility-specific resolver behavior
+- compatibility-specific query commands
+- bulk compatibility population
+- compatibility census automation
+
+Next implementation checkpoint:
+
+P2B4-B.26.85 — Compatibility Creation Template Contract
+
+That checkpoint may introduce:
+
+- `templates/entities/compatibility.yaml`
+- dedicated tests proving compatibility becomes available through the generic
+  create surface
+- dedicated tests proving template creation obeys the existing compatibility
+  schema and typed-reference contracts
+
+That checkpoint must not introduce production compatibility YAML.
