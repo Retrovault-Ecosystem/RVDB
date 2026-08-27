@@ -4119,3 +4119,146 @@ compatibility claim entity contract.
 
 Compatibility implementation itself has not begun, and no production
 compatibility data has been added yet.
+
+## P2B4-B.26.77 — First-Class Compatibility Contract Design
+
+Status:
+
+DESIGN ACCEPTED — IMPLEMENTATION NOT YET STARTED
+
+Purpose:
+
+Freeze the minimum first-class compatibility entity contract before
+introducing its production schema.
+
+Architecture decisions:
+
+- canonical entity type: `compatibility`
+- compatibility represents an evidence-backed operational compatibility
+  assertion between one emulator/core implementation and one platform
+- common entity fields remain inherited:
+  - `id`
+  - `type`
+  - `name`
+
+Required compatibility fields:
+
+- `subject`
+- `platform`
+- `playability`
+- `evidence`
+
+Optional compatibility fields:
+
+- `version`
+- `notes`
+
+Subject contract:
+
+- `subject` is a singular `entity_reference`
+- authorized subject entity types:
+  - `emulator`
+  - `core`
+- `frontend` is intentionally excluded from the initial operational
+  compatibility subject contract
+- frontend discovery/integration does not independently establish
+  emulator/core operational compatibility
+
+Platform contract:
+
+- `platform` is a singular `entity_reference`
+- target entity type is `platform`
+
+Playability contract:
+
+The controlled compatibility playability vocabulary is:
+
+- `playable`
+- `playable_limited`
+- `experimental`
+- `historical_only`
+- `unknown`
+
+Playability belongs to the compatibility claim rather than becoming a
+universal property of the platform.
+
+No separate `compatibility_state` field is introduced in this checkpoint.
+
+Version contract:
+
+- `version` is an optional string
+- version-aware compatibility is supported without creating new emulator,
+  core, or platform identities for ordinary software releases
+- evidence items may also carry a version when the evidence itself is
+  version-specific
+
+Evidence contract:
+
+- `evidence` is required
+- evidence is a list of structured objects
+- evidence requires `min_items: 1`
+- each evidence object requires:
+  - `source`
+  - `url`
+  - `checked_at`
+- each evidence object may optionally contain:
+  - `version`
+  - `notes`
+
+Initial evidence scalar representation:
+
+- `source`: string
+- `url`: string
+- `checked_at`: string
+- `version`: string
+- `notes`: string
+
+The generic nested-object schema contract will validate evidence structure.
+The generic list `min_items` contract will enforce at least one evidence
+record.
+
+Deferred compatibility areas:
+
+- compatibility confidence vocabulary
+- machine-readable evidence authority/source classification
+- BIOS/firmware requirements
+- detailed BIOS schema
+- additional compatibility target classes
+- frontend as an operational compatibility subject
+- dedicated compatibility resolver behavior
+- compatibility-specific query commands
+- production compatibility population
+
+Confidence is intentionally deferred because P2B3 identifies possible future
+values but requires explicit schema design before production use.
+
+Relationship decision:
+
+- the first compatibility contract does not require schema `relationships`
+  entries
+- `subject` and `platform` use typed entity-reference fields
+- duplicate relationship declarations are avoided
+
+Registration / creation boundary:
+
+- adding `schemas/entities/compatibility.yaml` will register compatibility
+  with schema discovery
+- the generic `create` command requires both a schema and matching template
+- therefore schema introduction alone must not automatically authorize
+  interactive production compatibility creation
+- compatibility template/data population remains separately controlled
+
+Production safety:
+
+- no compatibility production YAML is authorized yet
+- no mass compatibility assertions are authorized
+- no census/population work is authorized
+- schema implementation must receive dedicated regression coverage before
+  production compatibility data is introduced
+
+Next implementation checkpoint:
+
+P2B4-B.26.78 — First-Class Compatibility Schema Contract
+
+That checkpoint may introduce the schema and dedicated schema-validation
+tests only after this design record is reviewed.
