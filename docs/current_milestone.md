@@ -4262,3 +4262,116 @@ P2B4-B.26.78 — First-Class Compatibility Schema Contract
 
 That checkpoint may introduce the schema and dedicated schema-validation
 tests only after this design record is reviewed.
+
+## P2B4-B.26.78 — First-Class Compatibility Schema Contract
+
+Status:
+
+COMPLETE
+
+Commit:
+
+- `cd46239` — `feat: add compatibility entity schema`
+
+Implemented:
+
+- first-class `compatibility` entity schema
+- compatibility schema registered through normal schema discovery
+- required compatibility fields:
+  - `subject`
+  - `platform`
+  - `playability`
+  - `evidence`
+- optional compatibility fields:
+  - `version`
+  - `notes`
+- `subject` is a singular `entity_reference`
+- authorized `subject` target entity types:
+  - `emulator`
+  - `core`
+- `platform` is a singular `entity_reference`
+- `platform` target entity type is `platform`
+- controlled playability vocabulary:
+  - `playable`
+  - `playable_limited`
+  - `experimental`
+  - `historical_only`
+  - `unknown`
+- `evidence` is a required list
+- evidence requires `min_items: 1`
+- each evidence item is a structured object
+- required evidence fields:
+  - `source`
+  - `url`
+  - `checked_at`
+- optional evidence fields:
+  - `version`
+  - `notes`
+- all initial evidence scalar fields use string representation
+- top-level `version` remains optional
+- top-level `notes` remains optional
+- no compatibility-specific schema relationships introduced
+- deferred fields remain excluded:
+  - `confidence`
+  - `compatibility_state`
+  - `bios`
+  - `firmware`
+- dedicated compatibility schema regression coverage added
+- no compatibility-specific engine or validator changes required
+- no compatibility template introduced
+- no production compatibility data introduced
+
+Normalized schema contract:
+
+Required:
+
+- `id`
+- `type`
+- `name`
+- `subject`
+- `platform`
+- `playability`
+- `evidence`
+
+Optional:
+
+- `aliases`
+- `relationships`
+- `metadata`
+- `version`
+- `notes`
+
+Relationships:
+
+- `{}`
+
+Validation:
+
+- 12 dedicated compatibility schema tests passed
+- 277 total tests passed
+- 41 production entities checked
+- 41 valid
+- 0 schema errors
+- 0 relationship errors
+- runtime version remains `RVDB 0.2.1`
+
+Architecture decision:
+
+The first-class compatibility schema is now implemented using only generic
+schema-engine capabilities established by the earlier nested-object,
+multi-target entity-reference, and `min_items` checkpoints.
+
+Compatibility remains evidence-backed and operationally scoped to emulator/core
+subjects targeting canonical platform entities.
+
+Schema registration alone does not authorize compatibility population.
+
+Production safety remains in effect:
+
+- no compatibility template has been introduced
+- no production compatibility YAML is authorized yet
+- no mass compatibility assertions are authorized
+- no compatibility census/population work is authorized
+
+The next authorized work must remain controlled and must not introduce
+production compatibility data without a separate explicit checkpoint.
