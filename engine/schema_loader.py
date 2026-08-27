@@ -452,6 +452,13 @@ class SchemaLoader:
                 items,
             )
 
+        if field_type == "object":
+
+            self._validate_nested_constraints(
+                prefix,
+                definition,
+            )
+
     def _validate_enum_constraint(
         self,
         prefix: str,
@@ -539,6 +546,163 @@ class SchemaLoader:
                 f"{prefix}.items",
                 item_type,
                 enum,
+            )
+
+        self._validate_nested_constraints(
+            f"{prefix}.items",
+            items,
+        )
+
+    def _validate_nested_constraints(
+        self,
+        prefix: str,
+        definition: dict[str, Any],
+    ) -> None:
+
+        value_type = definition.get(
+            "type"
+        )
+
+        if value_type == "list":
+
+            items = definition.get(
+                "items"
+            )
+
+            if items is not None:
+
+                self._validate_items_constraint(
+                    prefix,
+                    items,
+                )
+
+            return
+
+        if value_type != "object":
+            return
+
+        required_value = definition.get(
+            "required"
+        )
+
+        optional_value = definition.get(
+            "optional"
+        )
+
+        has_contract = (
+            "fields" in definition
+            or isinstance(
+                required_value,
+                list,
+            )
+            or isinstance(
+                optional_value,
+                list,
+            )
+        )
+
+        if not has_contract:
+            return
+
+        fields = definition.get(
+            "fields"
+        )
+
+        if not isinstance(
+            fields,
+            dict,
+        ):
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: structured object "
+                    "'fields' must be a mapping"
+                )
+            )
+
+        required = definition.get(
+            "required",
+            [],
+        )
+
+        optional = definition.get(
+            "optional",
+            [],
+        )
+
+        for (
+            label,
+            names,
+        ) in (
+            ("required", required),
+            ("optional", optional),
+        ):
+
+            if not isinstance(
+                names,
+                list,
+            ):
+
+                raise SchemaDefinitionError(
+                    (
+                        f"{prefix}: '{label}' must "
+                        "be a list"
+                    )
+                )
+
+            for name in names:
+
+                if (
+                    not isinstance(name, str)
+                    or not name.strip()
+                ):
+
+                    raise SchemaDefinitionError(
+                        (
+                            f"{prefix}: '{label}' values "
+                            "must be non-empty strings"
+                        )
+                    )
+
+                if name not in fields:
+
+                    raise SchemaDefinitionError(
+                        (
+                            f"{prefix}: '{label}' field "
+                            f"'{name}' is not declared "
+                            "in 'fields'"
+                        )
+                    )
+
+        overlap = (
+            set(required)
+            & set(optional)
+        )
+
+        if overlap:
+
+            name = sorted(overlap)[0]
+
+            raise SchemaDefinitionError(
+                (
+                    f"{prefix}: field '{name}' cannot "
+                    "be both required and optional"
+                )
+            )
+
+        self._validate_field_block(
+            prefix,
+            fields,
+        )
+
+        for (
+            field_name,
+            field_definition,
+        ) in fields.items():
+
+            self._validate_nested_constraints(
+                f"{prefix}.{field_name}",
+                field_definition,
             )
 
     @staticmethod

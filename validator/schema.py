@@ -302,6 +302,14 @@ class SchemaValidator:
                 }
             }
 
+            if isinstance(
+                type_options.get("items"),
+                dict,
+            ):
+                type_options.pop(
+                    "items"
+                )
+
             try:
 
                 valid = (
@@ -334,6 +342,207 @@ class SchemaValidator:
                         f"Expected {expected_type}"
                     )
                 )
+
+                continue
+
+            self._validate_structured_value(
+                entity[field_name],
+                field_schema,
+                field_name,
+                errors,
+            )
+
+    # =====================================================
+    # Structured Field Validation
+    # =====================================================
+
+    def _validate_structured_value(
+        self,
+        value: Any,
+        definition: dict[str, Any],
+        path: str,
+        errors: list[str],
+    ) -> None:
+        """
+        Recursively validate opt-in list/object structure.
+
+        Primitive type validity is still owned by
+        TypeRegistry. This layer adds structural contracts
+        and deterministic nested error paths.
+        """
+
+        value_type = definition.get(
+            "type"
+        )
+
+        if value_type == "list":
+
+            items = definition.get(
+                "items"
+            )
+
+            if (
+                not isinstance(value, list)
+                or not isinstance(items, dict)
+            ):
+                return
+
+            for index, item in enumerate(value):
+
+                item_path = (
+                    f"{path}[{index}]"
+                )
+
+                self._validate_nested_definition(
+                    item,
+                    items,
+                    item_path,
+                    errors,
+                )
+
+            return
+
+        if value_type == "object":
+
+            if not isinstance(value, dict):
+                return
+
+            if "fields" not in definition:
+                return
+
+            self._validate_object_contract(
+                value,
+                definition,
+                path,
+                errors,
+            )
+
+    def _validate_nested_definition(
+        self,
+        value: Any,
+        definition: dict[str, Any],
+        path: str,
+        errors: list[str],
+    ) -> None:
+
+        expected_type = definition.get(
+            "type"
+        )
+
+        if not expected_type:
+            return
+
+        type_options = {
+            key: option
+            for key, option
+            in definition.items()
+            if key
+            not in {
+                "type",
+                "description",
+                "required",
+                "optional",
+                "fields",
+                "items",
+            }
+        }
+
+        try:
+
+            valid = self.types.validate(
+                expected_type,
+                value,
+                **type_options,
+            )
+
+        except UnknownTypeError:
+
+            errors.append(
+                (
+                    f"{path}: "
+                    "Unknown schema type "
+                    f"'{expected_type}'"
+                )
+            )
+
+            return
+
+        if not valid:
+
+            errors.append(
+                (
+                    f"{path}: "
+                    f"Expected {expected_type}"
+                )
+            )
+
+            return
+
+        self._validate_structured_value(
+            value,
+            definition,
+            path,
+            errors,
+        )
+
+    def _validate_object_contract(
+        self,
+        value: dict[str, Any],
+        definition: dict[str, Any],
+        path: str,
+        errors: list[str],
+    ) -> None:
+
+        fields = definition.get(
+            "fields",
+            {},
+        )
+
+        required = definition.get(
+            "required",
+            [],
+        )
+
+        for field_name in required:
+
+            if field_name not in value:
+
+                errors.append(
+                    (
+                        f"{path}.{field_name}: "
+                        "Missing required field"
+                    )
+                )
+
+        allowed = set(
+            fields.keys()
+        )
+
+        for field_name in value:
+
+            if field_name not in allowed:
+
+                errors.append(
+                    (
+                        f"{path}.{field_name}: "
+                        "Unknown field"
+                    )
+                )
+
+        for (
+            field_name,
+            field_definition,
+        ) in fields.items():
+
+            if field_name not in value:
+                continue
+
+            self._validate_nested_definition(
+                value[field_name],
+                field_definition,
+                f"{path}.{field_name}",
+                errors,
+            )
 
     # =====================================================
     # Relationship Container Validation
