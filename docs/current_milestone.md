@@ -4556,3 +4556,112 @@ That checkpoint may introduce:
   schema and typed-reference contracts
 
 That checkpoint must not introduce production compatibility YAML.
+
+---
+
+# Phase 2B — Compatibility Creation Template Milestone
+
+## P2B4-B.26.85 — Compatibility Creation Template Contract
+
+Status:
+
+COMPLETE
+
+The compatibility entity creation boundary has been extended through the
+generic RVDB creation workflow without introducing production compatibility
+claims.
+
+Completed work includes:
+
+- added the canonical compatibility entity creation template
+- integrated compatibility creation with the generic `create` command
+- preserved schema-driven entity construction
+- added compatibility-aware output-directory handling
+- established the canonical compatibility production directory name:
+  `data/compatibilities`
+- preserved existing output-directory behavior for other entity types
+- added dedicated compatibility template regression coverage
+- expanded generic create-command regression coverage
+- verified compatibility schema, template, and create-command integration
+- confirmed that no production compatibility entity was created
+
+Implementation commit:
+
+`b83412e` — `feat: add compatibility creation template`
+
+Implementation parent:
+
+`af7dd8c` — `docs: define compatibility creation boundary`
+
+Verification baseline:
+
+- focused compatibility/create tests: 32 passing
+- complete regression suite: 289 passing
+- production entities checked: 41
+- production entities valid: 41
+- schema errors: 0
+- relationship errors: 0
+- RVDB version: 0.2.1
+- working tree after implementation commit: clean
+- local `develop` after implementation commit: one commit ahead of
+  `origin/develop`
+- production compatibility data: none
+
+Verified absent production paths:
+
+- `data/compatibility`
+- `data/compatibilitys`
+- `data/compatibilities`
+
+The compatibility template establishes a creation contract only.
+
+It does not authorize speculative compatibility claims or uncontrolled
+production compatibility population.
+
+Compatibility production data must remain evidence-based and must be
+introduced only through separately planned, reviewed, tested, and validated
+checkpoints.
+
+# NEXT CHECKPOINT
+
+## P2B4-B — Compatibility Production Modeling Planning
+
+Status:
+
+NEXT
+
+Goal:
+
+Determine the next controlled compatibility-modeling checkpoint now that the
+compatibility schema and generic creation-template foundation are operational.
+
+Required next-step constraints:
+
+1. do not create speculative compatibility production claims
+2. preserve the canonical compatibility entity contract
+3. preserve the generic creation workflow
+4. determine the first evidence-backed compatibility production scope before
+   creating production YAML
+5. review source and target entity requirements before introducing claims
+6. keep compatibility production work separate from schema/template
+   infrastructure work
+7. run focused regression coverage before any production commit
+8. run the complete regression suite before any production commit
+9. run production validation before any production commit
+10. update this milestone document after the next completed atomic checkpoint
+
+Current restart baseline:
+
+- branch: `develop`
+- implementation HEAD: `b83412e`
+- remote base before milestone documentation commit: `af7dd8c`
+- regression suite: 289 passing
+- production validation: 41 / 41 valid
+- schema errors: 0
+- relationship errors: 0
+- RVDB version: 0.2.1
+- production compatibility entities: 0
+
+Expected restart point:
+
+P2B4-B — Compatibility Production Modeling Planning
