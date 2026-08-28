@@ -4665,3 +4665,128 @@ Current restart baseline:
 Expected restart point:
 
 P2B4-B — Compatibility Production Modeling Planning
+
+---
+
+## P2B4-B — First Production Compatibility Claim
+
+Status:
+
+COMPLETE
+
+Completed production claim:
+
+- `compatibility.core.snes9x.platform.nintendo.snes`
+
+Canonical endpoints:
+
+- subject: `core.snes9x`
+- platform: `platform.nintendo.snes`
+
+Playability:
+
+- `playable`
+
+Evidence policy applied:
+
+- official Libretro core documentation
+- official Snes9x project repository
+- official Libretro SNES compatibility documentation
+- evidence checked on 2026-08-28
+- no unsupported version value was invented
+
+Production result:
+
+- first production compatibility entity added under:
+  `data/compatibilities/`
+- production entity count increased from 41 to 42
+- compatibility entity count increased from 0 to 1
+- manifest and bundle baselines updated accordingly
+
+Resolver correction:
+
+Introducing the first compatibility entity exposed an ordering-dependent
+partial-name collision because generic partial resolution returned the first
+matching graph node.
+
+The resolver was corrected so that partial human-name matching uses
+entity-type precedence instead of raw graph insertion order.
+
+This preserves:
+
+- exact compatibility ID resolution
+- exact platform/core name resolution
+- alias resolution
+- canonical platform precedence for ambiguous partial human-name searches
+
+Verified example:
+
+- `Super Nint` -> `platform.nintendo.snes`
+- exact compatibility ID ->
+  `compatibility.core.snes9x.platform.nintendo.snes`
+
+Regression baseline:
+
+- tests: 291 passed
+- production entities checked: 42
+- valid: 42
+- schema errors: 0
+- relationship errors: 0
+- RVDB version: 0.2.1
+
+Atomic implementation commit:
+
+- `b59bc9a`
+- `feat: add first production compatibility claim`
+
+Repository state after completion:
+
+- branch: `develop`
+- local HEAD == `origin/develop`
+- worktree clean
+
+### P2B4-B Completion Boundary
+
+This checkpoint proves that RVDB can now safely carry an evidence-backed
+production compatibility entity without corrupting generic resolution,
+manifest statistics, bundle generation, or validation.
+
+It does not authorize uncontrolled compatibility population.
+
+The next compatibility expansion must remain evidence-driven and
+incremental.
+
+---
+
+## Next Milestone
+
+### P2B4-C — Controlled Compatibility Population Planning
+
+Goal:
+
+Define the next small, evidence-backed compatibility population set before
+creating additional production YAML.
+
+Requirements:
+
+- review currently available core subjects
+- review canonical supported platform targets
+- identify authoritative evidence for each proposed claim
+- assign playability only where evidence justifies it
+- omit unsupported version precision
+- preserve exact-ID compatibility resolution
+- preserve canonical entity precedence in generic human-name resolution
+- run focused tests, full regression, and production validation before every
+  commit
+
+Current known production core subjects:
+
+- `core.bsnes`
+- `core.snes9x`
+
+Current production compatibility claims:
+
+- `compatibility.core.snes9x.platform.nintendo.snes`
+
+No additional compatibility production YAML is authorized until the
+P2B4-C planning checkpoint is reviewed.
