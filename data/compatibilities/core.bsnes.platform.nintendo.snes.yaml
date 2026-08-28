@@ -1,0 +1,44 @@
+id: compatibility.core.bsnes.platform.nintendo.snes
+type: compatibility
+name: bsnes / Super Nintendo Compatibility
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: core.bsnes
+
+platform: platform.nintendo.snes
+
+playability: playable
+
+evidence:
+  - source: Libretro Core Info — bsnes
+    url: https://github.com/libretro/libretro-core-info/blob/master/bsnes_libretro.info
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Libretro core metadata identifies bsnes as the
+      Nintendo SNES / SFC bsnes core, identifies its system as
+      the Super Nintendo Entertainment System, and declares
+      supported SNES-family content extensions.
+
+  - source: Libretro bsnes Repository
+    url: https://github.com/libretro/bsnes
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Libretro repository identifies bsnes as a
+      Super Nintendo / Super Famicom emulator.
+
+  - source: Libretro bsnes-libretro Repository
+    url: https://github.com/libretro/bsnes-libretro
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Libretro implementation repository identifies
+      bsnes as a Super Nintendo / SNES emulator and provides
+      the Libretro implementation of the core.
+
+notes: >-
+  Evidence-backed operational compatibility claim for the bsnes
+  Libretro core and the canonical Super Nintendo platform.
