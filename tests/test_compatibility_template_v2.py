@@ -154,13 +154,13 @@ def test_compatibility_output_directory_is_canonical():
     )
 
 
-def test_template_does_not_create_production_data():
+def test_compatibility_uses_only_canonical_production_directory():
     assert not (
         DATA_ROOT
         / "compatibility"
     ).exists()
 
-    assert not (
+    assert (
         DATA_ROOT
         / "compatibilities"
-    ).exists()
+    ).is_dir()

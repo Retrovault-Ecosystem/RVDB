@@ -81,14 +81,66 @@ class EntityResolver:
         # Partial match
         # -------------------------
 
-        for entity in self.graph.nodes.values():
+        matches = []
+
+        for index, entity in enumerate(
+            self.graph.nodes.values()
+        ):
 
             name = self.normalize(
                 entity.get("name", "")
             )
 
             if query in name:
-                return entity
+
+                matches.append(
+                    (
+                        self._partial_match_priority(
+                            entity
+                        ),
+                        index,
+                        entity,
+                    )
+                )
 
 
-        return None
+        if not matches:
+            return None
+
+
+        matches.sort(
+            key=lambda match: (
+                match[0],
+                match[1],
+            )
+        )
+
+
+        return matches[0][2]
+
+
+    def _partial_match_priority(
+        self,
+        entity,
+    ):
+
+        entity_type = entity.get(
+            "type",
+            "",
+        )
+
+        priorities = {
+            "platform": 0,
+            "core": 1,
+            "game": 2,
+            "developer": 3,
+            "publisher": 3,
+            "manufacturer": 3,
+            "genre": 4,
+            "compatibility": 100,
+        }
+
+        return priorities.get(
+            entity_type,
+            50,
+        )

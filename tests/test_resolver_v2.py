@@ -151,3 +151,46 @@ def test_resolver_is_cwd_independent(
         entity.id
         == "platform.nintendo.snes"
     )
+
+
+def test_partial_name_prefers_canonical_entity_over_compatibility():
+
+    resolver = get_resolver()
+
+    entity = resolver.resolve(
+        "Super Nint"
+    )
+
+    assert entity is not None
+
+    assert (
+        entity.id
+        == "platform.nintendo.snes"
+    )
+
+
+def test_compatibility_remains_resolvable_by_exact_id():
+
+    resolver = get_resolver()
+
+    entity = resolver.resolve(
+        (
+            "compatibility.core.snes9x."
+            "platform.nintendo.snes"
+        )
+    )
+
+    assert entity is not None
+
+    assert (
+        entity.id
+        == (
+            "compatibility.core.snes9x."
+            "platform.nintendo.snes"
+        )
+    )
+
+    assert (
+        entity.get("type")
+        == "compatibility"
+    )

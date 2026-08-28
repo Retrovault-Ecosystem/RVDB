@@ -1,0 +1,43 @@
+id: compatibility.core.snes9x.platform.nintendo.snes
+type: compatibility
+name: Snes9x / Super Nintendo Compatibility
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: core.snes9x
+
+platform: platform.nintendo.snes
+
+playability: playable
+
+evidence:
+  - source: Libretro Docs — Nintendo - SNES / Famicom (Snes9x)
+    url: https://docs.libretro.com/library/snes9x/
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Libretro core documentation identifies Snes9x as a
+      Super Nintendo Entertainment System emulator/core and documents
+      SNES content support.
+
+  - source: Snes9x Official Source Repository
+    url: https://github.com/snes9xgit/snes9x
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Snes9x project repository identifies Snes9x as a
+      Super Nintendo Entertainment System emulator and corroborates
+      the core/platform compatibility claim.
+
+  - source: Libretro Docs — Nintendo SNES Core Compatibility
+    url: https://docs.libretro.com/library/compatibility/snes/
+    checked_at: "2026-08-28"
+    notes: >-
+      Official Libretro compatibility documentation explicitly
+      includes Snes9x among SNES compatibility cores.
+
+notes: >-
+  Evidence-backed operational compatibility claim for the Snes9x
+  Libretro core and the canonical Super Nintendo platform.
