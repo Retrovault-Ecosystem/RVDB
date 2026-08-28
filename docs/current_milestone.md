@@ -4790,3 +4790,120 @@ Current production compatibility claims:
 
 No additional compatibility production YAML is authorized until the
 P2B4-C planning checkpoint is reviewed.
+
+---
+
+# P2B4-C — Compatibility Production Population Closure
+
+Status:
+
+COMPLETE
+
+P2B4-C established the first production population of the first-class
+compatibility entity model.
+
+The compatibility contract had already been implemented and protected by
+schema, template, creation-surface, validation, resolver, build, manifest,
+and regression infrastructure before production population began.
+
+P2B4-C then introduced compatibility claims through controlled,
+evidence-backed population rather than bulk speculative data entry.
+
+## Production Compatibility Claims
+
+The current production compatibility population contains exactly two
+claims:
+
+- `compatibility.core.snes9x.platform.nintendo.snes`
+  - subject: `core.snes9x`
+  - platform: `platform.nintendo.snes`
+  - playability: `playable`
+
+- `compatibility.core.bsnes.platform.nintendo.snes`
+  - subject: `core.bsnes`
+  - platform: `platform.nintendo.snes`
+  - playability: `playable`
+
+Each claim is backed by three source records and intentionally does not
+assert unsupported version precision.
+
+## Controlled Population Sequence
+
+The first production claim established:
+
+- production compatibility loading
+- evidence-backed operational playability
+- canonical core/platform references
+- exact-ID resolver behavior
+- preservation of canonical human-name resolution
+- deterministic build and manifest integration
+
+The second production claim demonstrated controlled population expansion
+without changing the compatibility schema or introducing special-case
+runtime behavior.
+
+The second claim increased production inventory from:
+
+- 42 to 43 total entities
+- 1 to 2 compatibility entities
+
+Only deterministic regression baselines affected by the intentional
+production-count increase required correction.
+
+## Current Compatibility Topology
+
+Post-population architecture inspection established:
+
+- canonical core entities: 2
+- modeled platform-to-core topology pairs: 2
+- production compatibility claims: 2
+- unclaimed modeled topology pairs: 0
+- compatibility claims without matching topology: 0
+
+The modeled topology is therefore fully represented by production
+compatibility claims.
+
+Current modeled pairs:
+
+- `core.bsnes` -> `platform.nintendo.snes`
+- `core.snes9x` -> `platform.nintendo.snes`
+
+Current production claims exactly correspond to those two pairs.
+
+## Population Boundary
+
+P2B4-C does not justify inventing additional compatibility claims merely
+to increase production volume.
+
+Further compatibility population requires one of the following first:
+
+- canonical core population expansion
+- canonical emulator population where an emulator-level compatibility
+  claim is appropriate
+- canonical platform/core topology expansion supported by evidence
+
+Compatibility claims remain evidence-backed assertions over canonical
+entities. They must not be used to create topology implicitly or to
+substitute for missing canonical entity population.
+
+## Final P2B4-C Baseline
+
+At closure:
+
+- production entities: 43
+- compatibility entities: 2
+- modeled topology pairs: 2
+- claimed topology pairs: 2
+- unclaimed topology pairs: 0
+- orphan compatibility claims: 0
+- regression suite: 291 passed
+- production validation: 43 / 43
+- schema errors: 0
+- relationship errors: 0
+- runtime version: RVDB 0.2.1
+
+P2B4-C is complete.
+
+The next Phase 2B operation should be selected from the remaining
+milestone architecture rather than adding unsupported compatibility
+claims beyond the currently modeled canonical topology.
