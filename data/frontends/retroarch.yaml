@@ -1,0 +1,12 @@
+id: frontend.retroarch
+type: frontend
+name: RetroArch
+
+aliases: []
+
+relationships:
+  launches_core:
+    - core.bsnes
+    - core.snes9x
+
+metadata: {}
