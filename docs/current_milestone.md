@@ -4960,3 +4960,122 @@ Repository state after the production commit:
 P2B5-B therefore establishes RetroArch as RVDB's first production frontend while preserving the existing SNES, bsnes, Snes9x, and compatibility production topology.
 
 The next milestone must begin from this committed and validated 44-entity production baseline.
+
+---
+
+# P2B6 — Production Emulator Population
+
+Status:
+
+IN PROGRESS
+
+Purpose:
+
+Begin production population of RVDB's existing Emulator entity architecture while preserving schema, relationship, validation, creation, and regression guarantees.
+
+The Emulator entity type already existed as a registered schema contract before P2B6, but it had no production entities and was not exposed through the generic schema/template-driven creation surface.
+
+P2B6 begins by establishing that creation surface before introducing any production Emulator entity.
+
+---
+
+## P2B6-A.1 — Emulator Production Creation Surface
+
+Status:
+
+COMPLETE
+
+Implementation commit:
+
+`0e00c27` — `feat: enable emulator creation surface`
+
+Implementation parent:
+
+`c9a664c` — `docs: record first production frontend milestone`
+
+Purpose:
+
+Expose the existing Emulator entity type through RVDB's generic creation infrastructure without introducing production Emulator data.
+
+Changes:
+
+- added `templates/entities/emulator.yaml`
+- added `tests/test_emulator_creation_v2.py`
+- updated `tests/test_create_command_v2.py`
+- added Emulator to the exact supported generic creation-type baseline
+- increased supported creation types from 9 to 10
+- preserved schema/template-driven entity construction
+- preserved canonical plural output routing to `data/emulators`
+- verified `EntityFactory.create_entity()` can construct a schema-valid Emulator entity
+- verified Emulator template vocabulary matches the registered Emulator schema
+- verified Emulator template relationship keys match the registered relationship contract
+- verified creation itself does not write production data
+
+Emulator template defaults now expose:
+
+- `id`
+- `type`
+- `name`
+- `aliases`
+- `developer`
+- `operating_systems`
+- `launch_mechanisms`
+- `official_website`
+- `source_repository`
+- `status`
+- `relationships.supports_platform`
+- `relationships.supports_core`
+- `metadata`
+
+Generic creation types after P2B6-A.1:
+
+1. `compatibility`
+2. `core`
+3. `developer`
+4. `emulator`
+5. `frontend`
+6. `game`
+7. `genre`
+8. `manufacturer`
+9. `platform`
+10. `publisher`
+
+Regression baseline after implementation:
+
+- 300 tests passing
+- production validation: 44 / 44
+- schema errors: 0
+- relationship errors: 0
+- RVDB runtime version: 0.2.1
+
+Production population boundary after implementation:
+
+- total production entities: 44
+- production Emulator entities: 0
+- production Emulator YAML files: 0
+
+Important architectural boundary:
+
+P2B6-A.1 establishes Emulator creation capability only.
+
+It does not select, model, or add the first production Emulator entity.
+
+No production relationship is introduced merely because the schema permits it.
+
+Future Emulator population must continue to justify relationships against canonical RVDB entities and the actual architecture of the represented software.
+
+Repository state immediately after the implementation commit:
+
+- branch: `develop`
+- implementation HEAD: `0e00c279ecc875a924f7cf592e321d8c2fd255f2`
+- `origin/develop`: `0e00c279ecc875a924f7cf592e321d8c2fd255f2`
+- worktree clean
+- implementation pushed successfully
+
+Next milestone:
+
+Select and model the first production Emulator entity from the committed P2B6-A.1 creation-surface baseline.
+
+Do not assume which Emulator will be selected until the candidate and relationship evidence are audited.
+
+---
