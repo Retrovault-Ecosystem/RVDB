@@ -1,0 +1,29 @@
+# =====================================================
+# RVDB Emulator Entity Template v1
+# =====================================================
+
+id: emulator.name
+
+type: emulator
+
+name: Emulator Name
+
+aliases: []
+
+developer: []
+
+operating_systems: []
+
+launch_mechanisms: []
+
+official_website: ""
+
+source_repository: ""
+
+status: unknown
+
+relationships:
+  supports_platform: []
+  supports_core: []
+
+metadata: {}

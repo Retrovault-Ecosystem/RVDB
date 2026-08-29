@@ -48,6 +48,7 @@ def test_supported_entity_types():
         "compatibility",
         "core",
         "developer",
+        "emulator",
         "frontend",
         "game",
         "genre",
