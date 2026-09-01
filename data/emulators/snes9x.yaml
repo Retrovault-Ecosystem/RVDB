@@ -1,0 +1,30 @@
+id: emulator.snes9x
+type: emulator
+name: Snes9x
+
+aliases: []
+
+developer: []
+
+operating_systems:
+  - Windows
+  - Linux
+  - macOS
+  - FreeBSD
+
+launch_mechanisms:
+  - standalone
+  - libretro
+
+official_website: "https://www.snes9x.com/"
+source_repository: "https://github.com/snes9xgit/snes9x"
+
+status: active
+
+relationships:
+  supports_platform:
+    - platform.nintendo.snes
+  supports_core:
+    - core.snes9x
+
+metadata: {}
