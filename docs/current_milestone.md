@@ -5210,3 +5210,253 @@ Do not repeat the 44 -> 45 regression baseline migration.
 The next Phase 2B operation must begin from the committed first-Emulator
 baseline and should determine the next bounded Emulator/Core/Frontend
 production increment before making additional production-data changes.
+
+---
+
+## Phase 2B — P2B7 RetroVault Consumer Readiness
+
+Status:
+
+COMPLETE
+
+### Purpose
+
+P2B7 established whether the current RVDB production baseline can serve as
+a real read-only data source for the RetroVault application without requiring
+speculative topology changes or additional production entities.
+
+The consumer-readiness audit was performed against the committed P2B6
+baseline.
+
+Starting production baseline:
+
+- branch: `develop`
+- production entities: 45
+- production Emulator entities: 1
+- validation: 45 / 45
+- regression suite: 300 passed
+
+### Consumer Architecture
+
+The active RVDB consumer architecture is:
+
+#### RVGraph
+
+`RVGraph` is the internal indexed graph structure.
+
+It owns:
+
+- `nodes`
+- `edges`
+- `reverse_edges`
+
+`RVGraph` is not the primary application-facing query API.
+
+#### RVEngine
+
+`RVEngine` is the primary in-process read/query interface.
+
+It provides:
+
+- `get_entity`
+- `get_supported_cores`
+- `get_platforms_by_core`
+- `get_relationships`
+- `get_entities_by_relationship`
+- `resolve_entity`
+- `search`
+- `get_related_entities`
+
+This interface is suitable for development-time or direct Python integration.
+
+#### RVDB Bundle
+
+The canonical portable bundle provides:
+
+- `nodes`
+- `edges`
+
+The bundle is produced as JSON and is suitable for downloaded/release-data
+consumption by RetroVault.
+
+The portable bundle therefore remains the preferred long-term external
+distribution boundary.
+
+### First Verified RetroVault Read Model
+
+The current production graph can already provide a real application-visible
+vertical slice.
+
+Platform:
+
+- `platform.nintendo.snes`
+- Super Nintendo
+
+Cores:
+
+- `core.bsnes`
+- bsnes
+- `core.snes9x`
+- Snes9x
+
+Standalone/canonical Emulator:
+
+- `emulator.snes9x`
+- Snes9x
+
+Frontend:
+
+- `frontend.retroarch`
+- RetroArch
+
+### Verified Consumer Derivations
+
+The audit verified the following read paths:
+
+- SNES -> Core
+- SNES -> Emulator
+- SNES -> Core -> Frontend
+
+The consumer can derive these paths from the existing production graph.
+
+No speculative reciprocal relationship is required.
+
+Specifically, RVDB does not need to assert:
+
+- `frontend.retroarch -> launches_emulator -> emulator.snes9x`
+
+merely because RetroArch launches `core.snes9x`.
+
+RVDB also does not need to invent a new Core graph relationship merely to
+associate the Snes9x Core and Emulator identities.
+
+### Relationship Boundary Preserved
+
+The existing production topology remains authoritative:
+
+- `platform.nintendo.snes -> supports_core -> core.bsnes`
+- `platform.nintendo.snes -> supports_core -> core.snes9x`
+- `emulator.snes9x -> supports_platform -> platform.nintendo.snes`
+- `emulator.snes9x -> supports_core -> core.snes9x`
+- `frontend.retroarch -> launches_core -> core.bsnes`
+- `frontend.retroarch -> launches_core -> core.snes9x`
+
+The consumer derives useful views from these existing declarations rather
+than requiring mirrored or fabricated edges.
+
+### Known Query API Observation
+
+`RVEngine.get_platforms_by_core()` currently uses the generic reverse
+`supports_core` index.
+
+Because both Platform and Emulator entities may declare `supports_core`,
+that method can return more than only Platform entities.
+
+This is a naming/typing observation, not a consumer-readiness blocker.
+
+Typed consumer queries should use:
+
+- entity type checks
+- `get_entities_by_relationship`
+- explicit relationship semantics
+
+where precise result typing is required.
+
+No production correction was required for P2B7.
+
+### Portable Consumer Verification
+
+A temporary RVDB bundle was generated during the audit.
+
+Verified bundle contract:
+
+- top-level keys: `nodes`, `edges`
+- node count: 45
+- edge-source count: 45
+
+The bundle contains:
+
+- `platform.nintendo.snes`
+- `core.bsnes`
+- `core.snes9x`
+- `emulator.snes9x`
+- `frontend.retroarch`
+
+The bundle is therefore sufficient to drive the first real RetroVault
+read-only application view.
+
+### P2B7 Decision
+
+RetroVault consumer readiness is:
+
+READY
+
+RVDB does not need additional speculative topology or additional production
+population before the first RetroVault application integration begins.
+
+RVDB development should continue independently and in parallel.
+
+RetroVault may now begin consuming the current RVDB baseline as read-only
+data.
+
+### Application Integration Boundary
+
+The first RetroVault application work should:
+
+- remain read-only against RVDB
+- consume real RVDB production data
+- avoid hard-coded fake platform/emulator/frontend records
+- treat RVDB as the authoritative data source
+- avoid modifying RVDB production files from the application
+- initially display the verified SNES vertical slice
+
+Recommended first application-visible model:
+
+- Super Nintendo
+- bsnes Core
+- Snes9x Core
+- Snes9x Emulator
+- RetroArch Frontend
+
+The application may initially use the in-process `RVEngine` interface for
+development.
+
+The portable `rvdb.bundle.json` contract should remain the target external
+distribution interface for release/download integration.
+
+### Validation and Regression Baseline
+
+Final P2B7 validation:
+
+- Entities checked: 45
+- Valid: 45
+- Schema Errors: 0
+- Relationship Errors: 0
+- Validation OK
+
+Final regression baseline:
+
+- 300 tests passed
+
+### Current Resume Point
+
+P2B7 consumer-readiness work is complete.
+
+Current RVDB baseline:
+
+- branch: `develop`
+- production entities: 45
+- production Emulator entities: 1
+- validation: 45 / 45
+- regression suite: 300 passed
+- first application consumer slice: READY
+
+Do not add speculative reciprocal relationships merely to simplify
+application queries.
+
+Do not delay the initial RetroVault read-only application integration solely
+to add more RVDB production entities.
+
+The next cross-project operation may begin the first real RetroVault
+application vertical slice while RVDB Phase 2B population continues
+independently.
