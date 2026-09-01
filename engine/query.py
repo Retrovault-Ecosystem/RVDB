@@ -61,25 +61,55 @@ class RVEngine:
 
         text = text.lower().strip()
 
+        if not text:
+            return None
+
         # 1. Exact ID match
         if text in self.graph.nodes:
             return self.graph.nodes[text]
 
-        # 2. Exact name match
+        # 2. Unique exact name match
+        name_matches = []
+
         for entity in self.graph.nodes.values():
 
             if entity.get("name", "").lower() == text:
-                return entity
 
-        # 3. Exact alias match
+                name_matches.append(
+                    entity
+                )
+
+        if len(name_matches) == 1:
+            return name_matches[0]
+
+        if len(name_matches) > 1:
+            return None
+
+        # 3. Unique exact alias match
+        alias_matches = []
+
         for entity in self.graph.nodes.values():
 
-            aliases = entity.get("aliases", [])
+            aliases = entity.get(
+                "aliases",
+                [],
+            )
 
             for alias in aliases:
 
                 if alias.lower() == text:
-                    return entity
+
+                    alias_matches.append(
+                        entity
+                    )
+
+                    break
+
+        if len(alias_matches) == 1:
+            return alias_matches[0]
+
+        if len(alias_matches) > 1:
+            return None
 
         # 4. Fuzzy fallback
         results = self.search(text)

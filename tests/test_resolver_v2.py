@@ -362,3 +362,170 @@ def test_duplicate_exact_alias_is_ambiguous():
         )
         is None
     )
+
+
+def test_rvengine_duplicate_exact_name_is_ambiguous():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.query import RVEngine
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/core.bsnes.yaml"
+            ),
+            data={
+                "id": "core.bsnes",
+                "type": "core",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/emulator.bsnes.yaml"
+            ),
+            data={
+                "id": "emulator.bsnes",
+                "type": "emulator",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    engine = RVEngine(
+        build_graph(
+            entities
+        )
+    )
+
+    assert (
+        engine.resolve_entity(
+            "bsnes"
+        )
+        is None
+    )
+
+
+def test_rvengine_duplicate_exact_ids_remain_resolvable():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.query import RVEngine
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/core.bsnes.yaml"
+            ),
+            data={
+                "id": "core.bsnes",
+                "type": "core",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/emulator.bsnes.yaml"
+            ),
+            data={
+                "id": "emulator.bsnes",
+                "type": "emulator",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    engine = RVEngine(
+        build_graph(
+            entities
+        )
+    )
+
+    core = engine.resolve_entity(
+        "core.bsnes"
+    )
+
+    emulator = engine.resolve_entity(
+        "emulator.bsnes"
+    )
+
+    assert core is not None
+    assert emulator is not None
+
+    assert core.id == "core.bsnes"
+    assert (
+        emulator.id
+        == "emulator.bsnes"
+    )
+
+
+def test_rvengine_duplicate_exact_alias_is_ambiguous():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.query import RVEngine
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/manufacturer.yaml"
+            ),
+            data={
+                "id": "manufacturer.example",
+                "type": "manufacturer",
+                "name": "Example Hardware",
+                "aliases": [
+                    "Example Company"
+                ],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/publisher.yaml"
+            ),
+            data={
+                "id": "publisher.example",
+                "type": "publisher",
+                "name": "Example Software",
+                "aliases": [
+                    "Example Company"
+                ],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    engine = RVEngine(
+        build_graph(
+            entities
+        )
+    )
+
+    assert (
+        engine.resolve_entity(
+            "Example Company"
+        )
+        is None
+    )
