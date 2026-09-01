@@ -29,11 +29,12 @@ class EntityResolver:
         return text
 
 
-
     def resolve(self, text):
 
         query = self.normalize(text)
 
+        if not query:
+            return None
 
         # -------------------------
         # Exact ID
@@ -45,10 +46,11 @@ class EntityResolver:
                 return entity
 
 
+        # -------------------------
+        # Exact Name
+        # -------------------------
 
-        # -------------------------
-        # Name
-        # -------------------------
+        name_matches = []
 
         for entity in self.graph.nodes.values():
 
@@ -57,13 +59,22 @@ class EntityResolver:
             )
 
             if name == query:
-                return entity
+                name_matches.append(
+                    entity
+                )
 
+        if len(name_matches) == 1:
+            return name_matches[0]
+
+        if len(name_matches) > 1:
+            return None
 
 
         # -------------------------
-        # Aliases
+        # Exact Alias
         # -------------------------
+
+        alias_matches = []
 
         for entity in self.graph.nodes.values():
 
@@ -73,8 +84,18 @@ class EntityResolver:
             ):
 
                 if self.normalize(alias) == query:
-                    return entity
 
+                    alias_matches.append(
+                        entity
+                    )
+
+                    break
+
+        if len(alias_matches) == 1:
+            return alias_matches[0]
+
+        if len(alias_matches) > 1:
+            return None
 
 
         # -------------------------

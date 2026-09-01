@@ -194,3 +194,171 @@ def test_compatibility_remains_resolvable_by_exact_id():
         entity.get("type")
         == "compatibility"
     )
+
+
+def test_duplicate_exact_name_is_ambiguous():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.resolver import EntityResolver
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/core.bsnes.yaml"
+            ),
+            data={
+                "id": "core.bsnes",
+                "type": "core",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/emulator.bsnes.yaml"
+            ),
+            data={
+                "id": "emulator.bsnes",
+                "type": "emulator",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    resolver = EntityResolver(
+        build_graph(
+            entities
+        )
+    )
+
+    assert (
+        resolver.resolve(
+            "bsnes"
+        )
+        is None
+    )
+
+
+def test_duplicate_exact_name_ids_remain_resolvable():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.resolver import EntityResolver
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/core.bsnes.yaml"
+            ),
+            data={
+                "id": "core.bsnes",
+                "type": "core",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/emulator.bsnes.yaml"
+            ),
+            data={
+                "id": "emulator.bsnes",
+                "type": "emulator",
+                "name": "bsnes",
+                "aliases": [],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    resolver = EntityResolver(
+        build_graph(
+            entities
+        )
+    )
+
+    core = resolver.resolve(
+        "core.bsnes"
+    )
+
+    emulator = resolver.resolve(
+        "emulator.bsnes"
+    )
+
+    assert core is not None
+    assert emulator is not None
+
+    assert core.id == "core.bsnes"
+
+    assert (
+        emulator.id
+        == "emulator.bsnes"
+    )
+
+
+def test_duplicate_exact_alias_is_ambiguous():
+
+    from pathlib import Path
+
+    from engine.graph import build_graph
+    from engine.loader import Entity
+    from engine.resolver import EntityResolver
+
+    entities = [
+        Entity(
+            source=Path(
+                "/tmp/manufacturer.yaml"
+            ),
+            data={
+                "id": "manufacturer.example",
+                "type": "manufacturer",
+                "name": "Example Hardware",
+                "aliases": [
+                    "Example Company"
+                ],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+        Entity(
+            source=Path(
+                "/tmp/publisher.yaml"
+            ),
+            data={
+                "id": "publisher.example",
+                "type": "publisher",
+                "name": "Example Software",
+                "aliases": [
+                    "Example Company"
+                ],
+                "relationships": {},
+                "metadata": {},
+            },
+        ),
+    ]
+
+    resolver = EntityResolver(
+        build_graph(
+            entities
+        )
+    )
+
+    assert (
+        resolver.resolve(
+            "Example Company"
+        )
+        is None
+    )
