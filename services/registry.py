@@ -52,12 +52,12 @@ class EntityRegistry:
 
         self.by_name: dict[
             str,
-            str,
+            list[str],
         ] = {}
 
         self.by_alias: dict[
             str,
-            str,
+            list[str],
         ] = {}
 
         self.by_type: dict[
@@ -196,9 +196,12 @@ class EntityRegistry:
             entity_id
         ] = entity
 
-        self.by_name[
-            name.casefold()
-        ] = entity_id
+        self.by_name.setdefault(
+            name.casefold(),
+            [],
+        ).append(
+            entity_id
+        )
 
         if isinstance(
             aliases,
@@ -214,9 +217,12 @@ class EntityRegistry:
 
                     continue
 
-                self.by_alias[
-                    alias.casefold()
-                ] = entity_id
+                self.by_alias.setdefault(
+                    alias.casefold(),
+                    [],
+                ).append(
+                    entity_id
+                )
 
         self.by_type.setdefault(
             entity_type,
@@ -261,17 +267,27 @@ class EntityRegistry:
             name
         ).casefold()
 
-        if key in self.by_name:
+        name_matches = self.by_name.get(
+            key,
+            [],
+        )
 
-            return self.by_name[
-                key
-            ]
+        if len(name_matches) == 1:
+            return name_matches[0]
 
-        if key in self.by_alias:
+        if len(name_matches) > 1:
+            return None
 
-            return self.by_alias[
-                key
-            ]
+        alias_matches = self.by_alias.get(
+            key,
+            [],
+        )
+
+        if len(alias_matches) == 1:
+            return alias_matches[0]
+
+        if len(alias_matches) > 1:
+            return None
 
         return None
 
