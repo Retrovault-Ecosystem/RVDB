@@ -1,0 +1,44 @@
+id: compatibility.core.genesis.plus.gx.platform.sega.game.gear
+type: compatibility
+name: Genesis Plus GX / Sega Game Gear Compatibility
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: core.genesis.plus.gx
+
+platform: platform.sega.game.gear
+
+playability: playable
+
+evidence:
+  - source: Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)
+    url: https://docs.libretro.com/library/genesis_plus_gx/
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro documentation identifies Genesis Plus GX as a
+      Sega 8/16-bit emulator core and documents Game Gear support
+      within the Genesis Plus GX Libretro implementation.
+
+  - source: Libretro Core Info — Genesis Plus GX
+    url: https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro core metadata identifies Genesis Plus GX and
+      associates the Libretro implementation with Sega Game Gear
+      family content and system support.
+
+  - source: Genesis Plus GX Official Repository
+    url: https://github.com/ekeeke/Genesis-Plus-GX
+    checked_at: "2026-09-02"
+    notes: >-
+      The official Genesis Plus GX project identifies the emulator as
+      supporting Sega 8-bit systems, providing independent project-level
+      evidence for operational Sega Game Gear support.
+
+notes: >-
+  Evidence-backed operational compatibility claim for the Genesis Plus GX
+  Libretro core and the canonical Sega Game Gear platform.

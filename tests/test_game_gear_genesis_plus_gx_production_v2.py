@@ -32,6 +32,9 @@ CORE_ID = "core.genesis.plus.gx"
 
 FRONTEND_ID = "frontend.retroarch"
 
+GENESIS_PLUS_GX_ID = "core.genesis.plus.gx"
+
+
 GAME_GEAR_COMPATIBILITY_ID = (
     "compatibility.core.genesis.plus.gx."
     "platform.sega.game.gear"
@@ -200,14 +203,91 @@ def test_retroarch_launches_reused_core_without_new_edge():
     ]
 
 
-def test_game_gear_compatibility_remains_separate():
+def test_game_gear_compatibility_exists():
 
     entities = entity_map()
 
     assert (
         GAME_GEAR_COMPATIBILITY_ID
-        not in entities
+        in entities
     )
+
+
+def test_game_gear_compatibility_contract():
+
+    entities = entity_map()
+
+    claim = entities[
+        GAME_GEAR_COMPATIBILITY_ID
+    ]
+
+    assert (
+        claim.entity_type
+        == "compatibility"
+    )
+
+    assert (
+        claim.name
+        == "Genesis Plus GX / Sega Game Gear Compatibility"
+    )
+
+    assert (
+        claim.get(
+            "subject"
+        )
+        == GENESIS_PLUS_GX_ID
+    )
+
+    assert (
+        claim.get(
+            "platform"
+        )
+        == GAME_GEAR_ID
+    )
+
+    assert (
+        claim.get(
+            "playability"
+        )
+        == "playable"
+    )
+
+
+def test_game_gear_compatibility_has_three_evidence_records():
+
+    entities = entity_map()
+
+    claim = entities[
+        GAME_GEAR_COMPATIBILITY_ID
+    ]
+
+    evidence = claim.get(
+        "evidence",
+        [],
+    )
+
+    assert len(evidence) == 3
+
+    for record in evidence:
+
+        assert record.get(
+            "source"
+        )
+
+        assert record.get(
+            "url"
+        )
+
+        assert (
+            record.get(
+                "checked_at"
+            )
+            == "2026-09-02"
+        )
+
+        assert record.get(
+            "notes"
+        )
 
 
 def test_genesis_plus_gx_standalone_emulator_remains_absent():

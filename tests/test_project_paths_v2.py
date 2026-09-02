@@ -72,7 +72,7 @@ def test_loader_default_is_cwd_independent(
 
     assert len(
         entities
-    ) == 51
+    ) == 52
 
     ids = {
         entity.id
@@ -100,7 +100,7 @@ def test_context_is_cwd_independent(
 
     assert len(
         entities
-    ) == 51
+    ) == 52
 
 
 def test_validate_command_is_cwd_independent(
@@ -122,12 +122,12 @@ def test_validate_command_is_cwd_independent(
     )
 
     assert (
-        "Entities checked: 51"
+        "Entities checked: 52"
         in output
     )
 
     assert (
-        "Valid: 51"
+        "Valid: 52"
         in output
     )
 
