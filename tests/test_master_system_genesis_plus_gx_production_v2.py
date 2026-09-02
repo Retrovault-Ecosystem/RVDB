@@ -177,14 +177,9 @@ def test_retroarch_launches_reused_core_without_new_frontend_edge():
     ]
 
 
-def test_master_system_compatibility_and_emulator_remain_deferred():
+def test_master_system_standalone_emulator_remains_absent():
 
     entities = entity_map()
-
-    assert (
-        MASTER_COMPATIBILITY_ID
-        not in entities
-    )
 
     assert (
         "emulator.genesis.plus.gx"
