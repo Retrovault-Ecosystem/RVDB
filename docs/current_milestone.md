@@ -5951,27 +5951,203 @@ relationship.
 This establishes canonical Core reuse as a proven production topology
 pattern for subsequent Phase 2B population work.
 
+## Phase 2B — P2B12 Game Gear Production Slice
+
+Status:
+
+COMPLETE
+
+P2B12 extended the established Genesis Plus GX production topology to the
+canonical Sega Game Gear Platform.
+
+The milestone reused the existing canonical Genesis Plus GX Core rather than
+creating a duplicate Core or an unsupported standalone Emulator entity.
+
+P2B12 therefore expands the proven Core-reuse topology established during
+P2B11 from two canonical Platforms to three.
+
+### Game Gear topology
+
+Canonical Platform:
+
+- `platform.sega.game.gear`
+
+Existing canonical Core:
+
+- `core.genesis.plus.gx`
+
+The Game Gear Platform now declares:
+
+- `supports_core`
+  - `core.genesis.plus.gx`
+
+Genesis Plus GX is therefore now reused by exactly three canonical production
+Platforms:
+
+- `platform.sega.genesis`
+- `platform.sega.master.system`
+- `platform.sega.game.gear`
+
+RetroArch continues to launch the existing canonical Core:
+
+- `frontend.retroarch`
+- `launches_core -> core.genesis.plus.gx`
+
+No additional Core entity was required.
+
+No standalone Genesis Plus GX Emulator entity was created.
+
+### Game Gear compatibility
+
+The production compatibility entity is:
+
+- `compatibility.core.genesis.plus.gx.platform.sega.game.gear`
+
+Its protected contract is:
+
+- subject:
+  - `core.genesis.plus.gx`
+- platform:
+  - `platform.sega.game.gear`
+- playability:
+  - `playable`
+- evidence:
+  - 3 independent records
+
+Each evidence record contains:
+
+- source
+- URL
+- checked date
+- notes
+
+The evidence sources are distinct.
+
+The evidence URLs are distinct.
+
+The evidence checked date is:
+
+- `2026-09-02`
+
+Compatibility remains modeled separately from Platform-to-Core topology.
+
+### Architectural significance
+
+P2B12 extends RVDB's first protected Core-reuse production pattern.
+
+The protected Genesis Plus GX topology is now:
+
+`core.genesis.plus.gx`
+
+serving:
+
+`platform.sega.genesis`
+
+`platform.sega.master.system`
+
+and:
+
+`platform.sega.game.gear`
+
+Each supported Platform remains a canonical entity.
+
+The Core remains a single canonical entity.
+
+Compatibility remains independently represented through evidence-backed
+compatibility claims.
+
+This demonstrates that RVDB can expand production coverage across related
+systems without duplicating canonical Core entities.
+
+### Intentionally absent
+
+The following standalone Emulator entity remains intentionally absent:
+
+- `emulator.genesis.plus.gx`
+
+No new Core was required.
+
+No new Emulator was required.
+
+The existing Genesis Plus GX Core was reused directly.
+
+### P2B12 protected commits
+
+Topology commit:
+
+- `d75eaeb7c9570a730da90385020e960d51c11be3`
+- `data: add Game Gear Genesis Plus GX topology`
+
+Compatibility commit:
+
+- `8efb1e6cc4122c4320bc1d6f8eb05379127f3b98`
+- `data: add Genesis Plus GX Game Gear compatibility`
+
+The compatibility commit is the protected production HEAD for the completed
+P2B12 production milestone before milestone-documentation protection.
+
+### P2B12 production verification
+
+Complete regression:
+
+- 360 tests passed
+
+Production validation:
+
+- Entities checked: 52
+- Valid: 52
+- Schema Errors: 0
+- Relationship Errors: 0
+- Validation OK
+
+Runtime version:
+
+- `RVDB 0.2.1`
+
+### P2B12 result
+
+P2B12 production work is complete.
+
+RVDB now has a protected production example of one canonical Core:
+
+`core.genesis.plus.gx`
+
+serving exactly three canonical Platforms:
+
+- `platform.sega.genesis`
+- `platform.sega.master.system`
+- `platform.sega.game.gear`
+
+with separate evidence-backed compatibility claims for all three supported
+Platforms.
+
+This extends canonical Core reuse from the two-Platform P2B11 topology to a
+three-Platform production topology while preserving entity identity,
+relationship separation, and evidence-backed compatibility.
+
+---
+
 ## Phase 2B — Current Production Baseline
 
-The current protected production baseline after P2B11 is:
+The current protected production baseline after P2B12 is:
 
 Entity totals:
 
-- 51 total
+- 52 total
 - 26 platforms
 - 4 cores
 - 2 emulators
 - 1 frontend
-- 5 compatibility claims
+- 6 compatibility claims
 
 Regression baseline:
 
-- 349 tests passed
+- 360 tests passed
 
 Validation baseline:
 
-- Entities checked: 51
-- Valid: 51
+- Entities checked: 52
+- Valid: 52
 - Schema Errors: 0
 - Relationship Errors: 0
 - Validation OK
@@ -5982,23 +6158,29 @@ Runtime:
 
 Current protected production HEAD:
 
-- `a796d29521f98c4380f7fe2bdf8f99b49034af52`
+- `8efb1e6cc4122c4320bc1d6f8eb05379127f3b98`
 
 Current production Core reuse:
 
 - `core.genesis.plus.gx`
   - `platform.sega.genesis`
   - `platform.sega.master.system`
+  - `platform.sega.game.gear`
 
-Current Master System compatibility:
+Current Genesis Plus GX compatibility family:
 
+- `compatibility.core.genesis.plus.gx.platform.sega.genesis`
+  - playability: `playable`
+  - evidence: 3 records
 - `compatibility.core.genesis.plus.gx.platform.sega.master.system`
-- playability: `playable`
-- evidence: 3 records
+  - playability: `playable`
+  - evidence: 3 records
+- `compatibility.core.genesis.plus.gx.platform.sega.game.gear`
+  - playability: `playable`
+  - evidence: 3 records
 
-The worktree is expected to remain clean at the protected production
-HEAD except when performing the controlled milestone documentation
-checkpoint.
+The worktree is expected to remain clean at the protected production HEAD
+except when performing the controlled milestone documentation checkpoint.
 
-Next controlled Phase 2B work begins only after this documentation
-checkpoint is reviewed, committed, pushed, and verified.
+Next controlled Phase 2B production-population work begins only after this
+documentation checkpoint is reviewed, committed, pushed, and verified.
