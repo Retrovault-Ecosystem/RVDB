@@ -1,21 +1,21 @@
 """
 =========================================================
-RVDB Master System / Genesis Plus GX Production Tests
+RVDB Game Gear / Genesis Plus GX Production Tests
 =========================================================
 
 Phase:
     2B
 
 Checkpoint:
-    P2B11-B
+    P2B12-C
 
 Purpose:
-    Verify the first production reuse of one canonical
-    Libretro Core across multiple canonical Platforms.
+    Verify production reuse of the canonical Genesis Plus
+    GX Libretro Core across a third canonical Sega Platform.
 
-    Genesis Plus GX already serves Sega Genesis.
-    P2B11-B extends the same Core identity to the
-    canonical Sega Master System platform without
+    Genesis Plus GX already serves Sega Genesis and Sega
+    Master System. P2B12-C extends that same Core identity
+    to the canonical Sega Game Gear Platform without
     duplicating the Core, creating an Emulator, or
     prematurely creating a Compatibility entity.
 =========================================================
@@ -24,14 +24,17 @@ Purpose:
 from engine.loader import load_entities
 
 
+GAME_GEAR_ID = "platform.sega.game.gear"
 MASTER_ID = "platform.sega.master.system"
 GENESIS_ID = "platform.sega.genesis"
+
 CORE_ID = "core.genesis.plus.gx"
+
 FRONTEND_ID = "frontend.retroarch"
 
-MASTER_COMPATIBILITY_ID = (
+GAME_GEAR_COMPATIBILITY_ID = (
     "compatibility.core.genesis.plus.gx."
-    "platform.sega.master.system"
+    "platform.sega.game.gear"
 )
 
 
@@ -43,29 +46,29 @@ def entity_map():
     }
 
 
-def test_master_system_platform_exists():
+def test_game_gear_platform_exists():
 
     entities = entity_map()
 
-    assert MASTER_ID in entities
+    assert GAME_GEAR_ID in entities
 
-    master = entities[
-        MASTER_ID
+    game_gear = entities[
+        GAME_GEAR_ID
     ]
 
-    assert master.entity_type == "platform"
-    assert master.name == "Sega Master System"
+    assert game_gear.entity_type == "platform"
+    assert game_gear.name == "Game Gear"
 
 
-def test_master_system_supports_genesis_plus_gx():
+def test_game_gear_supports_genesis_plus_gx():
 
     entities = entity_map()
 
-    master = entities[
-        MASTER_ID
+    game_gear = entities[
+        GAME_GEAR_ID
     ]
 
-    assert master.get(
+    assert game_gear.get(
         "relationships",
         {},
     ).get(
@@ -76,7 +79,7 @@ def test_master_system_supports_genesis_plus_gx():
     ]
 
 
-def test_genesis_still_supports_same_genesis_plus_gx_core():
+def test_genesis_still_supports_same_core():
 
     entities = entity_map()
 
@@ -95,7 +98,26 @@ def test_genesis_still_supports_same_genesis_plus_gx_core():
     ]
 
 
-def test_genesis_plus_gx_includes_master_system_reuse():
+def test_master_system_still_supports_same_core():
+
+    entities = entity_map()
+
+    master = entities[
+        MASTER_ID
+    ]
+
+    assert master.get(
+        "relationships",
+        {},
+    ).get(
+        "supports_core",
+        [],
+    ) == [
+        CORE_ID,
+    ]
+
+
+def test_genesis_plus_gx_is_reused_across_three_platforms():
 
     entities = entity_map()
 
@@ -127,8 +149,13 @@ def test_genesis_plus_gx_includes_master_system_reuse():
                 entity.id
             )
 
-    assert GENESIS_ID in platforms
-    assert MASTER_ID in platforms
+    assert sorted(
+        platforms
+    ) == [
+        GAME_GEAR_ID,
+        GENESIS_ID,
+        MASTER_ID,
+    ]
 
 
 def test_genesis_plus_gx_core_is_not_duplicated():
@@ -149,7 +176,7 @@ def test_genesis_plus_gx_core_is_not_duplicated():
     assert core.name == "Genesis Plus GX"
 
 
-def test_retroarch_launches_reused_core_without_new_frontend_edge():
+def test_retroarch_launches_reused_core_without_new_edge():
 
     entities = entity_map()
 
@@ -173,7 +200,17 @@ def test_retroarch_launches_reused_core_without_new_frontend_edge():
     ]
 
 
-def test_master_system_standalone_emulator_remains_absent():
+def test_game_gear_compatibility_remains_separate():
+
+    entities = entity_map()
+
+    assert (
+        GAME_GEAR_COMPATIBILITY_ID
+        not in entities
+    )
+
+
+def test_genesis_plus_gx_standalone_emulator_remains_absent():
 
     entities = entity_map()
 
