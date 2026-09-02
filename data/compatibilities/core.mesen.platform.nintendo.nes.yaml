@@ -1,0 +1,47 @@
+id: compatibility.core.mesen.platform.nintendo.nes
+type: compatibility
+name: Mesen / Nintendo Entertainment System Compatibility
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: core.mesen
+
+platform: platform.nintendo.nes
+
+playability: playable
+
+evidence:
+  - source: Libretro Docs — Nintendo - NES / Famicom (Mesen)
+    url: https://docs.libretro.com/library/mesen/
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro documentation identifies Mesen as an
+      NES/Famicom emulator core, associates it with the Nintendo
+      Entertainment System RetroArch database, and documents
+      supported NES content including the .nes extension.
+
+  - source: Libretro Core Info — Mesen
+    url: https://github.com/libretro/libretro-core-info/blob/master/mesen_libretro.info
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro core metadata identifies Mesen as a
+      Nintendo Entertainment System core and provides canonical
+      runtime metadata for the Libretro implementation.
+
+  - source: Libretro Docs — Mesen Compatibility Description
+    url: https://docs.libretro.com/library/mesen/
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro documentation describes Mesen as a
+      high-accuracy NES/Famicom emulator with broad mapper and
+      licensed-game support, supporting the operational playable
+      classification for the canonical NES platform.
+
+notes: >-
+  Evidence-backed operational compatibility claim for the Mesen
+  Libretro core and the canonical Nintendo Entertainment System
+  platform.

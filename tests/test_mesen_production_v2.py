@@ -76,14 +76,3 @@ def test_mesen_population_does_not_create_emulator():
     entities = entity_map()
 
     assert "emulator.mesen" not in entities
-
-
-def test_mesen_population_does_not_create_compatibility_claim():
-
-    entities = entity_map()
-
-    assert (
-        "compatibility.core.mesen."
-        "platform.nintendo.nes"
-        not in entities
-    )
