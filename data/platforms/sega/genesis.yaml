@@ -17,7 +17,8 @@ category:
 
 relationships:
 
-  supports_core: []
+  supports_core:
+    - core.genesis.plus.gx
 
 metadata:
 

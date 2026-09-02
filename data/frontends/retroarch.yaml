@@ -9,5 +9,6 @@ relationships:
     - core.bsnes
     - core.snes9x
     - core.mesen
+    - core.genesis.plus.gx
 
 metadata: {}
