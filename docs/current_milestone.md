@@ -5791,142 +5791,214 @@ modeled standalone Emulator.
 
 ---
 
-## Phase 2B — Current Production Baseline
 
-Production entities:
+## Phase 2B — P2B11 Master System Core Reuse Production Slice
 
-- 50 total
-- 26 Platform entities
-- 4 Core entities
-- 2 Emulator entities
-- 1 Frontend entity
-- 4 Compatibility entities
+Status:
 
-Current production Core entities:
+COMPLETE
 
-- `core.bsnes`
-- `core.snes9x`
-- `core.mesen`
+P2B11 established the first production reuse of one canonical Core
+across multiple canonical Platform entities.
+
+The existing canonical Core:
+
 - `core.genesis.plus.gx`
 
-Current production Emulator entities:
-
-- `emulator.snes9x`
-- `emulator.bsnes`
-
-Current production Frontend entities:
-
-- `frontend.retroarch`
-
-Current evidence-backed Compatibility entities:
-
-- `compatibility.core.bsnes.platform.nintendo.snes`
-- `compatibility.core.snes9x.platform.nintendo.snes`
-- `compatibility.core.mesen.platform.nintendo.nes`
-- `compatibility.core.genesis.plus.gx.platform.sega.genesis`
-
-### Current Operational Core Topology
-
-Super Nintendo:
-
-- `platform.nintendo.snes`
-  - `supports_core -> core.bsnes`
-  - `supports_core -> core.snes9x`
-
-Nintendo Entertainment System:
-
-- `platform.nintendo.nes`
-  - `supports_core -> core.mesen`
-
-Sega Genesis:
+is now referenced by both:
 
 - `platform.sega.genesis`
-  - `supports_core -> core.genesis.plus.gx`
+- `platform.sega.master.system`
 
-RetroArch:
+This production slice intentionally reused the existing Genesis Plus GX
+Core rather than creating a duplicate Core entity.
 
-- `launches_core -> core.bsnes`
-- `launches_core -> core.snes9x`
-- `launches_core -> core.mesen`
-- `launches_core -> core.genesis.plus.gx`
+### Master System topology
 
-### Current Validation and Regression Baseline
+The canonical Master System Platform now declares:
 
-Validation:
+- `supports_core`
+  - `core.genesis.plus.gx`
 
-- Entities checked: 50
-- Valid: 50
+The canonical Genesis Platform continues to declare:
+
+- `supports_core`
+  - `core.genesis.plus.gx`
+
+Therefore one canonical Core is now reused by exactly two canonical
+Platforms in the production graph.
+
+### Master System compatibility
+
+The production compatibility entity is:
+
+- `compatibility.core.genesis.plus.gx.platform.sega.master.system`
+
+Its protected contract is:
+
+- subject:
+  - `core.genesis.plus.gx`
+- platform:
+  - `platform.sega.master.system`
+- playability:
+  - `playable`
+- evidence:
+  - 3 independent records
+
+The evidence records contain:
+
+- source
+- URL
+- checked date
+- notes
+
+The evidence sources are distinct.
+
+The evidence URLs are distinct.
+
+The evidence checked date is:
+
+- `2026-09-02`
+
+### Architectural significance
+
+P2B11 proves that RVDB production topology supports Core reuse without
+duplicating canonical entities.
+
+The protected architecture is:
+
+- one canonical Core
+- multiple canonical Platforms
+- independent compatibility claims
+- evidence attached to compatibility
+- no duplicate Core
+- no unnecessary standalone Emulator
+
+The production graph therefore represents shared emulation capability
+through relationships rather than entity duplication.
+
+This is the first protected production example of one Core serving
+multiple canonical Platforms.
+
+### Intentionally absent
+
+The following standalone Emulator entity remains intentionally absent:
+
+- `emulator.genesis.plus.gx`
+
+No new Core was required.
+
+No new Emulator was required.
+
+The existing Genesis Plus GX Core was reused directly.
+
+### P2B11 protected commits
+
+Topology commit:
+
+- `3dc2f1886844b789fac19a54d733eba4f4f85c19`
+- `data: add Master System Genesis Plus GX support`
+
+Compatibility commit:
+
+- `a796d29521f98c4380f7fe2bdf8f99b49034af52`
+- `data: add Genesis Plus GX Master System compatibility`
+
+The compatibility commit is the protected production HEAD for the
+completed P2B11 milestone.
+
+### P2B11 production verification
+
+Focused P2B11 regression:
+
+- 22 tests passed
+
+Complete regression:
+
+- 349 tests passed
+
+Production validation:
+
+- Entities checked: 51
+- Valid: 51
 - Schema Errors: 0
 - Relationship Errors: 0
 - Validation OK
 
-Regression suite:
-
-- 334 tests passed
-
 Runtime version:
 
-- RVDB 0.2.1
+- `RVDB 0.2.1`
 
-Branch:
+### P2B11 result
 
-- `develop`
+P2B11 is complete.
 
-### Current Protected Git Checkpoint
+RVDB now has a protected production example of:
 
-Current production HEAD before this documentation alignment commit:
+`core.genesis.plus.gx`
 
-- `a7ee413843999311119e605f99d7d79d6a44bbe4`
-- `data: add Genesis Plus GX compatibility`
+serving:
 
-Local `develop` and `origin/develop` are synchronized at this checkpoint.
+`platform.sega.genesis`
 
-### Current Resume Point
+and:
 
-P2B9 and P2B10 production population are complete.
+`platform.sega.master.system`
 
-The current operational production slices are:
+while maintaining separate compatibility evidence for the Master System
+relationship.
 
-1. Super Nintendo
-   - bsnes Core
-   - Snes9x Core
-   - Snes9x Emulator
-   - bsnes Emulator
-   - RetroArch integration
-   - two evidence-backed Core compatibility claims
+This establishes canonical Core reuse as a proven production topology
+pattern for subsequent Phase 2B population work.
 
-2. Nintendo Entertainment System
-   - Mesen Core
-   - RetroArch integration
-   - evidence-backed Mesen / NES compatibility
+## Phase 2B — Current Production Baseline
 
-3. Sega Genesis
-   - Genesis Plus GX Core
-   - RetroArch integration
-   - evidence-backed Genesis Plus GX / Genesis compatibility
+The current protected production baseline after P2B11 is:
 
-RetroVault consumer readiness established during P2B7 remains valid.
+Entity totals:
 
-RVDB Phase 2B production population may continue independently while
-RetroVault application integration proceeds in parallel.
+- 51 total
+- 26 platforms
+- 4 cores
+- 2 emulators
+- 1 frontend
+- 5 compatibility claims
 
-### NEXT
+Regression baseline:
 
-Begin the next controlled Phase 2B production-population planning checkpoint.
+- 349 tests passed
 
-Before creating another production entity:
+Validation baseline:
 
-1. audit the current 50-entity production topology
-2. select the smallest well-supported next operational expansion
-3. prefer existing canonical platforms where appropriate
-4. establish Core/Emulator identity independently
-5. establish compatibility through authoritative evidence
-6. avoid speculative reciprocal relationships
-7. avoid treating frontend discovery as compatibility proof
-8. preserve deterministic production baselines
-9. add focused regression coverage for every new production contract
-10. commit and push each controlled production increment before dependent work
+- Entities checked: 51
+- Valid: 51
+- Schema Errors: 0
+- Relationship Errors: 0
+- Validation OK
 
-Do not reopen completed P2B8 resolver ambiguity work, P2B9 Mesen work, or
-P2B10 Genesis Plus GX work unless a concrete defect or new evidence requires
-a correction.
+Runtime:
+
+- `RVDB 0.2.1`
+
+Current protected production HEAD:
+
+- `a796d29521f98c4380f7fe2bdf8f99b49034af52`
+
+Current production Core reuse:
+
+- `core.genesis.plus.gx`
+  - `platform.sega.genesis`
+  - `platform.sega.master.system`
+
+Current Master System compatibility:
+
+- `compatibility.core.genesis.plus.gx.platform.sega.master.system`
+- playability: `playable`
+- evidence: 3 records
+
+The worktree is expected to remain clean at the protected production
+HEAD except when performing the controlled milestone documentation
+checkpoint.
+
+Next controlled Phase 2B work begins only after this documentation
+checkpoint is reviewed, committed, pushed, and verified.
