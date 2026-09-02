@@ -5460,3 +5460,156 @@ to add more RVDB production entities.
 The next cross-project operation may begin the first real RetroVault
 application vertical slice while RVDB Phase 2B population continues
 independently.
+
+---
+
+## Phase 2B — P2B8 Second Production Emulator
+
+Status:
+
+COMPLETE
+
+### P2B8 Resolver Ambiguity Hardening
+
+Before adding the second production Emulator, RVDB identified a
+cross-type canonical-name collision boundary.
+
+Existing production collisions included:
+
+- `manufacturer.nintendo` / `publisher.nintendo`
+- `core.snes9x` / `emulator.snes9x`
+
+The planned `emulator.bsnes` entity would introduce another legitimate
+cross-type duplicate canonical name with `core.bsnes`.
+
+RVDB now handles exact-term ambiguity deterministically across all
+three identified resolution surfaces:
+
+- `EntityResolver.resolve()`
+- `RVEngine.resolve_entity()`
+- `EntityRegistry.resolve()`
+
+Current contract:
+
+- exact canonical IDs remain authoritative
+- a unique exact canonical name resolves normally
+- a unique exact alias resolves normally
+- an exact canonical name shared by multiple entities is ambiguous
+- an exact alias shared by multiple entities is ambiguous
+- ambiguous exact names/aliases return `None`
+- partial/fuzzy matching retains its existing fallback behavior
+
+Completed resolver checkpoints:
+
+- P2B8-B.1 — EntityResolver ambiguity hardening
+  - commit `03e8892`
+- P2B8-B.2 — RVEngine ambiguity alignment
+  - commit `8b7a7f2`
+- P2B8-B.3 — EntityRegistry ambiguity hardening
+  - commit `5c3b09d`
+
+### P2B8 Second Production Emulator
+
+Second production Emulator added:
+
+- ID: `emulator.bsnes`
+- type: `emulator`
+- name: `bsnes`
+- production path: `data/emulators/bsnes.yaml`
+
+Declared operating systems:
+
+- Windows
+- Linux
+- macOS
+- FreeBSD
+
+Declared launch mechanisms:
+
+- standalone
+- libretro
+
+Source repository:
+
+- `https://github.com/bsnes-emu/bsnes`
+
+Declared relationships:
+
+- `supports_platform -> platform.nintendo.snes`
+- `supports_core -> core.bsnes`
+
+No reciprocal production relationships were invented or added to:
+
+- `platform.nintendo.snes`
+- `core.bsnes`
+- `frontend.retroarch`
+
+Production commit:
+
+- `84bcc16` — `data: add bsnes emulator`
+
+### Production Collision Verification
+
+With the real production `emulator.bsnes` entity present:
+
+- bare `bsnes` is ambiguous in `EntityResolver`
+- bare `bsnes` is ambiguous in `RVEngine`
+- bare `bsnes` is ambiguous in `EntityRegistry`
+- `core.bsnes` remains resolvable by canonical ID
+- `emulator.bsnes` remains resolvable by canonical ID
+
+This is the first production population checkpoint that directly
+exercises the cross-type ambiguity contract.
+
+### Current Production Baseline
+
+Production entities:
+
+- 46 total
+- 2 Emulator entities
+
+Current Emulator entities:
+
+- `emulator.snes9x`
+- `emulator.bsnes`
+
+Validation:
+
+- Entities checked: 46
+- Valid: 46
+- Schema Errors: 0
+- Relationship Errors: 0
+- Validation OK
+
+Regression baseline:
+
+- 311 tests passed
+
+Branch:
+
+- `develop`
+
+### Current Git Checkpoint
+
+Feature/data HEAD before this documentation commit:
+
+- `84bcc167d6a1124860ebf998b07f8df58c929b9d`
+- `data: add bsnes emulator`
+
+### NEXT
+
+Begin the next Phase 2B production-population planning checkpoint.
+
+Before creating another production entity:
+
+1. audit the current 46-entity topology
+2. identify the smallest well-supported next entity
+3. verify all required canonical references already exist
+4. avoid unsupported reciprocal relationships
+5. avoid inventing topology
+6. preserve the 311-test regression baseline
+7. preserve 46/46 production validation until the next intentional
+   population increment
+
+Do not reopen the completed P2B8 ambiguity work unless a new concrete
+collision or regression demonstrates a defect.
