@@ -1,0 +1,44 @@
+id: compatibility.core.genesis.plus.gx.platform.sega.sg1000
+type: compatibility
+name: Genesis Plus GX / Sega SG-1000 Compatibility
+
+aliases: []
+
+relationships: {}
+
+metadata: {}
+
+subject: core.genesis.plus.gx
+
+platform: platform.sega.sg1000
+
+playability: playable
+
+evidence:
+  - source: Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)
+    url: https://docs.libretro.com/library/genesis_plus_gx/
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro documentation states that Genesis Plus GX has
+      complete compatibility with released SG-1000 software and identifies
+      SG-1000 as part of the supported Sega 8/16-bit system family.
+
+  - source: Libretro Core Info — Genesis Plus GX
+    url: https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info
+    checked_at: "2026-09-02"
+    notes: >-
+      Official Libretro core metadata explicitly includes Sega - SG-1000
+      in the Genesis Plus GX database list and includes SG-series content
+      among the supported extensions.
+
+  - source: Genesis Plus GX Official Repository
+    url: https://github.com/ekeeke/Genesis-Plus-GX
+    checked_at: "2026-09-02"
+    notes: >-
+      The official Genesis Plus GX project documentation identifies
+      Genesis Plus GX as supporting SG-1000 and describes accurate
+      emulation of SG-1000 console hardware and software.
+
+notes: >-
+  Evidence-backed operational compatibility claim for the Genesis Plus GX
+  Libretro core and the canonical Sega SG-1000 platform.

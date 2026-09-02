@@ -191,14 +191,118 @@ def test_retroarch_launches_reused_core_without_new_edge():
     ]
 
 
-def test_sg1000_compatibility_remains_separate():
+def test_sg1000_compatibility_exists():
 
     entities = entity_map()
 
     assert (
         SG1000_COMPATIBILITY_ID
-        not in entities
+        in entities
     )
+
+
+def test_sg1000_compatibility_contract():
+
+    entities = entity_map()
+
+    claim = entities[
+        SG1000_COMPATIBILITY_ID
+    ]
+
+    assert (
+        claim.entity_type
+        == "compatibility"
+    )
+
+    assert (
+        claim.name
+        == "Genesis Plus GX / Sega SG-1000 Compatibility"
+    )
+
+    assert (
+        claim.get(
+            "subject"
+        )
+        == CORE_ID
+    )
+
+    assert (
+        claim.get(
+            "platform"
+        )
+        == SG1000_ID
+    )
+
+    assert (
+        claim.get(
+            "playability"
+        )
+        == "playable"
+    )
+
+
+def test_sg1000_compatibility_has_three_evidence_records():
+
+    entities = entity_map()
+
+    claim = entities[
+        SG1000_COMPATIBILITY_ID
+    ]
+
+    evidence = claim.get(
+        "evidence",
+        [],
+    )
+
+    assert len(evidence) == 3
+
+    sources = []
+    urls = []
+
+    for record in evidence:
+
+        assert record.get(
+            "source"
+        )
+
+        assert record.get(
+            "url"
+        )
+
+        assert (
+            record.get(
+                "checked_at"
+            )
+            == "2026-09-02"
+        )
+
+        assert record.get(
+            "notes"
+        )
+
+        sources.append(
+            record.get(
+                "source"
+            )
+        )
+
+        urls.append(
+            record.get(
+                "url"
+            )
+        )
+
+    assert len(
+        set(
+            sources
+        )
+    ) == 3
+
+    assert len(
+        set(
+            urls
+        )
+    ) == 3
 
 
 def test_genesis_plus_gx_standalone_emulator_remains_absent():
