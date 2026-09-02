@@ -1,6 +1,6 @@
 # RVDB Current Milestone
 
-_Last Updated: 2026-08-26_
+_Last Updated: 2026-09-02_
 
 ---
 
@@ -5613,3 +5613,320 @@ Before creating another production entity:
 
 Do not reopen the completed P2B8 ambiguity work unless a new concrete
 collision or regression demonstrates a defect.
+
+---
+
+## Phase 2B — P2B9 Mesen / NES Production Slice
+
+Status:
+
+COMPLETE
+
+### P2B9 Production Goal
+
+P2B9 expanded the operational production topology beyond the original
+Super Nintendo vertical slice by introducing the first controlled NES
+Libretro core path.
+
+The production work remained deliberately narrow:
+
+- reuse the existing canonical Nintendo Entertainment System platform
+- add one authoritative Libretro core
+- connect the existing RetroArch frontend to that core
+- add one evidence-backed compatibility claim
+- avoid creating an unsupported standalone Emulator entity
+- preserve deterministic production counts and regression coverage
+
+### Mesen Production Core
+
+Production Core added:
+
+- ID: `core.mesen`
+- type: `core`
+- name: `Mesen`
+- production path: `data/cores/libretro/mesen.yaml`
+
+Canonical platform:
+
+- `platform.nintendo.nes`
+
+Frontend integration:
+
+- `frontend.retroarch`
+- `launches_core -> core.mesen`
+
+Platform integration:
+
+- `platform.nintendo.nes`
+- `supports_core -> core.mesen`
+
+Production commit:
+
+- `e9b45d1` — `data: add Mesen NES core`
+
+No standalone production Emulator entity was created for Mesen.
+
+### Mesen / NES Compatibility
+
+Evidence-backed compatibility claim added:
+
+- ID: `compatibility.core.mesen.platform.nintendo.nes`
+- subject: `core.mesen`
+- platform: `platform.nintendo.nes`
+- playability: `playable`
+
+The compatibility record uses structured evidence rather than inferring
+playability solely from the platform/core topology.
+
+Production commit:
+
+- `f275097` — `data: add Mesen NES compatibility`
+
+### P2B9 Result
+
+The NES operational path is now represented as:
+
+`platform.nintendo.nes`
+-> `core.mesen`
+-> launched by `frontend.retroarch`
+
+with the separate evidence-backed compatibility claim:
+
+`compatibility.core.mesen.platform.nintendo.nes`
+
+The following entity remains intentionally absent:
+
+- `emulator.mesen`
+
+P2B9 therefore expands production coverage without inventing a standalone
+Emulator relationship that has not been separately modeled and justified.
+
+---
+
+## Phase 2B — P2B10 Genesis Plus GX / Genesis Production Slice
+
+Status:
+
+COMPLETE
+
+### P2B10 Production Goal
+
+P2B10 introduced the first controlled Sega Genesis operational slice using
+the existing canonical Sega Genesis platform.
+
+The checkpoint followed the same evidence-first production pattern
+established by the Mesen / NES slice:
+
+- reuse an existing canonical platform
+- add one Libretro Core entity
+- connect the platform to the core
+- connect RetroArch to the core
+- establish compatibility separately through structured evidence
+- avoid unsupported standalone Emulator creation
+- protect each production increment with regression and validation gates
+
+### Genesis Plus GX Production Core
+
+Production Core added:
+
+- ID: `core.genesis.plus.gx`
+- type: `core`
+- name: `Genesis Plus GX`
+- production path: `data/cores/libretro/genesis_plus_gx.yaml`
+
+Canonical platform:
+
+- `platform.sega.genesis`
+
+Platform integration:
+
+- `platform.sega.genesis`
+- `supports_core -> core.genesis.plus.gx`
+
+Frontend integration:
+
+- `frontend.retroarch`
+- `launches_core -> core.genesis.plus.gx`
+
+Production commit:
+
+- `45491ab` — `data: add Genesis Plus GX core`
+
+No standalone production Emulator entity was created for Genesis Plus GX.
+
+### Genesis Plus GX / Genesis Compatibility
+
+Evidence-backed compatibility claim added:
+
+- ID: `compatibility.core.genesis.plus.gx.platform.sega.genesis`
+- subject: `core.genesis.plus.gx`
+- platform: `platform.sega.genesis`
+- playability: `playable`
+
+The production compatibility record contains three structured evidence
+records supporting the operational claim.
+
+Production commit:
+
+- `a7ee413` — `data: add Genesis Plus GX compatibility`
+
+### P2B10 Result
+
+The Sega Genesis operational path is now represented as:
+
+`platform.sega.genesis`
+-> `core.genesis.plus.gx`
+-> launched by `frontend.retroarch`
+
+with the separate evidence-backed compatibility claim:
+
+`compatibility.core.genesis.plus.gx.platform.sega.genesis`
+
+The following entity remains intentionally absent:
+
+- `emulator.genesis.plus.gx`
+
+This preserves the distinction between a Libretro Core and a separately
+modeled standalone Emulator.
+
+---
+
+## Phase 2B — Current Production Baseline
+
+Production entities:
+
+- 50 total
+- 26 Platform entities
+- 4 Core entities
+- 2 Emulator entities
+- 1 Frontend entity
+- 4 Compatibility entities
+
+Current production Core entities:
+
+- `core.bsnes`
+- `core.snes9x`
+- `core.mesen`
+- `core.genesis.plus.gx`
+
+Current production Emulator entities:
+
+- `emulator.snes9x`
+- `emulator.bsnes`
+
+Current production Frontend entities:
+
+- `frontend.retroarch`
+
+Current evidence-backed Compatibility entities:
+
+- `compatibility.core.bsnes.platform.nintendo.snes`
+- `compatibility.core.snes9x.platform.nintendo.snes`
+- `compatibility.core.mesen.platform.nintendo.nes`
+- `compatibility.core.genesis.plus.gx.platform.sega.genesis`
+
+### Current Operational Core Topology
+
+Super Nintendo:
+
+- `platform.nintendo.snes`
+  - `supports_core -> core.bsnes`
+  - `supports_core -> core.snes9x`
+
+Nintendo Entertainment System:
+
+- `platform.nintendo.nes`
+  - `supports_core -> core.mesen`
+
+Sega Genesis:
+
+- `platform.sega.genesis`
+  - `supports_core -> core.genesis.plus.gx`
+
+RetroArch:
+
+- `launches_core -> core.bsnes`
+- `launches_core -> core.snes9x`
+- `launches_core -> core.mesen`
+- `launches_core -> core.genesis.plus.gx`
+
+### Current Validation and Regression Baseline
+
+Validation:
+
+- Entities checked: 50
+- Valid: 50
+- Schema Errors: 0
+- Relationship Errors: 0
+- Validation OK
+
+Regression suite:
+
+- 334 tests passed
+
+Runtime version:
+
+- RVDB 0.2.1
+
+Branch:
+
+- `develop`
+
+### Current Protected Git Checkpoint
+
+Current production HEAD before this documentation alignment commit:
+
+- `a7ee413843999311119e605f99d7d79d6a44bbe4`
+- `data: add Genesis Plus GX compatibility`
+
+Local `develop` and `origin/develop` are synchronized at this checkpoint.
+
+### Current Resume Point
+
+P2B9 and P2B10 production population are complete.
+
+The current operational production slices are:
+
+1. Super Nintendo
+   - bsnes Core
+   - Snes9x Core
+   - Snes9x Emulator
+   - bsnes Emulator
+   - RetroArch integration
+   - two evidence-backed Core compatibility claims
+
+2. Nintendo Entertainment System
+   - Mesen Core
+   - RetroArch integration
+   - evidence-backed Mesen / NES compatibility
+
+3. Sega Genesis
+   - Genesis Plus GX Core
+   - RetroArch integration
+   - evidence-backed Genesis Plus GX / Genesis compatibility
+
+RetroVault consumer readiness established during P2B7 remains valid.
+
+RVDB Phase 2B production population may continue independently while
+RetroVault application integration proceeds in parallel.
+
+### NEXT
+
+Begin the next controlled Phase 2B production-population planning checkpoint.
+
+Before creating another production entity:
+
+1. audit the current 50-entity production topology
+2. select the smallest well-supported next operational expansion
+3. prefer existing canonical platforms where appropriate
+4. establish Core/Emulator identity independently
+5. establish compatibility through authoritative evidence
+6. avoid speculative reciprocal relationships
+7. avoid treating frontend discovery as compatibility proof
+8. preserve deterministic production baselines
+9. add focused regression coverage for every new production contract
+10. commit and push each controlled production increment before dependent work
+
+Do not reopen completed P2B8 resolver ambiguity work, P2B9 Mesen work, or
+P2B10 Genesis Plus GX work unless a concrete defect or new evidence requires
+a correction.
