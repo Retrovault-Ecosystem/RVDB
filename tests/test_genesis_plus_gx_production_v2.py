@@ -7,16 +7,23 @@ Phase:
     2B
 
 Checkpoint:
-    P2B10-D — First Production Genesis Core
+    P2B10-G — Genesis Plus GX Compatibility
 
 Purpose:
-    Verify the controlled first production Sega Genesis
-    core topology without prematurely introducing a
-    compatibility or standalone emulator entity.
+    Verify the controlled production Sega Genesis core
+    topology after introducing its evidence-backed
+    compatibility claim while continuing to defer any
+    standalone emulator entity.
 =========================================================
 """
 
 from engine.loader import load_entities
+
+
+CLAIM_ID = (
+    "compatibility.core.genesis.plus.gx."
+    "platform.sega.genesis"
+)
 
 
 def entity_map():
@@ -79,15 +86,17 @@ def test_retroarch_launches_genesis_plus_gx():
     assert "core.genesis.plus.gx" in launches
 
 
-def test_genesis_plus_gx_compatibility_not_yet_created():
+def test_genesis_plus_gx_compatibility_exists():
 
     entities = entity_map()
 
-    assert (
-        "compatibility.core.genesis.plus.gx."
-        "platform.sega.genesis"
-        not in entities
-    )
+    assert CLAIM_ID in entities
+
+    claim = entities[
+        CLAIM_ID
+    ]
+
+    assert claim.entity_type == "compatibility"
 
 
 def test_genesis_plus_gx_emulator_not_created():
