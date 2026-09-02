@@ -6184,3 +6184,219 @@ except when performing the controlled milestone documentation checkpoint.
 
 Next controlled Phase 2B production-population work begins only after this
 documentation checkpoint is reviewed, committed, pushed, and verified.
+
+---
+
+## Phase 2B — P2B13 SG-1000 Core-Reuse Production Slice
+
+Status:
+
+COMPLETE
+
+P2B13 extended the protected Genesis Plus GX production family to:
+
+- `platform.sega.sg1000`
+
+The canonical Core remains:
+
+- `core.genesis.plus.gx`
+
+Production topology:
+
+- `platform.sega.sg1000`
+  - `supports_core -> core.genesis.plus.gx`
+
+Production compatibility:
+
+- `compatibility.core.genesis.plus.gx.platform.sega.sg1000`
+  - subject: `core.genesis.plus.gx`
+  - platform: `platform.sega.sg1000`
+  - playability: `playable`
+  - evidence: 3 distinct records
+
+The completed Genesis Plus GX production family is now:
+
+- `platform.sega.genesis`
+- `platform.sega.master.system`
+- `platform.sega.game.gear`
+- `platform.sega.sg1000`
+
+All four Platforms reuse the single canonical:
+
+- `core.genesis.plus.gx`
+
+All four Platform/Core pairs have first-class compatibility claims with:
+
+- `playability: playable`
+
+No standalone:
+
+- `emulator.genesis.plus.gx`
+
+has been introduced.
+
+This absence remains intentional.
+
+Protected P2B13 production commits:
+
+- `cdded0b` — `data: add SG-1000 Genesis Plus GX topology`
+- `5f67288` — `data: add SG-1000 Genesis Plus GX compatibility`
+
+Current production baseline after P2B13:
+
+- total entities: 53
+- platforms: 26
+- cores: 4
+- emulators: 2
+- frontends: 1
+- compatibility claims: 7
+- regression suite: 370 passing
+- validation: 53 / 53
+- schema errors: 0
+- relationship errors: 0
+- runtime version: `RVDB 0.2.1`
+
+---
+
+## Phase 2B Exit Contract
+
+Phase 2B is now in controlled closure.
+
+Phase 2B was intended to prove that the Foundation architecture can safely
+support real production population and real consumer-facing topology without
+requiring speculative relationships or entity-specific architectural
+workarounds.
+
+The required Phase 2B production capabilities have now been demonstrated.
+
+### Proven Production Capabilities
+
+Phase 2B has established:
+
+- controlled production Platform population
+- canonical Core entities
+- multiple Core implementations for one Platform
+- production standalone Emulator entities
+- production Frontend representation
+- Frontend-to-Core launch topology
+- Platform-to-Core support topology
+- Emulator-to-Platform topology
+- Emulator-to-Core topology
+- first-class Compatibility entities
+- evidence-backed playability claims
+- deterministic cross-type resolver ambiguity handling
+- canonical Core reuse across multiple Platforms
+- production regression-baseline migration
+- production manifest and bundle integration
+- read-only RetroVault consumer readiness
+
+### RetroVault Consumer Boundary
+
+The P2B7 consumer-readiness audit established:
+
+- RetroVault consumer readiness: READY
+- RVDB does not require additional speculative production population before
+  initial RetroVault integration
+- RetroVault may consume RVDB as a read-only authoritative data source
+- the initial application integration may use `RVEngine`
+- `rvdb.bundle.json` remains the target portable distribution contract
+
+Additional RVDB population is therefore not a prerequisite for beginning the
+first real RetroVault application vertical slice.
+
+### Phase 2B Exit Criteria
+
+Phase 2B may close when all of the following remain true:
+
+1. The complete regression suite passes.
+2. All production entities validate.
+3. Schema Errors remain zero.
+4. Relationship Errors remain zero.
+5. The canonical build succeeds.
+6. The production bundle represents the complete production entity set.
+7. Manifest statistics match the production entity set.
+8. Runtime version remains correct.
+9. Core-reuse topology remains intact.
+10. Compatibility claims remain first-class and evidence-backed.
+11. Resolver ambiguity behavior remains protected.
+12. RetroVault read-only consumer readiness remains valid.
+13. Local `develop` and `origin/develop` are synchronized.
+14. The working tree is clean.
+15. Phase 2B closure is recorded in this milestone document.
+
+No arbitrary entity-count target is required for Phase 2B closure.
+
+Large-scale production population belongs to subsequent RVDB work and must not
+be used to keep Phase 2B open indefinitely.
+
+### Finite Remaining Phase 2B Sequence
+
+The remaining Phase 2B sequence is explicitly bounded.
+
+#### P2B13-J — Phase 2B Exit Contract
+
+Define and protect this Phase 2B exit contract.
+
+#### P2B13-K — Final Phase 2B Release Gate
+
+Execute the complete Phase 2B closure gate, including:
+
+- regression
+- validation
+- canonical build
+- bundle verification
+- manifest verification
+- Core-reuse verification
+- compatibility verification
+- resolver verification
+- RetroVault consumer-readiness verification
+- Git-state verification
+
+No new production entity should be introduced during this checkpoint unless a
+concrete defect requires correction.
+
+#### P2B13-L — Phase 2B Closure
+
+Record and protect the completed Phase 2B milestone.
+
+This checkpoint will:
+
+- record final Phase 2B production statistics
+- record the final regression baseline
+- record final validation and build state
+- record the protected Phase 2B HEAD
+- commit and push milestone documentation
+- verify local/GitHub synchronization
+- leave the worktree clean
+- identify the next RVDB phase
+- preserve the established RetroVault application integration boundary
+
+After successful completion of P2B13-L:
+
+PHASE 2B IS COMPLETE.
+
+No P2B13-M through P2B13-Z checkpoints are planned.
+
+Any additional checkpoint before closure must be justified by a concrete
+failure discovered during the final closure gate rather than by unused
+checkpoint lettering.
+
+### Application Readiness Marker
+
+RetroVault application development has reached its first formal start boundary.
+
+The application may begin with a read-only vertical slice backed by real RVDB
+production data while subsequent RVDB population proceeds independently.
+
+This is a major project transition point.
+
+---
+
+## NEXT — P2B13-K
+
+Execute the final Phase 2B closure gate against the explicit exit contract.
+
+Do not add another production Platform, Core, Emulator, Frontend, or
+Compatibility entity merely to extend Phase 2B.
+
+The next checkpoint is verification, not population.
