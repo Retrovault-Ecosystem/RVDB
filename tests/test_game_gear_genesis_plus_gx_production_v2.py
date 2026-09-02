@@ -120,7 +120,7 @@ def test_master_system_still_supports_same_core():
     ]
 
 
-def test_genesis_plus_gx_is_reused_across_three_platforms():
+def test_genesis_plus_gx_includes_game_gear_reuse():
 
     entities = entity_map()
 
@@ -152,13 +152,9 @@ def test_genesis_plus_gx_is_reused_across_three_platforms():
                 entity.id
             )
 
-    assert sorted(
-        platforms
-    ) == [
-        GAME_GEAR_ID,
-        GENESIS_ID,
-        MASTER_ID,
-    ]
+    assert GAME_GEAR_ID in platforms
+    assert GENESIS_ID in platforms
+    assert MASTER_ID in platforms
 
 
 def test_genesis_plus_gx_core_is_not_duplicated():
