@@ -1,0 +1,29 @@
+id: emulator.bsnes
+type: emulator
+name: bsnes
+
+aliases: []
+
+developer: []
+
+operating_systems:
+  - Windows
+  - Linux
+  - macOS
+  - FreeBSD
+
+launch_mechanisms:
+  - standalone
+  - libretro
+
+source_repository: "https://github.com/bsnes-emu/bsnes"
+
+status: active
+
+relationships:
+  supports_platform:
+    - platform.nintendo.snes
+  supports_core:
+    - core.bsnes
+
+metadata: {}
