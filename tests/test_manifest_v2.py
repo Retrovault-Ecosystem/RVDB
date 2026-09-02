@@ -116,14 +116,14 @@ def test_manifest_contains_entity_statistics(
         statistics[
             "total_entities"
         ]
-        == 46
+        == 47
     )
 
     assert statistics[
         "by_type"
     ] == {
         "compatibility": 2,
-        "core": 2,
+        "core": 3,
         "emulator": 2,
         "frontend": 1,
         "developer": 2,
