@@ -1,9 +1,42 @@
 {
   "edges": {
+    "compatibility.core.bsnes.platform.nintendo.snes": {},
+    "compatibility.core.genesis.plus.gx.platform.sega.game.gear": {},
+    "compatibility.core.genesis.plus.gx.platform.sega.genesis": {},
+    "compatibility.core.genesis.plus.gx.platform.sega.master.system": {},
+    "compatibility.core.genesis.plus.gx.platform.sega.sg1000": {},
+    "compatibility.core.mesen.platform.nintendo.nes": {},
+    "compatibility.core.snes9x.platform.nintendo.snes": {},
     "core.bsnes": {},
+    "core.genesis.plus.gx": {},
+    "core.mesen": {},
     "core.snes9x": {},
     "developer.nintendo.ead": {},
     "developer.nintendo.rnd1": {},
+    "emulator.bsnes": {
+      "supports_core": [
+        "core.bsnes"
+      ],
+      "supports_platform": [
+        "platform.nintendo.snes"
+      ]
+    },
+    "emulator.snes9x": {
+      "supports_core": [
+        "core.snes9x"
+      ],
+      "supports_platform": [
+        "platform.nintendo.snes"
+      ]
+    },
+    "frontend.retroarch": {
+      "launches_core": [
+        "core.bsnes",
+        "core.snes9x",
+        "core.mesen",
+        "core.genesis.plus.gx"
+      ]
+    },
     "game.galaga": {
       "core": [],
       "developed_by": [],
@@ -105,7 +138,9 @@
       "supports_core": []
     },
     "platform.nintendo.nes": {
-      "supports_core": []
+      "supports_core": [
+        "core.mesen"
+      ]
     },
     "platform.nintendo.snes": {
       "supports_core": [
@@ -123,26 +158,271 @@
       "supports_core": []
     },
     "platform.sega.game.gear": {
-      "supports_core": []
+      "supports_core": [
+        "core.genesis.plus.gx"
+      ]
     },
     "platform.sega.genesis": {
-      "supports_core": []
+      "supports_core": [
+        "core.genesis.plus.gx"
+      ]
     },
     "platform.sega.master.system": {
-      "supports_core": []
+      "supports_core": [
+        "core.genesis.plus.gx"
+      ]
     },
     "platform.sega.saturn": {
       "supports_core": []
     },
-    "platform.sega.sg1000": {
+    "platform.sega.sc3000": {
       "supports_core": []
+    },
+    "platform.sega.sg1000": {
+      "supports_core": [
+        "core.genesis.plus.gx"
+      ]
     },
     "publisher.nintendo": {}
   },
   "nodes": {
+    "compatibility.core.bsnes.platform.nintendo.snes": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Libretro core metadata identifies bsnes as the Nintendo SNES / SFC bsnes core, identifies its system as the Super Nintendo Entertainment System, and declares supported SNES-family content extensions.",
+          "source": "Libretro Core Info — bsnes",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/bsnes_libretro.info"
+        },
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Libretro repository identifies bsnes as a Super Nintendo / Super Famicom emulator.",
+          "source": "Libretro bsnes Repository",
+          "url": "https://github.com/libretro/bsnes"
+        },
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Libretro implementation repository identifies bsnes as a Super Nintendo / SNES emulator and provides the Libretro implementation of the core.",
+          "source": "Libretro bsnes-libretro Repository",
+          "url": "https://github.com/libretro/bsnes-libretro"
+        }
+      ],
+      "id": "compatibility.core.bsnes.platform.nintendo.snes",
+      "metadata": {},
+      "name": "bsnes / Super Nintendo Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the bsnes Libretro core and the canonical Super Nintendo platform.",
+      "platform": "platform.nintendo.snes",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.bsnes",
+      "type": "compatibility"
+    },
+    "compatibility.core.genesis.plus.gx.platform.sega.game.gear": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation identifies Genesis Plus GX as a Sega 8/16-bit emulator core and documents Game Gear support within the Genesis Plus GX Libretro implementation.",
+          "source": "Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)",
+          "url": "https://docs.libretro.com/library/genesis_plus_gx/"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro core metadata identifies Genesis Plus GX and associates the Libretro implementation with Sega Game Gear family content and system support.",
+          "source": "Libretro Core Info — Genesis Plus GX",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "The official Genesis Plus GX project identifies the emulator as supporting Sega 8-bit systems, providing independent project-level evidence for operational Sega Game Gear support.",
+          "source": "Genesis Plus GX Official Repository",
+          "url": "https://github.com/ekeeke/Genesis-Plus-GX"
+        }
+      ],
+      "id": "compatibility.core.genesis.plus.gx.platform.sega.game.gear",
+      "metadata": {},
+      "name": "Genesis Plus GX / Sega Game Gear Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Genesis Plus GX Libretro core and the canonical Sega Game Gear platform.",
+      "platform": "platform.sega.game.gear",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.genesis.plus.gx",
+      "type": "compatibility"
+    },
+    "compatibility.core.genesis.plus.gx.platform.sega.genesis": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation identifies Genesis Plus GX as an emulator core supporting Sega Mega Drive / Genesis content and documents the corresponding RetroArch core integration.",
+          "source": "Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)",
+          "url": "https://docs.libretro.com/library/genesis_plus_gx/"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro core metadata identifies Genesis Plus GX and declares Sega Mega Drive / Genesis-family system and content support for the Libretro implementation.",
+          "source": "Libretro Core Info — Genesis Plus GX",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "The official Genesis Plus GX project repository identifies Genesis Plus GX as an emulator for Sega 8/16-bit systems, including Mega Drive / Genesis, corroborating operational support for the canonical Sega Genesis platform.",
+          "source": "Genesis Plus GX Official Repository",
+          "url": "https://github.com/ekeeke/Genesis-Plus-GX"
+        }
+      ],
+      "id": "compatibility.core.genesis.plus.gx.platform.sega.genesis",
+      "metadata": {},
+      "name": "Genesis Plus GX / Sega Genesis Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Genesis Plus GX Libretro core and the canonical Sega Genesis platform.",
+      "platform": "platform.sega.genesis",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.genesis.plus.gx",
+      "type": "compatibility"
+    },
+    "compatibility.core.genesis.plus.gx.platform.sega.master.system": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation identifies Genesis Plus GX as a Sega 8/16-bit emulator core and documents Master System support within the Genesis Plus GX Libretro implementation.",
+          "source": "Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)",
+          "url": "https://docs.libretro.com/library/genesis_plus_gx/"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro core metadata identifies Genesis Plus GX and associates the Libretro implementation with Sega Master System family content and system support.",
+          "source": "Libretro Core Info — Genesis Plus GX",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "The official Genesis Plus GX project identifies the emulator as supporting Sega 8-bit systems, providing independent project-level evidence for operational Sega Master System support.",
+          "source": "Genesis Plus GX Official Repository",
+          "url": "https://github.com/ekeeke/Genesis-Plus-GX"
+        }
+      ],
+      "id": "compatibility.core.genesis.plus.gx.platform.sega.master.system",
+      "metadata": {},
+      "name": "Genesis Plus GX / Sega Master System Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Genesis Plus GX Libretro core and the canonical Sega Master System / Mark III platform family.",
+      "platform": "platform.sega.master.system",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.genesis.plus.gx",
+      "type": "compatibility"
+    },
+    "compatibility.core.genesis.plus.gx.platform.sega.sg1000": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation states that Genesis Plus GX has complete compatibility with released SG-1000 software and identifies SG-1000 as part of the supported Sega 8/16-bit system family.",
+          "source": "Libretro Docs — Sega - MS/GG/MD/CD (Genesis Plus GX)",
+          "url": "https://docs.libretro.com/library/genesis_plus_gx/"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro core metadata explicitly includes Sega - SG-1000 in the Genesis Plus GX database list and includes SG-series content among the supported extensions.",
+          "source": "Libretro Core Info — Genesis Plus GX",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/genesis_plus_gx_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "The official Genesis Plus GX project documentation identifies Genesis Plus GX as supporting SG-1000 and describes accurate emulation of SG-1000 console hardware and software.",
+          "source": "Genesis Plus GX Official Repository",
+          "url": "https://github.com/ekeeke/Genesis-Plus-GX"
+        }
+      ],
+      "id": "compatibility.core.genesis.plus.gx.platform.sega.sg1000",
+      "metadata": {},
+      "name": "Genesis Plus GX / Sega SG-1000 Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Genesis Plus GX Libretro core and the canonical Sega SG-1000 platform.",
+      "platform": "platform.sega.sg1000",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.genesis.plus.gx",
+      "type": "compatibility"
+    },
+    "compatibility.core.mesen.platform.nintendo.nes": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation identifies Mesen as an NES/Famicom emulator core, associates it with the Nintendo Entertainment System RetroArch database, and documents supported NES content including the .nes extension.",
+          "source": "Libretro Docs — Nintendo - NES / Famicom (Mesen)",
+          "url": "https://docs.libretro.com/library/mesen/"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro core metadata identifies Mesen as a Nintendo Entertainment System core and provides canonical runtime metadata for the Libretro implementation.",
+          "source": "Libretro Core Info — Mesen",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/mesen_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-02",
+          "notes": "Official Libretro documentation describes Mesen as a high-accuracy NES/Famicom emulator with broad mapper and licensed-game support, supporting the operational playable classification for the canonical NES platform.",
+          "source": "Libretro Docs — Mesen Compatibility Description",
+          "url": "https://docs.libretro.com/library/mesen/"
+        }
+      ],
+      "id": "compatibility.core.mesen.platform.nintendo.nes",
+      "metadata": {},
+      "name": "Mesen / Nintendo Entertainment System Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Mesen Libretro core and the canonical Nintendo Entertainment System platform.",
+      "platform": "platform.nintendo.nes",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.mesen",
+      "type": "compatibility"
+    },
+    "compatibility.core.snes9x.platform.nintendo.snes": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Libretro core documentation identifies Snes9x as a Super Nintendo Entertainment System emulator/core and documents SNES content support.",
+          "source": "Libretro Docs — Nintendo - SNES / Famicom (Snes9x)",
+          "url": "https://docs.libretro.com/library/snes9x/"
+        },
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Snes9x project repository identifies Snes9x as a Super Nintendo Entertainment System emulator and corroborates the core/platform compatibility claim.",
+          "source": "Snes9x Official Source Repository",
+          "url": "https://github.com/snes9xgit/snes9x"
+        },
+        {
+          "checked_at": "2026-08-28",
+          "notes": "Official Libretro compatibility documentation explicitly includes Snes9x among SNES compatibility cores.",
+          "source": "Libretro Docs — Nintendo SNES Core Compatibility",
+          "url": "https://docs.libretro.com/library/compatibility/snes/"
+        }
+      ],
+      "id": "compatibility.core.snes9x.platform.nintendo.snes",
+      "metadata": {},
+      "name": "Snes9x / Super Nintendo Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Snes9x Libretro core and the canonical Super Nintendo platform.",
+      "platform": "platform.nintendo.snes",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.snes9x",
+      "type": "compatibility"
+    },
     "core.bsnes": {
       "id": "core.bsnes",
       "name": "bsnes",
+      "type": "core"
+    },
+    "core.genesis.plus.gx": {
+      "id": "core.genesis.plus.gx",
+      "name": "Genesis Plus GX",
+      "type": "core"
+    },
+    "core.mesen": {
+      "id": "core.mesen",
+      "name": "Mesen",
       "type": "core"
     },
     "core.snes9x": {
@@ -167,6 +447,78 @@
       "id": "developer.nintendo.rnd1",
       "name": "Nintendo R&D1",
       "type": "developer"
+    },
+    "emulator.bsnes": {
+      "aliases": [],
+      "developer": [],
+      "id": "emulator.bsnes",
+      "launch_mechanisms": [
+        "standalone",
+        "libretro"
+      ],
+      "metadata": {},
+      "name": "bsnes",
+      "operating_systems": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "FreeBSD"
+      ],
+      "relationships": {
+        "supports_core": [
+          "core.bsnes"
+        ],
+        "supports_platform": [
+          "platform.nintendo.snes"
+        ]
+      },
+      "source_repository": "https://github.com/bsnes-emu/bsnes",
+      "status": "active",
+      "type": "emulator"
+    },
+    "emulator.snes9x": {
+      "aliases": [],
+      "developer": [],
+      "id": "emulator.snes9x",
+      "launch_mechanisms": [
+        "standalone",
+        "libretro"
+      ],
+      "metadata": {},
+      "name": "Snes9x",
+      "official_website": "https://www.snes9x.com/",
+      "operating_systems": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "FreeBSD"
+      ],
+      "relationships": {
+        "supports_core": [
+          "core.snes9x"
+        ],
+        "supports_platform": [
+          "platform.nintendo.snes"
+        ]
+      },
+      "source_repository": "https://github.com/snes9xgit/snes9x",
+      "status": "active",
+      "type": "emulator"
+    },
+    "frontend.retroarch": {
+      "aliases": [],
+      "id": "frontend.retroarch",
+      "metadata": {},
+      "name": "RetroArch",
+      "relationships": {
+        "launches_core": [
+          "core.bsnes",
+          "core.snes9x",
+          "core.mesen",
+          "core.genesis.plus.gx"
+        ]
+      },
+      "type": "frontend"
     },
     "game.galaga": {
       "aliases": [],
@@ -775,7 +1127,9 @@
       },
       "name": "Nintendo Entertainment System",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.mesen"
+        ]
       },
       "release_year": 1983,
       "type": "platform"
@@ -919,7 +1273,9 @@
       },
       "name": "Game Gear",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.genesis.plus.gx"
+        ]
       },
       "release_year": 1990,
       "type": "platform"
@@ -940,7 +1296,9 @@
       },
       "name": "Sega Genesis",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.genesis.plus.gx"
+        ]
       },
       "release_year": null,
       "type": "platform"
@@ -970,7 +1328,9 @@
       },
       "name": "Sega Master System",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.genesis.plus.gx"
+        ]
       },
       "release_year": 1985,
       "type": "platform"
@@ -1005,6 +1365,34 @@
       "release_year": 1994,
       "type": "platform"
     },
+    "platform.sega.sc3000": {
+      "aliases": [
+        "SC-3000",
+        "Sega SC-3000"
+      ],
+      "category": [
+        "computer"
+      ],
+      "extensions": [
+        "sc",
+        "sg",
+        "bit"
+      ],
+      "id": "platform.sega.sc3000",
+      "manufacturer": [
+        "manufacturer.sega"
+      ],
+      "media": [
+        "cartridge",
+        "cassette"
+      ],
+      "name": "Sega SC-3000",
+      "relationships": {
+        "supports_core": []
+      },
+      "release_year": 1983,
+      "type": "platform"
+    },
     "platform.sega.sg1000": {
       "aliases": [
         "SG-1000",
@@ -1029,7 +1417,9 @@
       },
       "name": "Sega SG-1000",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.genesis.plus.gx"
+        ]
       },
       "release_year": 1983,
       "type": "platform"
