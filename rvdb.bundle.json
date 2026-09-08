@@ -1145,6 +1145,10 @@
       "category": [
         "console"
       ],
+      "extensions": [
+        "sfc",
+        "smc"
+      ],
       "generation": null,
       "id": "platform.nintendo.snes",
       "manufacturer": [

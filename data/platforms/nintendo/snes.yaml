@@ -20,6 +20,10 @@ generation: null
 category:
   - console
 
+extensions:
+  - sfc
+  - smc
+
 relationships:
 
   supports_core:
