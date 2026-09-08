@@ -603,7 +603,8 @@
     },
     "game.zelda_link_to_the_past": {
       "aliases": [
-        "Zelda ALTTP"
+        "Zelda ALTTP",
+        "Legend of Zelda A Link to the Past"
       ],
       "id": "game.zelda_link_to_the_past",
       "name": "The Legend of Zelda: A Link to the Past",
