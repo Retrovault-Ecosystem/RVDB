@@ -34,7 +34,8 @@
         "core.bsnes",
         "core.snes9x",
         "core.mesen",
-        "core.genesis.plus.gx"
+        "core.genesis.plus.gx",
+        "core.mupen64plus.next"
       ]
     },
     "game.galaga": {
@@ -135,7 +136,9 @@
       "supports_core": []
     },
     "platform.nintendo.n64": {
-      "supports_core": []
+      "supports_core": [
+        "core.mupen64plus.next"
+      ]
     },
     "platform.nintendo.nes": {
       "supports_core": [
@@ -515,7 +518,8 @@
           "core.bsnes",
           "core.snes9x",
           "core.mesen",
-          "core.genesis.plus.gx"
+          "core.genesis.plus.gx",
+          "core.mupen64plus.next"
         ]
       },
       "type": "frontend"
@@ -1099,7 +1103,9 @@
       },
       "name": "Nintendo 64",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.mupen64plus.next"
+        ]
       },
       "release_year": 1996,
       "type": "platform"
@@ -1436,6 +1442,43 @@
       "id": "publisher.nintendo",
       "name": "Nintendo",
       "type": "publisher"
+    },
+    "core.mupen64plus.next": {
+      "id": "core.mupen64plus.next",
+      "name": "Mupen64Plus-Next",
+      "type": "core"
+    },
+    "compatibility.core.mupen64plus.next.platform.nintendo.n64": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-23",
+          "notes": "Official Libretro core metadata identifies Mupen64Plus-Next as a Nintendo 64 Libretro core, names the Nintendo 64 system, declares the Nintendo - Nintendo 64 database, and lists N64-family content extensions.",
+          "source": "Libretro Core Info — Mupen64Plus-Next",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed Mupen64Plus-Next Libretro core metadata reports corename Mupen64Plus-Next, manufacturer Nintendo, systemname Nintendo 64, systemid nintendo_64, and database Nintendo - Nintendo 64.",
+          "source": "Installed Libretro Core Metadata — Mupen64Plus-Next",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical runtime core binary identifies itself as Mupen64Plus-Next and exposes Mupen64Plus-Next runtime option names, corroborating the runtime identity used by RetroVault.",
+          "source": "RetroVault Local Runtime Qualification",
+          "url": "https://github.com/libretro/mupen64plus-libretro-nx"
+        }
+      ],
+      "id": "compatibility.core.mupen64plus.next.platform.nintendo.n64",
+      "metadata": {},
+      "name": "Mupen64Plus-Next / Nintendo 64 Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Mupen64Plus-Next Libretro core and the canonical Nintendo 64 platform.",
+      "platform": "platform.nintendo.n64",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.mupen64plus.next",
+      "type": "compatibility"
     }
   }
 }
