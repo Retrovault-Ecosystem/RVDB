@@ -35,7 +35,8 @@
         "core.snes9x",
         "core.mesen",
         "core.genesis.plus.gx",
-        "core.mupen64plus.next"
+        "core.mupen64plus.next",
+        "core.mame"
       ]
     },
     "game.galaga": {
@@ -94,7 +95,9 @@
     "manufacturer.nintendo": {},
     "manufacturer.sega": {},
     "platform.arcade": {
-      "supports_core": []
+      "supports_core": [
+        "core.mame"
+      ]
     },
     "platform.atari.2600": {
       "supports_core": []
@@ -519,7 +522,8 @@
           "core.snes9x",
           "core.mesen",
           "core.genesis.plus.gx",
-          "core.mupen64plus.next"
+          "core.mupen64plus.next",
+          "core.mame"
         ]
       },
       "type": "frontend"
@@ -710,7 +714,9 @@
       },
       "name": "Arcade",
       "relationships": {
-        "supports_core": []
+        "supports_core": [
+          "core.mame"
+        ]
       },
       "release_year": 1972,
       "type": "platform"
@@ -1478,6 +1484,43 @@
       "playability": "playable",
       "relationships": {},
       "subject": "core.mupen64plus.next",
+      "type": "compatibility"
+    },
+    "core.mame": {
+      "id": "core.mame",
+      "name": "MAME",
+      "type": "core"
+    },
+    "compatibility.core.mame.platform.arcade": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-23",
+          "notes": "Official Libretro documentation identifies the MAME Libretro core as the current MAME core for RetroArch and documents MAME content operation through the Libretro frontend.",
+          "source": "Libretro Docs — Arcade (MAME)",
+          "url": "https://docs.libretro.com/library/mame/"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical Libretro runtime reports library_name MAME, library_version 0.287 (0108c5ef), valid extensions cmd|zip|7z, need_fullpath true, and block_extract true through retro_get_system_info.",
+          "source": "RetroVault Local Libretro System-Info Qualification",
+          "url": "https://github.com/libretro/mame"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical MAME runtime binary contains MAME identity strings, MAMEdev copyright attribution, mamedev.org project identity, Libretro integration strings, and MAME runtime option names, corroborating the canonical runtime identity used by RetroVault.",
+          "source": "RetroVault Local Runtime Binary Qualification",
+          "url": "https://github.com/libretro/mame"
+        }
+      ],
+      "id": "compatibility.core.mame.platform.arcade",
+      "metadata": {},
+      "name": "MAME / Arcade Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the MAME Libretro core and the canonical Arcade platform.",
+      "platform": "platform.arcade",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.mame",
       "type": "compatibility"
     }
   }
