@@ -1,6 +1,11 @@
 # RVDB Current Milestone
 
-_Last Updated: 2026-09-02_
+Current ecosystem status: **Milestone #2 — RVDB source/bundle reconciliation — COMPLETE**.
+See the [closure record](#ecosystem-milestone-2--rvdb-sourcebundle-reconciliation--complete)
+below. Earlier sections are preserved as historical project checkpoints.
+Milestone #3 has not started.
+
+_Last Updated: 2026-09-28_
 
 ---
 
@@ -6522,3 +6527,155 @@ The next major project activity is:
 **RetroVault application bootstrap and first RVDB consumer integration.**
 
 Before application implementation, preserve this Phase 2B closure commit as the protected starting boundary.
+
+
+## Ecosystem Milestone #1 — Architecture contracts — COMPLETE
+
+Closed: 2026-09-28. Scope: the approved architecture-contract plan for RetroVault
+and RVDB. The existing architecture is retained; no replacement architecture or
+later ecosystem milestone is introduced.
+
+Current contract reference: [Architecture contracts](architecture.md#current-producerconsumer-contract--milestone-1-2026-09-28).
+
+### Acceptance record
+
+| Approved deliverable | Closure evidence |
+| --- | --- |
+| Define six boundaries and ownership | Contract documentation identifies RVDB knowledge, local inventory, persistence, presentation resolution, runtime configuration, and process execution, including their existing classes/services and permitted dependencies. |
+| Preserve identities and durable formats | RVDB IDs, ROM-path keys, bundle envelope, user-store formats, and calibrated presentation assets remain unchanged. |
+| Enforce producer/consumer handoff | Fresh producer source is validated before export; malformed consumer reloads retain the last valid snapshot. Existing service fallback semantics remain supported. |
+| Repair library refresh consistency | Complete Game/variant metadata is refreshed while preserving surviving objects; failure restores physical inventory, visible projection, sources, and prior object state. |
+| Make runtime inputs consistent | Validation, aspect probe, and execution share the configured command. Explicit primary config is isolated once; isolation failure prevents process creation. XDG-aware primary cache storage and exit cleanup are verified. |
+| Preserve presentation authority | READY production-package authority, manual-resolution precedence, append-layer ordering, and existing geometry remain protected. UI warning text no longer promises that production visuals will be absent. |
+| Verify contracts | Both full regression suites pass; dependency guards, malformed-input tests, refresh rollback, primary-config source preservation/cleanup, and rejected unisolated launches are covered. |
+| Record exclusions and risks | Bundle drift and other retained limitations have explicit disposition below and in the current contract reference. |
+
+### Scope disposition
+
+No approved Milestone #1 implementation item remains open. This closure does not
+assert that all ecosystem technical debt is resolved:
+
+- Source/bundle drift: retained as an explicit exclusion. Four bundle-only entities
+  and relationship differences require a separate knowledge/evidence decision.
+  Neither bundle was rebuilt or published; their audited hashes are unchanged.
+- Host-path portability, identity migration, mutable low-level compatibility access,
+  and live mid-game aspect qualification: existing documented limitations, outside
+  this milestone. They are not silently assigned to Milestone #2.
+- No live emulator qualification, user-state migration, asset deployment, or changes
+  to accepted visual calibration were needed for this contract milestone.
+
+### Delivery state
+
+Closure is recorded in the working trees. No release, commit, push, or clean-checkout
+claim is implied. RetroVault also contains pre-existing uncommitted startup and
+visual qualification work, including shared-file changes, which remains preserved.
+Historical protected commit IDs above refer to their original checkpoints, not to
+this new milestone. Milestone #2 remains unstarted pending its own instructions.
+
+
+### Final verification
+
+- RetroVault full regression: **1,864 passed**.
+- RVDB full regression: **372 passed**; producer code unchanged during the final
+  closure audit, with its passing full-suite result retained.
+- Final targeted launcher/dependency regression: **56 passed**.
+- Fresh RVDB source validation: **53 valid entities**, zero schema or relationship errors.
+- Both distributed bundle hashes unchanged; hardened consumer loading passes.
+- Python parsing and both repositories' diff integrity checks pass.
+
+**Milestone #1 is closed within its approved scope.**
+
+
+## Ecosystem Milestone #2 — RVDB source/bundle reconciliation — COMPLETE
+
+Closed: 2026-09-28, within the approved plan. Milestone #1 remains closed; its
+previously deferred source/bundle discrepancy is now resolved. Statements in older
+milestones about deferral or Milestone #2 not having started describe their original
+checkpoints, not current status. Milestone #3 has not started.
+
+### Acceptance record
+
+| Approved deliverable | Verified result |
+| --- | --- |
+| Restore canonical source ownership | Four YAML records added for MAME, Mupen64Plus-Next, and their existing Arcade/N64 compatibility claims. |
+| Restore existing associations | Only frontend.retroarch, platform.arcade, and platform.nintendo.n64 gain the relationships already distributed in the bundles. |
+| Preserve knowledge | All 57 node payloads equal both pre-reconciliation bundle node maps, including evidence text/dates and playability. No new universal compatibility claim is made. |
+| Validate and generate | 57 valid source entities; zero schema/relationship errors; 57 nodes and 57 edge-map entries generated by the existing validated producer. |
+| Synchronize artifacts | Tracked RVDB artifact and RetroVault local copy are byte-identical; only missing empty edge entries and canonical serialization change. |
+| Unify consumer relationship authority | RVDBService.retroarch_view() consumes exported launches_core edges, consistent with other views; conflicting/missing representations are tested. |
+| Prevent unnoticed drift | New producer regression compares a validated fresh build with the tracked artifact and tests deterministic generation. Cross-repository equality is an explicit synchronization check, not a silently skipped test. |
+| Preserve downstream boundaries | IDs, schemas, user stores, library identity, runtime core mapping, visual assets, and execution are unchanged. N64 and Arcade remain UNCONFIGURED. |
+
+### Provenance and delivery
+
+The bundle-only additions originated in RVDB commits `0832a93` and `291ade1`.
+Their evidence is preserved with its original `2026-09-23` dates. Static official
+metadata corroborated identity during analysis; local runtime qualifications were
+not rerun. `core.mame` remains the Libretro core identity, not a new standalone
+emulator or a replacement for individual arcade hardware identities.
+
+Current shared SHA-256:
+
+`cbe52800852543f88bdaf033bb0d50e348ffe64368391498ff93d72a785610dc`
+
+RVDB's generated artifact is tracked. RetroVault intentionally ignores `data/rvdb/`;
+its synchronized bundle remains local runtime data. The explicit copy-and-compare
+workflow is documented in RVDB's `docs/architecture.md` under "Bundle delivery and
+drift prevention" and referenced from RetroVault's architecture contracts. No ignore
+policy, automatic updater, packaging/deployment system, or sibling-checkout runtime
+dependency was introduced.
+
+### Verification
+
+- Baseline suites: **1,864 RetroVault / 372 RVDB passed**.
+- Final full suites: **1,869 RetroVault / 375 RVDB passed**.
+- Focused checks: **102 RetroVault / 20 RVDB passed**.
+- Source validation, source/artifact parity, repeat-build determinism, and explicit
+  consumer-copy equality: **PASS**.
+- Source delta: exactly four additions and three relationship-only updates.
+- Historical evidence and all pre-reconciliation node payloads: **preserved**.
+- Python parsing and both repositories' diff integrity: **PASS**.
+
+Three older Sega production tests also required their exact frontend core lists to
+include the two reconciled cores. Their checks still enforce exactly one edge for
+the reused Genesis Plus GX core; no unrelated core relationship was added.
+
+### Scope and closure
+
+All approved Milestone #2 deliverables are complete. No live emulator launch, ROM
+scan, user-state migration, visual recalibration, external asset deployment, new
+platform readiness, or broader knowledge population was performed. Automatic
+bundle distribution and Milestones #3–#14 remain outside this milestone.
+
+Closure is in the working trees. Existing uncommitted Milestone #1, startup, and
+calibration work remains preserved. No commit, push, release, or clean-checkout
+claim is implied. The historical protected checkpoint IDs above are unchanged.
+
+
+### Final acceptance audit — 2026-09-28
+
+A fresh build through the validated production build entry point was generated in
+a temporary directory and compared against a repeat build, the tracked RVDB bundle,
+and RetroVault's local runtime copy. All four are byte-identical, with the shared
+SHA-256 recorded above. Every one of the 57 node payloads still matches both
+pre-reconciliation bundles, and all 57 exported relationship entries match source.
+The live consumer read models preserve both promoted cores, their three evidence
+records, and their scoped playability values. Arcade and N64 remain UNCONFIGURED
+for production presentation. Both diff integrity checks pass.
+
+No further production changes were needed. The passing full-suite results remain
+1,869 RetroVault tests and 375 RVDB tests; unchanged suites were not redundantly
+rerun for this documentation-only closure. No persistent bundle was regenerated by
+this final audit. Remaining approved Milestone #2 work: **none**.
+
+**Milestone #2 is fully closed within its approved scope. Milestone #3 has not started.**
+
+## Genesis Library identification correction — 2026-09-29
+
+Added the existing RetroVault scanner's `md` and `gen` cartridge extensions to
+`data/platforms/sega/genesis.yaml`. Missing metadata previously left Sonic without
+a canonical platform ID in RetroVault's Library, skipping its production bezel.
+No shared binary/disc extension, new core claim, schema or runtime policy was added.
+Validated producer build and **376 tests pass**. Consumer bundle synchronized;
+SHA-256 `0c32be3117d31830c5c2e4a8554b2c2f627ed7474c81dbc1697511e5afbf3b9a`.
+This supersedes the earlier bundle hash, without changing prior milestone history.

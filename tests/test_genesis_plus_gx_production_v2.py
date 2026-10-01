@@ -104,3 +104,10 @@ def test_genesis_plus_gx_emulator_not_created():
     entities = entity_map()
 
     assert "emulator.genesis.plus.gx" not in entities
+
+
+def test_genesis_cartridge_extensions_enable_canonical_library_resolution():
+    genesis = entity_map()['platform.sega.genesis']
+    assert genesis.get('extensions') == ['md', 'gen']
+    # Shared raw binary/disc/archive extensions must not become Genesis defaults.
+    assert not {'bin', 'cue', 'iso', 'zip'} & set(genesis.get('extensions'))

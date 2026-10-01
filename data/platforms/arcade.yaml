@@ -16,7 +16,8 @@ category:
 
 relationships:
 
-  supports_core: []
+  supports_core:
+    - core.mame
 
 metadata:
 

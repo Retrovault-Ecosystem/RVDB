@@ -275,3 +275,17 @@ license.
 The repository intentionally does not include a `LICENSE` file at this
 checkpoint. A future release may add a license after the project's
 licensing policy is formally decided.
+
+## Ecosystem milestone status
+
+**Milestone #2 — RVDB source/bundle reconciliation — COMPLETE.**
+
+Canonical YAML and the generated bundle now contain the same 57 entities.
+RetroVault's local runtime copy is byte-identical. See the
+[reconciliation and synchronization procedure](docs/architecture.md#milestone-2--rvdb-sourcebundle-reconciliation)
+and [formal closure record](docs/current_milestone.md#ecosystem-milestone-2--rvdb-sourcebundle-reconciliation--complete).
+
+The source-parity regression prevents stale tracked bundle output from passing
+RVDB's tests. RetroVault's copy remains Git-ignored runtime data and requires the
+explicit synchronization check. Milestone #1 remains complete; its deferred bundle
+discrepancy is resolved by Milestone #2. Milestone #3 has not started.

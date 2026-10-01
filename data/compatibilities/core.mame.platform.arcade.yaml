@@ -1,0 +1,29 @@
+id: compatibility.core.mame.platform.arcade
+type: compatibility
+name: MAME / Arcade Compatibility
+aliases: []
+relationships: {}
+metadata: {}
+subject: core.mame
+platform: platform.arcade
+playability: playable
+evidence:
+- checked_at: '2026-09-23'
+  notes: Official Libretro documentation identifies the MAME Libretro core as the current
+    MAME core for RetroArch and documents MAME content operation through the Libretro frontend.
+  source: Libretro Docs — Arcade (MAME)
+  url: https://docs.libretro.com/library/mame/
+- checked_at: '2026-09-23'
+  notes: The installed canonical Libretro runtime reports library_name MAME, library_version
+    0.287 (0108c5ef), valid extensions cmd|zip|7z, need_fullpath true, and block_extract true
+    through retro_get_system_info.
+  source: RetroVault Local Libretro System-Info Qualification
+  url: https://github.com/libretro/mame
+- checked_at: '2026-09-23'
+  notes: The installed canonical MAME runtime binary contains MAME identity strings, MAMEdev
+    copyright attribution, mamedev.org project identity, Libretro integration strings, and
+    MAME runtime option names, corroborating the canonical runtime identity used by RetroVault.
+  source: RetroVault Local Runtime Binary Qualification
+  url: https://github.com/libretro/mame
+notes: Evidence-backed operational compatibility claim for the MAME Libretro core and the
+  canonical Arcade platform.

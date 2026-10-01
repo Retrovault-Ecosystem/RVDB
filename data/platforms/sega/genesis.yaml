@@ -15,6 +15,12 @@ generation: null
 category:
   - console
 
+# Cartridge formats already supported by the RetroVault scanner.
+# https://docs.libretro.com/library/genesis_plus_gx/#extensions
+extensions:
+  - md
+  - gen
+
 relationships:
 
   supports_core:

@@ -183,12 +183,17 @@ def test_retroarch_launches_reused_core_without_new_edge():
         [],
     )
 
+    # The reused Sega core still has exactly one frontend edge; the
+    # reconciled N64/Arcade knowledge adds two different cores.
     assert launches == [
         "core.bsnes",
         "core.snes9x",
         "core.mesen",
         CORE_ID,
+        "core.mupen64plus.next",
+        "core.mame",
     ]
+    assert launches.count(CORE_ID) == 1
 
 
 def test_sg1000_compatibility_exists():

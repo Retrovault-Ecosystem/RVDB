@@ -5,11 +5,15 @@
     "compatibility.core.genesis.plus.gx.platform.sega.genesis": {},
     "compatibility.core.genesis.plus.gx.platform.sega.master.system": {},
     "compatibility.core.genesis.plus.gx.platform.sega.sg1000": {},
+    "compatibility.core.mame.platform.arcade": {},
     "compatibility.core.mesen.platform.nintendo.nes": {},
+    "compatibility.core.mupen64plus.next.platform.nintendo.n64": {},
     "compatibility.core.snes9x.platform.nintendo.snes": {},
     "core.bsnes": {},
     "core.genesis.plus.gx": {},
+    "core.mame": {},
     "core.mesen": {},
+    "core.mupen64plus.next": {},
     "core.snes9x": {},
     "developer.nintendo.ead": {},
     "developer.nintendo.rnd1": {},
@@ -352,6 +356,38 @@
       "subject": "core.genesis.plus.gx",
       "type": "compatibility"
     },
+    "compatibility.core.mame.platform.arcade": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-23",
+          "notes": "Official Libretro documentation identifies the MAME Libretro core as the current MAME core for RetroArch and documents MAME content operation through the Libretro frontend.",
+          "source": "Libretro Docs — Arcade (MAME)",
+          "url": "https://docs.libretro.com/library/mame/"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical Libretro runtime reports library_name MAME, library_version 0.287 (0108c5ef), valid extensions cmd|zip|7z, need_fullpath true, and block_extract true through retro_get_system_info.",
+          "source": "RetroVault Local Libretro System-Info Qualification",
+          "url": "https://github.com/libretro/mame"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical MAME runtime binary contains MAME identity strings, MAMEdev copyright attribution, mamedev.org project identity, Libretro integration strings, and MAME runtime option names, corroborating the canonical runtime identity used by RetroVault.",
+          "source": "RetroVault Local Runtime Binary Qualification",
+          "url": "https://github.com/libretro/mame"
+        }
+      ],
+      "id": "compatibility.core.mame.platform.arcade",
+      "metadata": {},
+      "name": "MAME / Arcade Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the MAME Libretro core and the canonical Arcade platform.",
+      "platform": "platform.arcade",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.mame",
+      "type": "compatibility"
+    },
     "compatibility.core.mesen.platform.nintendo.nes": {
       "aliases": [],
       "evidence": [
@@ -382,6 +418,38 @@
       "playability": "playable",
       "relationships": {},
       "subject": "core.mesen",
+      "type": "compatibility"
+    },
+    "compatibility.core.mupen64plus.next.platform.nintendo.n64": {
+      "aliases": [],
+      "evidence": [
+        {
+          "checked_at": "2026-09-23",
+          "notes": "Official Libretro core metadata identifies Mupen64Plus-Next as a Nintendo 64 Libretro core, names the Nintendo 64 system, declares the Nintendo - Nintendo 64 database, and lists N64-family content extensions.",
+          "source": "Libretro Core Info — Mupen64Plus-Next",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed Mupen64Plus-Next Libretro core metadata reports corename Mupen64Plus-Next, manufacturer Nintendo, systemname Nintendo 64, systemid nintendo_64, and database Nintendo - Nintendo 64.",
+          "source": "Installed Libretro Core Metadata — Mupen64Plus-Next",
+          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
+        },
+        {
+          "checked_at": "2026-09-23",
+          "notes": "The installed canonical runtime core binary identifies itself as Mupen64Plus-Next and exposes Mupen64Plus-Next runtime option names, corroborating the runtime identity used by RetroVault.",
+          "source": "RetroVault Local Runtime Qualification",
+          "url": "https://github.com/libretro/mupen64plus-libretro-nx"
+        }
+      ],
+      "id": "compatibility.core.mupen64plus.next.platform.nintendo.n64",
+      "metadata": {},
+      "name": "Mupen64Plus-Next / Nintendo 64 Compatibility",
+      "notes": "Evidence-backed operational compatibility claim for the Mupen64Plus-Next Libretro core and the canonical Nintendo 64 platform.",
+      "platform": "platform.nintendo.n64",
+      "playability": "playable",
+      "relationships": {},
+      "subject": "core.mupen64plus.next",
       "type": "compatibility"
     },
     "compatibility.core.snes9x.platform.nintendo.snes": {
@@ -426,9 +494,19 @@
       "name": "Genesis Plus GX",
       "type": "core"
     },
+    "core.mame": {
+      "id": "core.mame",
+      "name": "MAME",
+      "type": "core"
+    },
     "core.mesen": {
       "id": "core.mesen",
       "name": "Mesen",
+      "type": "core"
+    },
+    "core.mupen64plus.next": {
+      "id": "core.mupen64plus.next",
+      "name": "Mupen64Plus-Next",
       "type": "core"
     },
     "core.snes9x": {
@@ -1302,6 +1380,10 @@
       "category": [
         "console"
       ],
+      "extensions": [
+        "md",
+        "gen"
+      ],
       "generation": null,
       "id": "platform.sega.genesis",
       "manufacturer": [
@@ -1448,80 +1530,6 @@
       "id": "publisher.nintendo",
       "name": "Nintendo",
       "type": "publisher"
-    },
-    "core.mupen64plus.next": {
-      "id": "core.mupen64plus.next",
-      "name": "Mupen64Plus-Next",
-      "type": "core"
-    },
-    "compatibility.core.mupen64plus.next.platform.nintendo.n64": {
-      "aliases": [],
-      "evidence": [
-        {
-          "checked_at": "2026-09-23",
-          "notes": "Official Libretro core metadata identifies Mupen64Plus-Next as a Nintendo 64 Libretro core, names the Nintendo 64 system, declares the Nintendo - Nintendo 64 database, and lists N64-family content extensions.",
-          "source": "Libretro Core Info — Mupen64Plus-Next",
-          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
-        },
-        {
-          "checked_at": "2026-09-23",
-          "notes": "The installed Mupen64Plus-Next Libretro core metadata reports corename Mupen64Plus-Next, manufacturer Nintendo, systemname Nintendo 64, systemid nintendo_64, and database Nintendo - Nintendo 64.",
-          "source": "Installed Libretro Core Metadata — Mupen64Plus-Next",
-          "url": "https://github.com/libretro/libretro-core-info/blob/master/mupen64plus_next_libretro.info"
-        },
-        {
-          "checked_at": "2026-09-23",
-          "notes": "The installed canonical runtime core binary identifies itself as Mupen64Plus-Next and exposes Mupen64Plus-Next runtime option names, corroborating the runtime identity used by RetroVault.",
-          "source": "RetroVault Local Runtime Qualification",
-          "url": "https://github.com/libretro/mupen64plus-libretro-nx"
-        }
-      ],
-      "id": "compatibility.core.mupen64plus.next.platform.nintendo.n64",
-      "metadata": {},
-      "name": "Mupen64Plus-Next / Nintendo 64 Compatibility",
-      "notes": "Evidence-backed operational compatibility claim for the Mupen64Plus-Next Libretro core and the canonical Nintendo 64 platform.",
-      "platform": "platform.nintendo.n64",
-      "playability": "playable",
-      "relationships": {},
-      "subject": "core.mupen64plus.next",
-      "type": "compatibility"
-    },
-    "core.mame": {
-      "id": "core.mame",
-      "name": "MAME",
-      "type": "core"
-    },
-    "compatibility.core.mame.platform.arcade": {
-      "aliases": [],
-      "evidence": [
-        {
-          "checked_at": "2026-09-23",
-          "notes": "Official Libretro documentation identifies the MAME Libretro core as the current MAME core for RetroArch and documents MAME content operation through the Libretro frontend.",
-          "source": "Libretro Docs — Arcade (MAME)",
-          "url": "https://docs.libretro.com/library/mame/"
-        },
-        {
-          "checked_at": "2026-09-23",
-          "notes": "The installed canonical Libretro runtime reports library_name MAME, library_version 0.287 (0108c5ef), valid extensions cmd|zip|7z, need_fullpath true, and block_extract true through retro_get_system_info.",
-          "source": "RetroVault Local Libretro System-Info Qualification",
-          "url": "https://github.com/libretro/mame"
-        },
-        {
-          "checked_at": "2026-09-23",
-          "notes": "The installed canonical MAME runtime binary contains MAME identity strings, MAMEdev copyright attribution, mamedev.org project identity, Libretro integration strings, and MAME runtime option names, corroborating the canonical runtime identity used by RetroVault.",
-          "source": "RetroVault Local Runtime Binary Qualification",
-          "url": "https://github.com/libretro/mame"
-        }
-      ],
-      "id": "compatibility.core.mame.platform.arcade",
-      "metadata": {},
-      "name": "MAME / Arcade Compatibility",
-      "notes": "Evidence-backed operational compatibility claim for the MAME Libretro core and the canonical Arcade platform.",
-      "platform": "platform.arcade",
-      "playability": "playable",
-      "relationships": {},
-      "subject": "core.mame",
-      "type": "compatibility"
     }
   }
 }

@@ -10,5 +10,7 @@ relationships:
     - core.snes9x
     - core.mesen
     - core.genesis.plus.gx
+    - core.mupen64plus.next
+    - core.mame
 
 metadata: {}
