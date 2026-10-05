@@ -44,6 +44,9 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+import os
+import stat
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -168,21 +171,25 @@ def build_bundle(
         "edges": edges,
     }
 
-    with output_path.open(
-        "w",
-        encoding="utf-8",
-    ) as file:
-
-        json.dump(
-            bundle,
-            file,
-            indent=2,
-            ensure_ascii=False,
-            sort_keys=True,
-        )
-
-        file.write(
-            "\n"
-        )
+    temporary_path = None
+    try:
+        # Same-directory replacement keeps publication atomic. Until replace
+        # succeeds the previous bundle remains untouched.
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", dir=output_path.parent,
+            prefix=f".{output_path.name}.", suffix=".tmp", delete=False,
+        ) as file:
+            temporary_path = Path(file.name)
+            json.dump(bundle, file, indent=2, ensure_ascii=False, sort_keys=True)
+            file.write("\n")
+            file.flush()
+            # Replacing an existing distributed artifact must retain its access mode.
+            if output_path.exists():
+                os.fchmod(file.fileno(), stat.S_IMODE(output_path.stat().st_mode))
+            os.fsync(file.fileno())
+        os.replace(temporary_path, output_path)
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
     return output_path

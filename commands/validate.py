@@ -58,7 +58,11 @@ def cmd_validate():
                 "Validation FAILED: No entities found"
             )
 
-            return
+            return False
+
+        identities = [entity.id for entity in entities]
+        if len(set(identities)) != len(identities):
+            raise ValueError("Duplicate entity IDs")
 
         graph = build_graph(
             entities
@@ -251,6 +255,8 @@ def cmd_validate():
                 "Validation OK"
             )
 
+        return not schema_errors and not relationship_errors
+
     except Exception as error:
 
         print()
@@ -266,3 +272,5 @@ def cmd_validate():
         )
 
         traceback.print_exc()
+
+        return False

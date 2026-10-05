@@ -250,3 +250,49 @@ def test_build_command_rejects_invalid_source_without_touching_existing_bundle(m
         assert "Build error:" in capsys.readouterr().out
         assert output.read_text() == "existing artifact"
         exporter.assert_not_called()
+
+
+import pytest
+
+@pytest.mark.parametrize('failure', ['serialization', 'write', 'flush', 'fsync', 'replace'])
+@pytest.mark.parametrize('existing', [False, True])
+def test_failed_publication_preserves_bundle(tmp_path, monkeypatch, failure, existing):
+    import build.builder as builder
+    import os
+    output = tmp_path / 'bundle.json'
+    original = b'{"previous": "valid"}\n'
+    if existing: output.write_bytes(original)
+    graph = build_graph(load_entities())
+    real_dump = builder.json.dump
+    if failure in ('serialization', 'write', 'flush'):
+        def fail_dump(bundle, stream, **kwargs):
+            from unittest.mock import Mock
+            if failure == 'serialization':
+                stream.write('{partial')
+                raise TypeError('serialization failed')
+            if failure == 'write':
+                stream.write('{partial')
+                stream.write = Mock(side_effect=OSError('write failed'))
+            else:
+                stream.flush = Mock(side_effect=OSError('flush failed'))
+            real_dump(bundle, stream, **kwargs)
+        monkeypatch.setattr(builder.json, 'dump', fail_dump)
+    elif failure == 'fsync':
+        monkeypatch.setattr(os, 'fsync', lambda *args: (_ for _ in ()).throw(OSError('fsync failed')))
+    else:
+        monkeypatch.setattr(os, 'replace', lambda *args: (_ for _ in ()).throw(OSError('replace failed')))
+    with pytest.raises((OSError, TypeError)):
+        build_bundle(graph, output)
+    assert output.exists() == existing
+    if existing: assert output.read_bytes() == original
+    assert list(tmp_path.iterdir()) == ([output] if existing else [])
+
+
+def test_atomic_replacement_preserves_existing_access_mode(tmp_path):
+    import stat
+    output = tmp_path / 'bundle.json'
+    output.write_text('{}')
+    output.chmod(0o640)
+    build_bundle(build_graph(load_entities()), output)
+    assert stat.S_IMODE(output.stat().st_mode) == 0o640
+    assert len(json.loads(output.read_text())['nodes']) == 57

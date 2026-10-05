@@ -100,11 +100,16 @@ def main():
             values.get(name)
         )
 
-    handler(
-        *arguments
-    )
+    result = handler(*arguments)
+    # Preserve other commands' return conventions. Build keeps its Path/None
+    # API; validation explicitly returns a boolean release-gate result.
+    if command["name"] == "build":
+        return 0 if result is not None else 1
+    if command["name"] == "validate":
+        return 0 if result is True else 1
+    return 0
 
 
 if __name__ == "__main__":
 
-    main()
+    raise SystemExit(main())
