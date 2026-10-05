@@ -1,11 +1,36 @@
 # RVDB Current Milestone
 
-Current ecosystem status: **Milestone #2 — RVDB source/bundle reconciliation — COMPLETE**.
-See the [closure record](#ecosystem-milestone-2--rvdb-sourcebundle-reconciliation--complete)
-below. Earlier sections are preserved as historical project checkpoints.
-Milestone #3 has not started.
+Current ecosystem status: **Milestone #14 and the approved 14-milestone roadmap COMPLETE**.
+The user approved final two-stage closure within the existing scope.
+No Milestone #15 or post-roadmap implementation has begun.
 
-_Last Updated: 2026-09-28_
+Producer fixes: `validate`/`v` and `build` report nonzero failure exit status; validation
+and build reject duplicate IDs; bundle publication uses a flushed/fsynced same-directory
+temporary file and atomic replacement, preserving previous valid bytes on failure.
+Knowledge schemas, IDs, entities and successful bundle format remain unchanged.
+
+Full producer suite: **406 passed**. Source validation: **57 entities, zero errors**.
+Deterministic generated/canonical/installed bundle SHA-256:
+`0c32be3117d31830c5c2e4a8554b2c2f627ed7474c81dbc1697511e5afbf3b9a`.
+Pre-M14 producer baseline: `develop` at `43b9ad6759aee8794caef4b738e244b1b349b589`.
+Paired M14 implementation/test checkpoints:
+
+- RetroVault `feature/rvdb-foundation`: `a8730b75a727d5b0401abf67bf2bf1297d60f689`.
+- RVDB `develop`: `94c57f030d88c3d6c2c2e1366d5a827a85df11b3`.
+
+Final documentation-inclusive local/remote HEADs are recorded in the final closure response;
+subsequent closure commits contain only approved documentation. Earlier history is preserved.
+Focused suites: RetroVault **192 passed**, RVDB **36 passed**. Complete consumer suite and
+clean source-copy consumer suite: **2,213 passed** each. Compilation: **326 consumer + 83 producer files**.
+The record below is historical; the paired M14 document records final deferred work and limits.
+
+The authoritative paired implementation/closure record is RetroVault
+`docs/milestone14_final_integration.md` in the sibling RetroVault checkout. It contains
+ownership boundaries, verification, retained limitations, deferred-work register and
+protected checkpoint procedure. Historical sections below describe their original stages;
+statements about later milestones not having started are not current ecosystem status.
+
+_Last Updated: 2026-10-05_
 
 ---
 

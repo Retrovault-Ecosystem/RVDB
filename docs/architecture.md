@@ -1,5 +1,25 @@
 # RVDB Architecture
 
+## Current Milestone #14 integration contract
+
+Milestone #14 closes the approved 14-milestone roadmap; no Milestone #15 has begun. The producer remains
+`EntityLoader -> validated RVGraph -> nodes/edges bundle`; RetroVault consumes the portable
+bundle and owns local inventory, persistence, presentation policy and emulator lifecycle.
+No schema, canonical identity or graph-format change is part of this milestone.
+
+`commands/validate.py` returns a boolean and rejects duplicate IDs before graph construction.
+`commands/build.py` retains its Path/None API and existing validation. `cli.py` maps those two
+commands to process exit status (zero only on success), including validation alias `v`.
+Other CLI return conventions remain unchanged. `build/builder.py` serializes to a unique
+same-directory temporary file, flushes/fsyncs, preserves existing output permissions and uses
+atomic replacement. Serialization/write/flush/replacement failure preserves the old bundle
+and removes temporary output. Successful deterministic JSON bytes remain compatible.
+
+See [current evidence](current_milestone.md) and RetroVault's paired
+`docs/milestone14_final_integration.md` for closure/deferred-work details. Historical sections
+below remain historical. Scalar relationship expansion, richer BIOS/compatibility modeling,
+automatic distribution and speculative canonical data remain outside M14.
+
 ## Overview
 
 RVDB (RetroVault Database) is the knowledge foundation behind the RetroVault ecosystem.

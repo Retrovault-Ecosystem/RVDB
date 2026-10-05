@@ -1,5 +1,11 @@
 # RetroVault Database (RVDB)
 
+Current ecosystem roadmap status: **Milestone #14 and the approved 14-milestone roadmap COMPLETE**.
+See [current status and verification](docs/current_milestone.md) and [architecture](docs/architecture.md).
+Earlier milestone notes below are historical. Knowledge coverage is distinct from RetroVault's
+installed runtime qualification; this project does not declare a platform playable merely
+because its knowledge record exists.
+
 RVDB is the structured knowledge database for the RetroVault ecosystem.
 
 It provides a schema-driven, validated, relationship-aware data layer for
