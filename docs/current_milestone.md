@@ -1,5 +1,12 @@
 # RVDB Current Milestone
 
+Current roadmap: **RetroVault + RVDB — Usability, Scale and Qualified Expansion (USQE)**.
+**USQE Milestone #1 is complete as a decision/documentation milestone. #2–#12 remain unstarted.**
+Authoritative planning documents are in RetroVault: [USQE roadmap](https://github.com/Retrovault-Ecosystem/RetroVault/blob/feature/rvdb-foundation/docs/usability_scale_qualified_expansion_roadmap.md) and [Milestone #1 decision baseline](https://github.com/Retrovault-Ecosystem/RetroVault/blob/feature/rvdb-foundation/docs/usqe_milestone1_decisions.md).
+Approved decisions are distinguished from pending measurements, fixture/device selections and future qualification. No production features or platform readiness were changed.
+
+## Original 14-milestone roadmap closure (historical, protected)
+
 Current ecosystem status: **Milestone #14 and the approved 14-milestone roadmap COMPLETE**.
 The user approved final two-stage closure within the existing scope.
 No Milestone #15 or post-roadmap implementation has begun.

@@ -1,6 +1,10 @@
 # RetroVault Database (RVDB)
 
-Current ecosystem roadmap status: **Milestone #14 and the approved 14-milestone roadmap COMPLETE**.
+Current roadmap: **USQE — Usability, Scale and Qualified Expansion**.
+**Milestone #1 decision/documentation baseline complete; #2–#12 unstarted.** See [current ecosystem status](docs/current_milestone.md), which links the authoritative RetroVault USQE roadmap and decision baseline.
+The original roadmap stays closed and protected; this is not Milestone #15.
+
+Original ecosystem roadmap status: **Milestone #14 and the approved 14-milestone roadmap COMPLETE**.
 See [current status and verification](docs/current_milestone.md) and [architecture](docs/architecture.md).
 Earlier milestone notes below are historical. Knowledge coverage is distinct from RetroVault's
 installed runtime qualification; this project does not declare a platform playable merely
